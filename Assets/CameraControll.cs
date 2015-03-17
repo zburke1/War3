@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraControll : MonoBehaviour {
-	int loc = 20;
+	int loc = 1;
 	bool rotate =false;
 	bool RotateLeft = false;
 	bool RotateRight = false;
@@ -28,6 +28,58 @@ public class CameraControll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(Input.GetKeyUp(KeyCode.LeftArrow)){
+			if(loc==1){
+				loc=2;}
+			else if(loc==2){
+				loc=3;}
+			else if(loc==3){
+				loc=4;}
+			else if(loc==4){
+				loc=1;}
+			else if(loc==5||loc==6){
+				loc=2;
+			}
+		}
+		
+		if(Input.GetKeyUp(KeyCode.RightArrow)){
+			if(loc==1){
+				loc=4;}
+			else if(loc==2){
+				loc=1;}
+			else if(loc==3){
+				loc=2;}
+			else if(loc==4){
+				loc=3;}
+			else if(loc==5||loc==6){
+				loc=4;
+			}
+		}
+		
+		if(Input.GetKeyUp(KeyCode.UpArrow)){
+			if(loc==1||loc==2||loc==3||loc==4){
+				loc=5;
+			}
+			else if(loc==5){
+				loc=3;
+			}
+			else if(loc==6){
+				loc=1;
+			}
+		}
+		
+		if(Input.GetKeyDown(KeyCode.DownArrow)){
+			if(loc==1||loc==2||loc==3||loc==4){
+				loc=6;
+			}
+			else if(loc==5){
+				loc=1;
+			}
+			else if(loc==6){
+				loc=3;
+			}
+		}
 			 			
 		if (Input.GetKey (KeyCode.Alpha1)) {
 			loc = 1;
@@ -104,7 +156,6 @@ public class CameraControll : MonoBehaviour {
 	}
 	
 	public void RotateCam(int mov){
-		print("TEST!");
 		if(mov==1){
 			
 			transform.position = Vector3.Lerp(startMarker.position,LocB.position,0.1f);
