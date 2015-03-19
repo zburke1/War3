@@ -16,6 +16,10 @@ public class CameraControll : MonoBehaviour {
 	public Transform LocF;
 	private Transform endMarker;
     public float speed = 1.0F;
+	 private Material RedOrange;
+	 private Material DSG;
+	 private Material DSBWP;
+	 private Material StarSkyBox;
 
 	
 	float startVal = 0f; 
@@ -23,6 +27,10 @@ public class CameraControll : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startVal=transform.eulerAngles.y;
+	   RedOrange = (Material)Resources.Load("3Skyboxes2/Materials/RedOrangeYellowNebular");
+		DSG = (Material)Resources.Load("SkyBox Volume 2/DeepSpaceGreen/DSG");
+		DSBWP = (Material)Resources.Load("SkyBox Volume 2/DeepSpaceBlueWithPlanet/DSBWP");
+		StarSkyBox = (Material)Resources.Load("SkyBox Volume 2/Stars01/StarSkyBox");
 		GetComponent<Skybox>().material = (Material)Resources.Load("SkyBox Volume 2/DeepSpaceGreen/DSG");
 	}
 	
@@ -115,7 +123,7 @@ public class CameraControll : MonoBehaviour {
 			
 			transform.position = Vector3.Lerp(startMarker.position,LocA.position,0.1f);
 		   transform.rotation = Quaternion.Lerp(startMarker.rotation, LocA.rotation, 0.1f);
-			GetComponent<Skybox>().material = (Material)Resources.Load("SkyBox Volume 2/DeepSpaceGreen/DSG");
+			GetComponent<Skybox>().material = DSG;
 		
 				}
 			
@@ -139,7 +147,7 @@ public class CameraControll : MonoBehaviour {
 			
 			   transform.position = Vector3.Lerp(startMarker.position,LocD.position,0.1f);
 			   transform.rotation = Quaternion.Lerp(startMarker.rotation, LocD.rotation, 0.1f);
-				GetComponent<Skybox>().material = (Material)Resources.Load("3Skyboxes2/Materials/RedOrangeYellowNebular");
+				GetComponent<Skybox>().material = RedOrange;
 
 				
 			}
@@ -148,7 +156,7 @@ public class CameraControll : MonoBehaviour {
 			
 			   transform.position = Vector3.Lerp(startMarker.position,LocE.position,0.1f);
 			   transform.rotation = Quaternion.Lerp(startMarker.rotation, LocE.rotation, 0.1f);
-				GetComponent<Skybox>().material = (Material)Resources.Load("SkyBox Volume 2/DeepSpaceBlueWithPlanet/DSBWP");
+				GetComponent<Skybox>().material = DSBWP;
 		
 			}
 			
@@ -156,7 +164,7 @@ public class CameraControll : MonoBehaviour {
 			
 			   transform.position = Vector3.Lerp(startMarker.position,LocF.position,0.1f);
 			   transform.rotation = Quaternion.Lerp(startMarker.rotation, LocF.rotation, 0.1f);
-				GetComponent<Skybox>().material = (Material)Resources.Load("SkyBox Volume 2/Stars01/StarSkyBox");
+				GetComponent<Skybox>().material = StarSkyBox;
 		
 			}
 			
