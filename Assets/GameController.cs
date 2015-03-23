@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour {
 	public GameObject Cube;
 	private GameObject clone;
 	private int count = 0;
+	
 	// Use this for initialization
 	void Start () {
 		//Builds bottom,forwards,up
@@ -13,7 +14,9 @@ public class GameController : MonoBehaviour {
 			count = 0;
 		        for (float x = 0; x < 3; x++) {
 					  for(float z=0;z<3;z++){
-					  	 Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity);
+						  
+						 var obj = Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity);
+						 obj.name = "TEST";
 						//clone.position(x*1.2f, y*1.2f, z*1.2f);
 					  }
 					  count++;
