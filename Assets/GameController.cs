@@ -27,7 +27,8 @@ public class GameController : MonoBehaviour {
 				  }
 			 }
 			 instantiateBoard();
-			 deleteTest();
+			 GameObject sideX = getSide(board[1,1],1);
+			 //Destroy(sideX);
 	}
 	
 	// Update is called once per frame
@@ -62,17 +63,21 @@ public class GameController : MonoBehaviour {
 		
 		for(int i=1;i<10;i++)
 		board[6,i]=GameObject.Find("Block"+faceF[i-1]);
-		
-		
-		
+				
+	}
+	
+	private static GameObject getSide(GameObject A,int i){
+		//GETS ARRAY OF SIDES. T[1] = Side A, T[2] = Side B, etc...
+		//Manipulate Side using T[1].gameObject (i.e. Destroy(T[1].gameObject) will destroy Side A of this block)
+		Component [] T = A.GetComponentsInChildren(typeof(Component));
+		Debug.Log(T[i]);
+		return T[1].gameObject;
 	}
 	private void deleteTest(){
-		Component [] T = board[1,1].GetComponentsInChildren(typeof(Component));
-		System.Console.Write("TEST");
-		//Destroy(tempFace);
-		for(int i=1;i<10;i++){
-			 //Destroy(board[5,i]);
-		}
+		// Destroy(T[1].gameObject);
+// 		for(int i=1;i<10;i++){
+// 			 //Destroy(board[5,i]);
+// 		}
 
 	}
 }
