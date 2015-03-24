@@ -8,11 +8,13 @@ public class GameController : MonoBehaviour {
 	private int count = 0;
 	private int blockNum=1;
 	public GameObject[,] board;
+	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
 	// Use this for initialization
 	void Start () {
 		board = new GameObject[7,10];
+		faces = new GameObject[7,10];
 		//Builds bottom,forwards,up
 		for (float y = 0; y < 3; y++) {
 			count = 0;
@@ -28,7 +30,7 @@ public class GameController : MonoBehaviour {
 			 }
 			 instantiateBoard();
 			 GameObject sideX = getSide(board[1,1],1);
-			 //Destroy(sideX);
+			 //Destroy(faces[1,1]);
 	}
 	
 	// Update is called once per frame
@@ -63,7 +65,14 @@ public class GameController : MonoBehaviour {
 		
 		for(int i=1;i<10;i++)
 		board[6,i]=GameObject.Find("Block"+faceF[i-1]);
-				
+		
+		//Instantiate face array;
+		for(int i=1;i<7;i++){
+			for(int j=1;j<10;j++){
+				faces[i,j] = getSide(board[i,j],i);
+			}
+		}
+		
 	}
 	
 	private static GameObject getSide(GameObject A,int i){
