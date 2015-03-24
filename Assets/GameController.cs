@@ -90,25 +90,45 @@ public class GameController : MonoBehaviour {
 		//GETS ARRAY OF SIDES. T[1] = Side A, T[2] = Side B, etc...
 		//Manipulate Side using T[1].gameObject (i.e. Destroy(T[1].gameObject) will destroy Side A of this block)
 		Component [] T = A.GetComponentsInChildren(typeof(Transform));
-		Debug.Log(T[i]);
+		//Debug.Log(T[i]);
 		return T[i].gameObject;
 	}
 	
-	public virtual GameObject getFace(int i, int j){
+		//*****************************************************************************
+		//Get and Set functions for RotateScript START
+	public virtual GameObject getSingleFace(int i, int j){
 		GameObject tempFace = faces[i,j];
 		return tempFace;
 	}
 	
-	public virtual GameObject getBoard(int i, int j){
+	public virtual GameObject getCube(int i, int j){
 		GameObject tempBoard = board[i,j];
 		return tempBoard;
 	}
-
 	
-	private void deleteTest(){
+	public virtual GameObject[,] getBoard(){
+		return board;
+	}
+	
+	public virtual GameObject[,] getFaceArray(){
+		return faces;
+	}
+	
+	public void pushFace(GameObject[,] temp){
+		faces = temp;	
+	}
+	
+	public void pushBoard(GameObject[,] temp){
+		board = temp;
+		Debug.Log(board[1,1] + "TEST");
+	}
+	//Get and Set functions for RotateScript END
+	//*****************************************************************************
+	
+	public void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
-// 			 //Destroy(board[5,i]);
+		 			 Destroy(board[1,1]);
 // 		}
 
 	}
