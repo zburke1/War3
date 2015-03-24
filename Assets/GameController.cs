@@ -7,18 +7,19 @@ public class GameController : MonoBehaviour {
 	private GameObject clone;
 	private int count = 0;
 	private int blockNum=1;
-	public Object[,] board;
+	public GameObject[,] board;
 	private Object temp;
+	private Transform tempFace;
 	// Use this for initialization
 	void Start () {
-		board = new Object[7,10];
+		board = new GameObject[7,10];
 		//Builds bottom,forwards,up
 		for (float y = 0; y < 3; y++) {
 			count = 0;
 		        for (float x = 0; x < 3; x++) {
 					  for(float z=0;z<3;z++){
 						  
-						 var obj = Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity);
+						 GameObject obj = Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity) as GameObject;
 						 obj.name = "Block"+blockNum;
 						 blockNum++;
 					  }
@@ -66,6 +67,9 @@ public class GameController : MonoBehaviour {
 		
 	}
 	private void deleteTest(){
+		Component [] T = board[1,1].GetComponentsInChildren(typeof(Component));
+		System.Console.Write("TEST");
+		//Destroy(tempFace);
 		for(int i=1;i<10;i++){
 			 //Destroy(board[5,i]);
 		}
