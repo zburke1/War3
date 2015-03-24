@@ -17,11 +17,11 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 			 board = new GameObject[7,10];
-			 aces = new GameObject[7,10];
+			 faces = new GameObject[7,10];
 			 instantiateVirtualBoard();
 			 instantiateLogicBoard();
 			 //GameObject sideX = getSide(board[1,1],1);
-			 //Destroy(faces[1,1]);
+			 //Destroy(getFace(1,1));
 	}
 	
 	// Update is called once per frame
@@ -86,12 +86,22 @@ public class GameController : MonoBehaviour {
 		
 	}
 	
-	private static GameObject getSide(GameObject A,int i){
+	public static GameObject getSide(GameObject A,int i){
 		//GETS ARRAY OF SIDES. T[1] = Side A, T[2] = Side B, etc...
 		//Manipulate Side using T[1].gameObject (i.e. Destroy(T[1].gameObject) will destroy Side A of this block)
 		Component [] T = A.GetComponentsInChildren(typeof(Transform));
 		Debug.Log(T[i]);
 		return T[i].gameObject;
+	}
+	
+	public virtual GameObject getFace(int i, int j){
+		GameObject tempFace = faces[i,j];
+		return tempFace;
+	}
+	
+	public virtual GameObject getBoard(int i, int j){
+		GameObject tempBoard = board[i,j];
+		return tempBoard;
 	}
 
 	
