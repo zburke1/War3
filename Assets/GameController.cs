@@ -11,25 +11,16 @@ public class GameController : MonoBehaviour {
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
+	
+	
+	
 	// Use this for initialization
 	void Start () {
-		board = new GameObject[7,10];
-		faces = new GameObject[7,10];
-		//Builds bottom,forwards,up
-		for (float y = 0; y < 3; y++) {
-			count = 0;
-		        for (float x = 0; x < 3; x++) {
-					  for(float z=0;z<3;z++){
-						  
-						 GameObject obj = Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity) as GameObject;
-						 obj.name = "Block"+blockNum;
-						 blockNum++;
-					  }
-					  count++;
-				  }
-			 }
-			 instantiateBoard();
-			 GameObject sideX = getSide(board[1,1],1);
+			 board = new GameObject[7,10];
+			 aces = new GameObject[7,10];
+			 instantiateVirtualBoard();
+			 instantiateLogicBoard();
+			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(faces[1,1]);
 	}
 	
@@ -38,7 +29,25 @@ public class GameController : MonoBehaviour {
 		
 	}
 	
-	private void instantiateBoard(){
+	private void instantiateVirtualBoard(){
+	//Builds bottom,forwards,up
+	for (float y = 0; y < 3; y++) {
+		count = 0;
+	        for (float x = 0; x < 3; x++) {
+				  for(float z=0;z<3;z++){
+					  
+					 GameObject obj = Instantiate(Cube, new Vector3(x*1.2f, y*1.2f, z*1.2f), Quaternion.identity) as GameObject;
+					 obj.name = "Block"+blockNum;
+					 blockNum++;
+				  }
+				  count++;
+			  }
+		 }
+	 }
+	
+	private void instantiateLogicBoard(){
+		//*****************************************************************************
+		//Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
 		blockNum=-2;
 		int [] faceA = {19, 22, 25, 10, 13, 16,1, 4, 7};
 		int [] faceB = {21, 20, 19,12,11,10,3,2,1};
@@ -46,8 +55,10 @@ public class GameController : MonoBehaviour {
 		int [] faceD = {25,26,27,16,17,18,7,8,9};
 		int [] faceE = {21,24,27,20,23,26,19,22,25};
 		int [] faceF = {1,4,7,2,5,8,3,6,9};
+		////Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
+		//*****************************************************************************
 		
-		
+		//Instatiates board array using hardcoded faceX array's
 		for(int i=1;i<10;i++)
 		board[1,i]=GameObject.Find("Block"+faceA[i-1]);
 		
@@ -66,7 +77,7 @@ public class GameController : MonoBehaviour {
 		for(int i=1;i<10;i++)
 		board[6,i]=GameObject.Find("Block"+faceF[i-1]);
 		
-		//Instantiate face array;
+		//Instantiate face array using board array;
 		for(int i=1;i<7;i++){
 			for(int j=1;j<10;j++){
 				faces[i,j] = getSide(board[i,j],i);
@@ -78,10 +89,12 @@ public class GameController : MonoBehaviour {
 	private static GameObject getSide(GameObject A,int i){
 		//GETS ARRAY OF SIDES. T[1] = Side A, T[2] = Side B, etc...
 		//Manipulate Side using T[1].gameObject (i.e. Destroy(T[1].gameObject) will destroy Side A of this block)
-		Component [] T = A.GetComponentsInChildren(typeof(Component));
+		Component [] T = A.GetComponentsInChildren(typeof(Transform));
 		Debug.Log(T[i]);
-		return T[1].gameObject;
+		return T[i].gameObject;
 	}
+
+	
 	private void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
