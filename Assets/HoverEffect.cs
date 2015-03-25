@@ -19,4 +19,8 @@ public class HoverEffect : MonoBehaviour {
 	void OnMouseExit(){
 		renderer.material.color = Color.white;
 		}
+		
+	void OnMouseDown(){
+		Debug.Log(gameObject.transform.parent.gameObject);
+		}
 }

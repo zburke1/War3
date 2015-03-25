@@ -24,7 +24,8 @@ public class RotateScript : MonoBehaviour{
 		
 		if(Input.GetKey(KeyCode.Space)){
 			//Using for testing
-			m_gameController.pushBoard(rotateFace);
+			Debug.Log(rotateFace[1,1].transform.parent.gameObject);
+			//m_gameController.pushBoard(rotateFace);
 			}
 		}
 	
