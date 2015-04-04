@@ -13,7 +13,7 @@ public class HoverEffect : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-		renderer.material.color = Color.red;
+		renderer.material.color = Color.green;
 	}
 
 	void OnMouseExit(){
