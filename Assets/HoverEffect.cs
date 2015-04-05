@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HoverEffect : MonoBehaviour {
-
+	int forces = 0;
 	// Use this for initialization
 	void Start () {
 	}
@@ -22,6 +22,7 @@ public class HoverEffect : MonoBehaviour {
 		}
 		
 	void OnMouseDown(){
-		Debug.Log(gameObject.transform.parent.gameObject);
+		forces++;
+		Debug.Log(forces);
 		}
 }
