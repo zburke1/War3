@@ -14,6 +14,7 @@ public class HoverEffect : MonoBehaviour {
 
 	void OnMouseOver(){
 		renderer.material.color = Color.green;
+		renderer.material.SetInt (14, 300);
 	}
 
 	void OnMouseExit(){
