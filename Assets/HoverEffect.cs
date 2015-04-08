@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HoverEffect : MonoBehaviour {
-
+	int forces = 0;
 	// Use this for initialization
 	void Start () {
 	}
@@ -13,10 +13,16 @@ public class HoverEffect : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-		renderer.material.color = Color.red;
+		renderer.material.color = Color.green;
+		renderer.material.SetInt (14, 300);
 	}
 
 	void OnMouseExit(){
 		renderer.material.color = Color.white;
+		}
+		
+	void OnMouseDown(){
+		forces++;
+		Debug.Log(forces);
 		}
 }
