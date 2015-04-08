@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
+	public Component m_HoverEffect;
 	
 	
 	
@@ -26,7 +27,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKey(KeyCode.Space)){
+			deleteTest();
+			}
 	}
 	
 	private void instantiateVirtualBoard(){
@@ -128,7 +131,10 @@ public class GameController : MonoBehaviour {
 	public void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
-		 			 Destroy(board[1,1]);
+		Destroy(faces[6,3].gameObject);
+					
+					HoverEffect Hover = faces[1,3].gameObject.GetComponent<HoverEffect>();
+					Debug.Log(Hover.getForces());
 // 		}
 
 	}

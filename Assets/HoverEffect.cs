@@ -5,6 +5,7 @@ public class HoverEffect : MonoBehaviour {
 	int forces = 0;
 	// Use this for initialization
 	void Start () {
+
 	}
 	
 	// Update is called once per frame
@@ -17,6 +18,10 @@ public class HoverEffect : MonoBehaviour {
 		renderer.material.SetInt (14, 300);
 	}
 
+	public virtual int getForces(){
+		return forces;
+	} 
+
 	void OnMouseExit(){
 		renderer.material.color = Color.white;
 		}
@@ -25,4 +30,5 @@ public class HoverEffect : MonoBehaviour {
 		forces++;
 		Debug.Log(forces);
 		}
+	
 }
