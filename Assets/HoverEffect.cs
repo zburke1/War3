@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class HoverEffect : MonoBehaviour {
-	int forces = 0;
+	private int forces = 0;
+	private int player = 0;
 	// Use this for initialization
 	void Start () {
 
@@ -21,6 +22,11 @@ public class HoverEffect : MonoBehaviour {
 	public virtual int getForces(){
 		return forces;
 	} 
+	
+	public virtual int getPlayer(){
+		return player;
+	} 
+	
 
 	void OnMouseExit(){
 		renderer.material.color = Color.white;

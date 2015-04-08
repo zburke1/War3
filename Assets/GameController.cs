@@ -12,9 +12,7 @@ public class GameController : MonoBehaviour {
 	private Object temp;
 	private Transform tempFace;
 	public Component m_HoverEffect;
-	
-	
-	
+
 	// Use this for initialization
 	void Start () {
 			 board = new GameObject[7,10];
@@ -107,6 +105,11 @@ public class GameController : MonoBehaviour {
 	public virtual int getTroops(int x,int y){
 	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
 	return Hover.getForces();
+}
+
+	public virtual int getOwner(int x,int y){
+	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+	return Hover.getPlayer();
 }
 	
 	public virtual GameObject getCube(int i, int j){
