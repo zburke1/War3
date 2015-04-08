@@ -104,6 +104,11 @@ public class GameController : MonoBehaviour {
 		return tempFace;
 	}
 	
+	public virtual int getTroops(int x,int y){
+	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+	return Hover.getForces();
+}
+	
 	public virtual GameObject getCube(int i, int j){
 		GameObject tempBoard = board[i,j];
 		return tempBoard;
@@ -131,10 +136,8 @@ public class GameController : MonoBehaviour {
 	public void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
-		Destroy(faces[6,3].gameObject);
+		Debug.Log("Test get Troops = " + getTroops(1,2));
 					
-					HoverEffect Hover = faces[1,3].gameObject.GetComponent<HoverEffect>();
-					Debug.Log(Hover.getForces());
 // 		}
 
 	}
