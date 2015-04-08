@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	/*
 	void init(int numPlayers, int numArmies) {
 
 		for (int i = 0; i < numArmies; i++) {
@@ -64,4 +64,5 @@ public class Spawner : MonoBehaviour {
 			}
 		}
 	}
+	*/
 }
