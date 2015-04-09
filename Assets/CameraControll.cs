@@ -37,7 +37,7 @@ public class CameraControll : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if(Input.GetKeyUp(KeyCode.LeftArrow)){
+		if(Input.GetKeyUp(KeyCode.A)){
 			if(loc==1){
 				loc=2;}
 			else if(loc==2){
@@ -51,7 +51,7 @@ public class CameraControll : MonoBehaviour {
 			}
 		}
 		
-		if(Input.GetKeyUp(KeyCode.RightArrow)){
+		if(Input.GetKeyUp(KeyCode.D)){
 			if(loc==1){
 				loc=4;}
 			else if(loc==2){
@@ -65,7 +65,7 @@ public class CameraControll : MonoBehaviour {
 			}
 		}
 		
-		if(Input.GetKeyUp(KeyCode.UpArrow)){
+		if(Input.GetKeyUp(KeyCode.W)){
 			if(loc==1||loc==2||loc==3||loc==4){
 				loc=5;
 			}
@@ -77,7 +77,7 @@ public class CameraControll : MonoBehaviour {
 			}
 		}
 		
-		if(Input.GetKeyDown(KeyCode.DownArrow)){
+		if(Input.GetKeyDown(KeyCode.S)){
 			if(loc==1||loc==2||loc==3||loc==4){
 				loc=6;
 			}
