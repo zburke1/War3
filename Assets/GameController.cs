@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour {
 				left = 0;
 				up = 0;
 				down = 0;
-				/*
+				
 				//do left/rights
 				if (i < 5) {
 					//tile is in the middle column.
@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour {
 				}
 
 				tile.setTileNeighbors(right, up, left, down);
-				*/
+				
 				tileID++;
 
 				//tileID can be thought of as [1:9] + (faceID - 1)*9 for faces [1:6]

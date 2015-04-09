@@ -5,15 +5,14 @@ using System.Collections;
 public class HoverEffect : MonoBehaviour {
 	private int forces = 0;
 	private int player = 0;
-	int[] neighbors = new int[4];
-	public int right = 0;
+	//[0:3] - > right, up, left, down
+	int[] neighbors = new int[4]; //this must be private, otherwise unity loses it's shit.
 	//1-54
 	public int tileID = 0;
 	public int face = 0;
 	// Use this for initialization
 	void Start () {
-		//neighbors = {0,0,0,0}; //DAFUQ
-		neighbors[1] = 0;
+
 	}
 	
 	// Update is called once per frame
@@ -59,7 +58,6 @@ public class HoverEffect : MonoBehaviour {
 		neighbors[1] = up;
 		neighbors[2] = left;
 		neighbors[3] = down;
-		this.right = right;
 	}
 	
 }
