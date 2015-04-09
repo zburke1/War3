@@ -220,6 +220,7 @@ public class GameController : MonoBehaviour {
 		HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
 		return Hover.getPlayer();
 	}
+
 	
 	public virtual GameObject getCube(int i, int j){
 		GameObject tempBoard = board[i,j];
