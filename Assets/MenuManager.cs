@@ -4,11 +4,11 @@ using System.Collections;
 public class MenuManager : MonoBehaviour {
 
 	public GameObject CurrentMenu;
-	public int Sel_NumPlayers;
-	public int Sel_Difficulty;
-	public bool Sel_AI;
+	public static int Sel_NumPlayers;
+	public static int Sel_Difficulty;
+	public static bool Sel_AI;
 	//{0,1} -> {faceCapture, Domination}
-	public int Sel_GameMode;
+	public static int Sel_GameMode;
 
 	//TODO: DEFINE THESE IN THEIR PROPER PLACE
 	

@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 			 faces = new GameObject[7,10];
 			 instantiateVirtualBoard();
 			 instantiateLogicBoard();
+			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
 			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(getFace(1,1));
 	}
@@ -61,29 +62,62 @@ public class GameController : MonoBehaviour {
 		
 		//Instatiates board array using hardcoded faceX array's
 		for(int i=1;i<10;i++)
-		board[1,i]=GameObject.Find("Block"+faceA[i-1]);
+			board[1,i]=GameObject.Find("Block"+faceA[i-1]);
 		
 		for(int i=1;i<10;i++)
-		board[2,i]=GameObject.Find("Block"+faceB[i-1]);
+			board[2,i]=GameObject.Find("Block"+faceB[i-1]);
 		
 		for(int i=1;i<10;i++)
-		board[3,i]=GameObject.Find("Block"+faceC[i-1]);
+			board[3,i]=GameObject.Find("Block"+faceC[i-1]);
 		
 		for(int i=1;i<10;i++)
-		board[4,i]=GameObject.Find("Block"+faceD[i-1]);
+			board[4,i]=GameObject.Find("Block"+faceD[i-1]);
 		
 		for(int i=1;i<10;i++)
-		board[5,i]=GameObject.Find("Block"+faceE[i-1]);
+			board[5,i]=GameObject.Find("Block"+faceE[i-1]);
 		
 		for(int i=1;i<10;i++)
-		board[6,i]=GameObject.Find("Block"+faceF[i-1]);
+			board[6,i]=GameObject.Find("Block"+faceF[i-1]);
 		
 		//Instantiate face array using board array;
+		int tileID = 1;
 		for(int i=1;i<7;i++){
 			for(int j=1;j<10;j++){
 				faces[i,j] = getSide(board[i,j],i);
+				//set tileIDs.
+				HoverEffect tile = faces[i,j].gameObject.GetComponent<HoverEffect>();
+				tile.setID(tileID);
+				tile.setFace(i);
+				int right, up, left, down;
+				
+
+				switch (i) { // for each face
+					case 1: 
+						//tile is in the middle column.
+						if (tileID % 2 == 0) {
+							left = i - 1;
+							right = i + 1;
+							up = i + 42;
+						} else if (tileID % 3) { //tile is in right column
+
+						} else { //tile is left column
+							left = i + 11;
+							right = i + 1;
+						}
+
+
+				}
+
+
+
+				tileID++;
+
+				//tileID can be thought of as [1:9] + (faceID - 1)*9 for faces [1:6]
 			}
 		}
+
+		//set tile neighbors
+	
 		
 	}
 	
@@ -103,14 +137,14 @@ public class GameController : MonoBehaviour {
 	}
 	
 	public virtual int getTroops(int x,int y){
-	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
-	return Hover.getForces();
-}
+		HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+		return Hover.getForces();
+	}
 
 	public virtual int getOwner(int x,int y){
-	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
-	return Hover.getPlayer();
-}
+		HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+		return Hover.getPlayer();
+	}
 	
 	public virtual GameObject getCube(int i, int j){
 		GameObject tempBoard = board[i,j];
@@ -142,6 +176,10 @@ public class GameController : MonoBehaviour {
 		Debug.Log("Test get Troops = " + getTroops(1,2));
 					
 // 		}
+
+	}
+
+	public void setTileNeighbors() {
 
 	}
 }
