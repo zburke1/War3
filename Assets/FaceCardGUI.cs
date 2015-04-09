@@ -4,7 +4,7 @@ using System.Collections;
 
 [RequireComponent (typeof(RawImage))]
 
-public class FaceCardHUD : MonoBehaviour {
+public class FaceCardGUI : MonoBehaviour {
 	public RawImage faceCardHUD;
 	public int rotationCards;
 	// Use this for initialization
