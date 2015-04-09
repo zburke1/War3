@@ -81,6 +81,7 @@ public class GameController : MonoBehaviour {
 		
 		//Instantiate face array using board array;
 		int tileID = 1;
+
 		for(int i=1;i<7;i++){
 			for(int j=1;j<10;j++){
 				faces[i,j] = getSide(board[i,j],i);
@@ -88,36 +89,110 @@ public class GameController : MonoBehaviour {
 				HoverEffect tile = faces[i,j].gameObject.GetComponent<HoverEffect>();
 				tile.setID(tileID);
 				tile.setFace(i);
-				int right, up, left, down;
 				
 
-				switch (i) { // for each face
-					case 1: 
-						//tile is in the middle column.
-						if (tileID % 2 == 0) {
-							left = i - 1;
-							right = i + 1;
-							up = i + 42;
-						} else if (tileID % 3) { //tile is in right column
-
-						} else { //tile is left column
-							left = i + 11;
-							right = i + 1;
+				int right, up, left, down;	
+				//happy hacking
+				right = 0;	
+				left = 0;
+				up = 0;
+				down = 0;
+				/*
+				//do left/rights
+				if (i < 5) {
+					//tile is in the middle column.
+					if (tileID % 2 == 0) {
+						left = tileID - 1;
+						right = tileID + 1;
+							
+					//tile is in right column
+					} else if (tileID % 3 == 0) { 
+						left = tileID - 1;
+						//the right of the first face is different
+						if (i == 1) {
+							right = tileID + 25;
+						} else {
+							right = tileID - 11;
 						}
-
-
+					//tile is left column
+					} else { 
+						right = tileID + 1;
+						//the left of the 4th face is different
+						if (i == 4) {
+							left = tileID - 25;
+						} else {
+							left = tileID + 11;
+						}
+					}
 				}
 
+				//set ups/downs
+				switch (i) {
+					case 1:
+						//top row
+						if (j < 4) {
+							up = tileID + 42;
+							down = tileID + 3;
+						//bottom row
+						} else if (j > 6) {
+							up = tileID - 3;
+							down = tileID + 39;
+						} else {
+							up = tileID - 3;
+							down = tileID + 3;
+						}
+					break;
 
+					case 2:
+						//top row
+						if (j < 4) {
+							up = tileID + 27 + (j-1)*3;
+							down = tileID + 3;
+						//bottom row
+						} else if (j > 6) {
+							up = tileID + 36 - (j-7)*3;
+						} else {
+							up = tileID - 3;
+							down = tileID + 3;
+						}
+						break;
+					case 3:
+						if (j < 4) {
+							up = tileID + 20 - (j - 1)*2;
+							down = tileID + 3;
+						} else if (j > 6) {
+							up = tileID - 3;
+							down = tileID + 29 - (j-2)*2;
+						} else {
+							up = tileID - 3;
+							down = tileID + 3;
+						}
+						break;
+					case 4:
+						if (j < 4) {
+							up = tileID + 17 - (j - 1)*4;
+							down = tileID + 3;
+						} else if (j > 6) {
+							up = tileID -3;
+							down = tileID + 14 + (j - 1)*2;
+						} else {
+							up = tileID - 3;
+							down = tileID + 3;
+						}
+						break;
+				}
 
+				tile.setTileNeighbors(right, up, left, down);
+				*/
 				tileID++;
 
 				//tileID can be thought of as [1:9] + (faceID - 1)*9 for faces [1:6]
 			}
 		}
 
-		//set tile neighbors
-	
+		hardcodeTop();
+		hardcodeBottom();
+		
 		
 	}
 	
@@ -182,4 +257,97 @@ public class GameController : MonoBehaviour {
 	public void setTileNeighbors() {
 
 	}
+
+	public void hardcodeTop() {
+		for (int i = 1; i < 10; i ++) {
+			HoverEffect tile = faces[5,i].gameObject.GetComponent<HoverEffect>();
+			int tileID = tile.tileID;
+
+			int right = tileID + 1;
+			int up = tileID - 3;
+			int left = tileID - 1;
+			int down = tileID + 3;
+
+			switch (tileID) {
+				case 37: 
+					up = 21;
+					left = 10;
+					break;
+				case 38:
+					up = 20;
+					break;
+				case 39:
+					up = 19;
+					right = 30;
+					break;
+				case 40:
+					left = 11;
+					break;
+				case 42: 
+					right = 29;
+					break;
+				case 43:
+					left = 12;
+					down = 1;
+					break;
+				case 44:
+					down = 2;
+					break;
+				case 45:
+					down = 3;
+					right = 28;
+					break;
+				default://centertile
+					break;
+			}
+			tile.setTileNeighbors(right, up, left, down);
+		}
+	}
+
+	public void hardcodeBottom() {
+		for (int i = 1; i < 10; i ++) {
+			HoverEffect tile = faces[6,i].gameObject.GetComponent<HoverEffect>();
+			int tileID = tile.tileID;
+
+			int right = tileID + 1;
+			int up = tileID - 3;
+			int left = tileID - 1;
+			int down = tileID + 3;
+
+			switch (tileID) {
+				case 42: 
+					up = 7;
+					left = 18;
+					break;
+				case 47:
+					up = 8;
+					break;
+				case 48:
+					up = 9;
+					right = 34;
+					break;
+				case 49:
+					left = 17;
+					break;
+				case 51: 
+					right = 35;
+					break;
+				case 52:
+					left = 16;
+					down = 27;
+					break;
+				case 53:
+					down = 26;
+					break;
+				case 54:
+					down = 25;
+					right = 36;
+					break;
+				default://centertile
+					break;
+			}
+			tile.setTileNeighbors(right, up, left, down);
+		}
+	}
+
 }
