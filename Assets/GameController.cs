@@ -11,9 +11,8 @@ public class GameController : MonoBehaviour {
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
-	
-	
-	
+	public Component m_HoverEffect;
+
 	// Use this for initialization
 	void Start () {
 			 board = new GameObject[7,10];
@@ -26,7 +25,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKey(KeyCode.Space)){
+			deleteTest();
+			}
 	}
 	
 	private void instantiateVirtualBoard(){
@@ -101,6 +102,16 @@ public class GameController : MonoBehaviour {
 		return tempFace;
 	}
 	
+	public virtual int getTroops(int x,int y){
+	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+	return Hover.getForces();
+}
+
+	public virtual int getOwner(int x,int y){
+	HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+	return Hover.getPlayer();
+}
+	
 	public virtual GameObject getCube(int i, int j){
 		GameObject tempBoard = board[i,j];
 		return tempBoard;
@@ -128,7 +139,8 @@ public class GameController : MonoBehaviour {
 	public void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
-		 			 Destroy(board[1,1]);
+		Debug.Log("Test get Troops = " + getTroops(1,2));
+					
 // 		}
 
 	}
