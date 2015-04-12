@@ -14,13 +14,28 @@ public class GameController : MonoBehaviour {
 	private Transform tempFace;
 	public RotateScript m_RotateScript;	
 	public Player[] players;
+
+	//*****************************************************************************
+	//Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
+	private int [] fA = {19, 22, 25, 10, 13, 16,1, 4, 7};
+	private int [] fB = {21, 20, 19,12,11,10,3,2,1};
+	private int [] fC = {27,24,21,18,15,12,9,6,3};
+	private int [] fD = {25,26,27,16,17,18,7,8,9};
+	private int [] fE = {21,24,27,20,23,26,19,22,25};
+	private int [] fF = {1,4,7,2,5,8,3,6,9};
+	////Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
+	//*****************************************************************************
+
+
+
+
 	// Use this for initialization
 	void Start () {
 
 			 board = new GameObject[7,10];
 			 faces = new GameObject[7,10];
 			 instantiateVirtualBoard();
-			 instantiateLogicBoard();
+			 instantiateLogicBoard(fA,fB,fC,fD,fE,fF);
 			 m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
 			 m_RotateScript.initializeRotate();
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
@@ -37,9 +52,9 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKey(KeyCode.Space)){
-				//m_RotateScript.Rotate(true,board,1);
+			faces = m_RotateScript.Rotate(true,faces,board,1);
 				//Destroy(board[1,testCount+1]);
-				testCount++;
+				//testCount++;
 			}
 	}
 	
@@ -60,16 +75,11 @@ public class GameController : MonoBehaviour {
 		 }
 	 }
 	
-	private void instantiateLogicBoard(){
+	private void instantiateLogicBoard(int[] faceA,int[] faceB,int[] faceC,int[] faceD,int[] faceE,int[] faceF){
 		//*****************************************************************************
 		//Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
 		blockNum=-2;
-		int [] faceA = {19, 22, 25, 10, 13, 16,1, 4, 7};
-		int [] faceB = {21, 20, 19,12,11,10,3,2,1};
-		int [] faceC = {27,24,21,18,15,12,9,6,3};
-		int [] faceD = {25,26,27,16,17,18,7,8,9};
-		int [] faceE = {21,24,27,20,23,26,19,22,25};
-		int [] faceF = {1,4,7,2,5,8,3,6,9};
+		
 		////Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
 		//*****************************************************************************
 		
