@@ -375,10 +375,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	//params can also be tileIDs if necessary.
+	//attack function does NOT check if attack is valid.
 	public void attack(Tile attacker, Tile defender) {
+		int attackerForces = attacker.getForces();
+		int defenderForces = defender.getForces();
+		int[] attackResult = Dice.roll (attackerForces, defenderForces());
+		attacker.setForces(attackerForces + attackResult[0]);
+		defender.setForces(defenderForces + attackResult[1]);
 
-		if (attacker.getForces() > 4) {
-
-		}
+		//possibly return a bool here if victory was achieved...
 	}
 }
