@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 	private Object temp;
 	private Transform tempFace;
 	public RotateScript m_RotateScript;	
-
+	public Player[] players;
 	// Use this for initialization
 	void Start () {
 
@@ -195,7 +195,7 @@ public class GameController : MonoBehaviour {
 						break;
 				}
 
-				tile.setTileNeighbors(right, up, left, down);
+				tile.setNeighbors(right, up, left, down);
 
 				tileID++;
 
@@ -205,7 +205,7 @@ public class GameController : MonoBehaviour {
 
 		hardcodeTop();
 		hardcodeBottom();
-		
+		setAllTileNeighbors ();
 		
 	}
 	
@@ -311,7 +311,7 @@ public class GameController : MonoBehaviour {
 				default://centertile
 					break;
 			}
-			tile.setTileNeighbors(right, up, left, down);
+			tile.setNeighbors(right, up, left, down);
 		}
 	}
 
@@ -357,15 +357,18 @@ public class GameController : MonoBehaviour {
 				default://centertile
 					break;
 			}
-			tile.setTileNeighbors(right, up, left, down);
+			tile.setNeighbors(right, up, left, down);
 		}
 	}
 
 	public void spawnPlayers(int numPlayers) {
 		//programmatic spawn
+		//add player to the player global
+		players = new Player[numPlayers];
 		//only spawns humans at the moment, deal with it
 		for (int i = 0; i < numPlayers; i++) {
 			Player newPlayer = new Player (i, 0, i);
+			players[i] = newPlayer;
 			for (int j = 0; j<6/numPlayers; j++) {
 				Tile tile = faces [j + 1 + i * 6/numPlayers, 5].gameObject.GetComponent<Tile> ();
 				tile.setOwner (newPlayer);
@@ -384,5 +387,41 @@ public class GameController : MonoBehaviour {
 		defender.setForces(defenderForces + attackResult[1]);
 
 		//possibly return a bool here if victory was achieved...
+	}
+
+
+	//utilities!
+	//I'm not proud of this.
+	public void setTileNeighbors(Tile tile) {
+		Tile[] neighbors = new Tile[4];
+		for (int i = 0; i < 4; i++) {
+			int neighborID = tile.getNeighborID(i);
+			Tile neighbor = findTileFromID(neighborID);
+			if (neighbor != null) {
+				neighbors[i] = neighbor;
+			}
+		}
+		tile.setTileNeighbors (neighbors);
+	}
+
+	public void setAllTileNeighbors() {
+		for (int i = 1; i < 7; i++) {
+			for (int j = 1; j <10; j++) {
+				Tile tile = faces[i,j].gameObject.GetComponent<Tile>();
+				setTileNeighbors(tile);
+			}
+		}
+	}
+
+	public Tile findTileFromID(int tileID) {
+		for (int i = 1; i < 7; i++) {
+			for (int j = 1; j <10; j++) {
+				Tile tile = faces[i,j].gameObject.GetComponent<Tile>();
+				if (tile.tileID == tileID) {
+					return tile;
+				}
+			}
+		}
+		return null;
 	}
 }

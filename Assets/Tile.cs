@@ -65,16 +65,24 @@ public class Tile : MonoBehaviour {
 		this.face = face;
 	}
 
-	public void setTileNeighbors(int right, int up, int left, int down) {
+	public void setNeighbors(int right, int up, int left, int down) {
 		neighbors[0] = right;
 		neighbors[1] = up;
 		neighbors[2] = left;
 		neighbors[3] = down;
 	}
 
+	public void setTileNeighbors(Tile[] tiles) {
+		tileNeighbors = tiles;
+	}
+
 	public void setOwner(Player newOwner) {
 		owner = newOwner;
 		renderer.material.color = newOwner.playerColor;
+	}
+
+	public int getNeighborID(int i) {
+		return neighbors[i];
 	}
 
 

@@ -11,6 +11,7 @@ public class PhaseHandler : MonoBehaviour {
 	enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
 	Phase currentPhase;
 
+	Player whoseTurn;
 	// Use this for initialization
 	void Start () {
 		rotateToggle = GameObject.Find("RotatePhaseToggle").GetComponent<Toggle>();
@@ -67,7 +68,7 @@ public class PhaseHandler : MonoBehaviour {
 	public virtual void startNewTurn(){
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
-		rotateToggle.isOn = false;
+		rotateToggle.isOn = false;	
 		battleToggle.isOn = false;
 
 	}
