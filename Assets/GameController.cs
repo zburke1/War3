@@ -41,9 +41,6 @@ public class GameController : MonoBehaviour {
 				//Destroy(board[1,testCount+1]);
 				testCount++;
 			}
-			if(testCount==1){
-				board[2, 3].transform.position = Vector3.Lerp(board[2, 3].transform.position,board[6, 1].transform.position,0.1f);
-			}
 	}
 	
 	
