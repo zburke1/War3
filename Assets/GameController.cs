@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour {
 
 		//todo: need to get the menu items (num players, difficulty, etc) from the menu
 
-		int numPlayers = 4; //getNumPlayers();
+		int numPlayers = 3; //getNumPlayers();
 		spawnPlayers (numPlayers);
 
 	}
@@ -362,12 +362,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void spawnPlayers(int numPlayers) {
+		//programmatic spawn
 		//only spawns humans at the moment, deal with it
-		for (int i = 0; i < numPlayers; i ++) {
-			Player newPlayer = new Player(i, 0, i);
-			Tile tile = faces [i+1, 5].gameObject.GetComponent<Tile> ();
-			tile.setOwner(newPlayer);
-			tile.setForces(5);
+		for (int i = 0; i < numPlayers; i++) {
+			Player newPlayer = new Player (i, 0, i);
+			for (int j = 0; j<6/numPlayers; j++) {
+				Tile tile = faces [j + 1 + i * 6/numPlayers, 5].gameObject.GetComponent<Tile> ();
+				tile.setOwner (newPlayer);
+				tile.setForces (3);
+			}
+		}
+	}
+
+	//params can also be tileIDs if necessary.
+	public void attack(Tile attacker, Tile defender) {
+
+		if (attacker.getForces() > 4) {
+
 		}
 	}
 }
