@@ -85,5 +85,9 @@ public class Tile : MonoBehaviour {
 		return neighbors[i];
 	}
 
+	public Tile[] getNeighborTiles() {
+		return tileNeighbors;
+	}
+
 
 }

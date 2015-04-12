@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using UnityEngine;
-using System.Collections;
-
 public class RotateScript : MonoBehaviour{
 	public GameController m_gameController;
 	private GameObject[,] rotateBoard = new GameObject[7,10];
