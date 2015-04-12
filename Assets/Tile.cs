@@ -2,7 +2,7 @@
 using System.Collections;
 
 //AKA TILE
-public class HoverEffect : MonoBehaviour {
+public class Tile : MonoBehaviour {
 	private int forces = 0;
 	//deprecated...
 	private int player = 0;
@@ -11,7 +11,7 @@ public class HoverEffect : MonoBehaviour {
 
 	//[0:3] - > right, up, left, down
 	int[] neighbors = new int[4]; //this must be private, otherwise unity loses it's shit.
-	HoverEffect[] tileNeighbors = new HoverEffect[4];
+	Tile[] tileNeighbors = new Tile[4];
 	//1-54
 	public int tileID = 0;
 	public int face = 0;

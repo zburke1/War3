@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour {
 			for(int j=1;j<10;j++){
 				faces[i,j] = getSide(board[i,j],i);
 				//set tileIDs.
-				HoverEffect tile = faces[i,j].gameObject.GetComponent<HoverEffect>();
+				Tile tile = faces[i,j].gameObject.GetComponent<Tile>();
 				tile.setID(tileID);
 				tile.setFace(i);
 				tile.setOwner(new Player());
@@ -225,12 +225,12 @@ public class GameController : MonoBehaviour {
 	}
 	
 	public virtual int getTroops(int x,int y){
-		HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
 		return Hover.getForces();
 	}
 
 	public virtual int getOwner(int x,int y){
-		HoverEffect Hover = faces[x,y].gameObject.GetComponent<HoverEffect>();
+		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
 		return Hover.getPlayer();
 	}
 
@@ -271,7 +271,7 @@ public class GameController : MonoBehaviour {
 
 	public void hardcodeTop() {
 		for (int i = 1; i < 10; i ++) {
-			HoverEffect tile = faces[5,i].gameObject.GetComponent<HoverEffect>();
+			Tile tile = faces[5,i].gameObject.GetComponent<Tile>();
 			int tileID = tile.tileID;
 
 			int right = tileID + 1;
@@ -317,7 +317,7 @@ public class GameController : MonoBehaviour {
 
 	public void hardcodeBottom() {
 		for (int i = 1; i < 10; i ++) {
-			HoverEffect tile = faces[6,i].gameObject.GetComponent<HoverEffect>();
+			Tile tile = faces[6,i].gameObject.GetComponent<Tile>();
 			int tileID = tile.tileID;
 
 			int right = tileID + 1;
@@ -365,7 +365,7 @@ public class GameController : MonoBehaviour {
 		//only spawns humans at the moment, deal with it
 		for (int i = 0; i < numPlayers; i ++) {
 			Player newPlayer = new Player(i, 0, i);
-			HoverEffect tile = faces [i+1, 5].gameObject.GetComponent<HoverEffect> ();
+			Tile tile = faces [i+1, 5].gameObject.GetComponent<Tile> ();
 			tile.setOwner(newPlayer);
 			tile.setForces(5);
 		}
