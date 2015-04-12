@@ -4,20 +4,26 @@ using System.Collections;
 //AKA TILE
 public class HoverEffect : MonoBehaviour {
 	private int forces = 0;
+	//deprecated...
 	private int player = 0;
+	public Player owner;
+	//GameObject owner;
+
 	//[0:3] - > right, up, left, down
 	int[] neighbors = new int[4]; //this must be private, otherwise unity loses it's shit.
+	HoverEffect[] tileNeighbors = new HoverEffect[4];
 	//1-54
 	public int tileID = 0;
 	public int face = 0;
 	// Use this for initialization
 	void Start () {
-
+		//owner = GameObject.Instantiate (Player);
+		//owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//renderer.material.color = owner.playerColor;
 	}
 
 	void OnMouseOver(){
@@ -30,6 +36,10 @@ public class HoverEffect : MonoBehaviour {
 	public virtual int getForces(){
 		return forces;
 	} 
+
+	public virtual void setForces(int armies){
+		forces = armies;
+	} 
 	
 	public virtual int getPlayer(){
 		return player;
@@ -37,8 +47,10 @@ public class HoverEffect : MonoBehaviour {
 	
 
 	void OnMouseExit(){
-		renderer.material.color = Color.white;
+		if (tileID != 0) {
+			renderer.material.color = owner.playerColor;
 		}
+	}
 		
 	void OnMouseDown(){
 		forces++;
@@ -59,5 +71,11 @@ public class HoverEffect : MonoBehaviour {
 		neighbors[2] = left;
 		neighbors[3] = down;
 	}
-	
+
+	public void setOwner(Player newOwner) {
+		owner = newOwner;
+		renderer.material.color = newOwner.playerColor;
+	}
+
+
 }

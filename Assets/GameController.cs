@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 			 board = new GameObject[7,10];
 			 faces = new GameObject[7,10];
 			 instantiateVirtualBoard();
@@ -25,6 +26,12 @@ public class GameController : MonoBehaviour {
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
 			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(getFace(1,1));
+
+		//todo: need to get the menu items (num players, difficulty, etc) from the menu
+
+		int numPlayers = 4; //getNumPlayers();
+		spawnPlayers (numPlayers);
+
 	}
 	
 	// Update is called once per frame
@@ -98,7 +105,7 @@ public class GameController : MonoBehaviour {
 				HoverEffect tile = faces[i,j].gameObject.GetComponent<HoverEffect>();
 				tile.setID(tileID);
 				tile.setFace(i);
-				
+				tile.setOwner(new Player());
 
 				int right, up, left, down;	
 				//happy hacking
@@ -192,7 +199,7 @@ public class GameController : MonoBehaviour {
 				}
 
 				tile.setTileNeighbors(right, up, left, down);
-				
+
 				tileID++;
 
 				//tileID can be thought of as [1:9] + (faceID - 1)*9 for faces [1:6]
@@ -264,9 +271,6 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	public void setTileNeighbors() {
-
-	}
 
 	public void hardcodeTop() {
 		for (int i = 1; i < 10; i ++) {
@@ -360,4 +364,13 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void spawnPlayers(int numPlayers) {
+		//only spawns humans at the moment, deal with it
+		for (int i = 0; i < numPlayers; i ++) {
+			Player newPlayer = new Player(i, 0, i);
+			HoverEffect tile = faces [i+1, 5].gameObject.GetComponent<HoverEffect> ();
+			tile.setOwner(newPlayer);
+			tile.setForces(5);
+		}
+	}
 }
