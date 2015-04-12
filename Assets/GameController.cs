@@ -6,12 +6,13 @@ public class GameController : MonoBehaviour {
 	public GameObject Cube;
 	private GameObject clone;
 	private int count = 0;
+	private int testCount = 0;
 	private int blockNum=1;
 	public GameObject[,] board;
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
-	public Component m_HoverEffect;
+	public RotateScript m_RotateScript;	
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,8 @@ public class GameController : MonoBehaviour {
 			 faces = new GameObject[7,10];
 			 instantiateVirtualBoard();
 			 instantiateLogicBoard();
+			 m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
+			 m_RotateScript.initializeRotate();
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
 			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(getFace(1,1));
@@ -27,9 +30,15 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKey(KeyCode.Space)){
-			deleteTest();
+				//m_RotateScript.Rotate(true,board,1);
+				//Destroy(board[1,testCount+1]);
+				testCount++;
+			}
+			if(testCount==1){
+				board[2, 3].transform.position = Vector3.Lerp(board[2, 3].transform.position,board[6, 1].transform.position,0.1f);
 			}
 	}
+	
 	
 	private void instantiateVirtualBoard(){
 	//Builds bottom,forwards,up
