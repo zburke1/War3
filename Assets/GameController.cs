@@ -379,7 +379,7 @@ public class GameController : MonoBehaviour {
 	public void attack(Tile attacker, Tile defender) {
 		int attackerForces = attacker.getForces();
 		int defenderForces = defender.getForces();
-		int[] attackResult = Dice.roll (attackerForces, defenderForces());
+		int[] attackResult = Dice.roll (attackerForces, defenderForces);
 		attacker.setForces(attackerForces + attackResult[0]);
 		defender.setForces(defenderForces + attackResult[1]);
 
