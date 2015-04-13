@@ -36,6 +36,19 @@ public class AgentUtil //: MonoBehaviour
 		return tiles;
 	}
 
+	public static ArrayList loadPlayerTiles(int playerID) {
+		ArrayList tiles = new ArrayList();
+		for (int i = 1; i < 7; i++) {
+			for (int j = 1; j <10; j++) {
+				Tile tile = m_gamecontroller.faces[i,j].gameObject.GetComponent<Tile>();
+				if (tile.getPlayerID() == playerID) {
+					tiles.Add(tile);
+				}
+			}
+		}
+		return tiles;
+	}
+
 	public static Tile getTileWithLargestArmy(ArrayList tiles) {
 		int max = 0;
 		Tile tile = null;
@@ -103,7 +116,7 @@ public class AgentUtil //: MonoBehaviour
 		return faceTiles;
 	}
 
-	//returns faceID of the face with the most controlled tiles
+	//returns faceID of the face the player occupies the most.
 	public static int getFaceWithMostTiles(ArrayList tiles) {
 		int[] faceValues = {0,0,0,0,0,0};
 		for (int i = 0; i < tiles.Count; i++) {
@@ -149,9 +162,12 @@ public class AgentUtil //: MonoBehaviour
 		ArrayList tileList = getTileWithEnemy(tiles);
 		//attack is 0, defend is 1
 		Tile[] result = new Tile[2];
+		result [0] = null;
+		result [1] = null;
 		double bestChance = 0;
 		for (int i = 0; i < tiles.Count; i++) {
-			Tile tmpTile = (Tile)tiles[i];
+			//Tile tmpTile = (Tile)tiles[i];
+			Tile tmpTile = (Tile)tileList[i];
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
@@ -224,17 +240,18 @@ public class AgentUtil //: MonoBehaviour
 
 	//an agressive placement function for Angry. Finds a empty corner on a face an opponent owns.
 	//unfortunately, this is always going to attack the same face, because it starts counting from the same place.
-	public static Tile findEmptyCorner(Player self) {
+	public static Tile findEmptyCorner(Player self, int faceOption = -1) {
 		ArrayList corners = new ArrayList();
-		for (int i = 1; i < 7; i++) {
+		//faceOption override allows specification of face. untested...
+		if (faceOption != -1) {
 			for (int j = 1; j <10; j++) {
 				//is a corner tile
 				if (j == 1 || j == 3 || j == 7 || j == 9) {
-					Tile tile = m_gamecontroller.faces[i,j].gameObject.GetComponent<Tile>();
+					Tile tile = m_gamecontroller.faces[faceOption,j].gameObject.GetComponent<Tile>();
 					//check if selected corner tile is empty
 					//todo: check id!
-					if (tile.getPlayer() == -1) {
-						Tile center = m_gamecontroller.faces[i,5].gameObject.GetComponent<Tile>();
+					if (tile.getPlayerID() == -1) {
+						Tile center = m_gamecontroller.faces[faceOption,5].gameObject.GetComponent<Tile>();
 						//check if the center is an enemy
 						if (center.owner != self) {
 							corners.Add(tile);
@@ -242,7 +259,26 @@ public class AgentUtil //: MonoBehaviour
 					}
 				}
 			}
-		}
+		} else {
+			for (int i = 1; i < 7; i++) {
+				for (int j = 1; j <10; j++) {
+					//is a corner tile
+					if (j == 1 || j == 3 || j == 7 || j == 9) {
+						Tile tile = m_gamecontroller.faces[i,j].gameObject.GetComponent<Tile>();
+						//check if selected corner tile is empty
+						//todo: check id!
+						if (tile.getPlayerID() == -1) {
+							Tile center = m_gamecontroller.faces[i,5].gameObject.GetComponent<Tile>();
+							//check if the center is an enemy
+							if (center.owner != self) {
+								corners.Add(tile);
+							}
+						}
+					}
+				}
+			}
+		} 
+		
 		//check the corner tiles for any that are adjacent to a friendly tile, and which are close to faces with the most forces
 		//priority given to adjacent tile
 		ArrayList tilevalues = new ArrayList();
@@ -294,13 +330,62 @@ public class AgentUtil //: MonoBehaviour
 		for (int i = 0; i < 4; i++) {
 			Tile neighbor = neighbors[i];
 			//check tile occupied.
-			if (neighbor.owner != tile.owner && neighbor.getPlayer() != -1) {
+			if (neighbor.owner != tile.owner && neighbor.getPlayerID() != -1) {
 				num += neighbor.getForces();
 			}
 		}
 		return num;
 	}
 
+	//search for a tile with a disparate number of enemy forces
+	public static Tile checkUrgentTile(ArrayList tiles) {
+		ArrayList tileList = new ArrayList();
+		ArrayList tilevalues = new ArrayList();
+		for (int i = 0; i < tiles.Count; i++) {
+			Tile tmpTile = (Tile)tiles[i];
+			TileValue tv = new TileValue(tmpTile, 0.0);
+			//compare the number of tiles
+			int numArmies = getNumEnemiesAdjacent(tmpTile);
+			tv.inc(tmpTile.getForces() - numArmies);
+		}
+		double mini = 0;
+		Tile tile = null;
+		reshuffle(tilevalues);
+		for (int i = 0; i < tilevalues.Count; i++) {
+			TileValue tv = (TileValue)tilevalues[i];
+			if (tv.value < -3) {
+				if (tv.value < mini) {
+					mini = tv.value;
+					tile = tv.getTile();
+				}
+			}
+		}
+		return tile;
+	}
+
+	//returns a faceID for a face if an enemy has more than 4 occupied tiles on that face
+	//incomplete
+	public static int denseFace() {
+		ArrayList faces = new ArrayList();
+		Player[] players = m_gamecontroller.players;
+
+		for (int i = 0; i < players.Length; i ++) {
+			
+		}
+		return 0;
+	}
+
+	//finds a random empty tile
+	public static Tile findEmptyTile() {
+		ArrayList tiles = loadPlayerTiles (-1);
+		reshuffle (tiles);
+		return (Tile)tiles [0];
+	}
+
+	//finds potential rotations.
+	public void scoutRotate(ArrayList tiles) {
+
+	}
 
 	static void reshuffle(ArrayList tiles)
     {
@@ -313,6 +398,11 @@ public class AgentUtil //: MonoBehaviour
             tiles[r] = tmp;
         }
     }
+
+	//public static Tile findBestTileOnFace() {
+
+	//}
+
 
 
 }

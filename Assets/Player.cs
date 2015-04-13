@@ -13,9 +13,11 @@ public class Player //: MonoBehaviour
 	protected int totalFaces;
 	public GameController go;
 
+	protected int deployableArmies;
+	protected ArrayList ownedTiles;
 	//todo: look into this
 	//Tile[] ownedTiles = new Tile[54];
-
+	public PhaseHandler ph;
 
 	public Player (){
 		playerID = -1; //Nonplayer
@@ -60,6 +62,53 @@ public class Player //: MonoBehaviour
 		return tiles;
 	}
 
+	//deployment phase place armies.
+	//not to be confused with placeArmy.
+	public bool deployArmy(Player player, Tile tile) {
+		if (deployableArmies > 0) {
+			placeArmy(player, tile);
+			deployableArmies--;
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public bool placeArmy(Player player, Tile tile) {
+		if (tile.owner != player) {
+			return false;
+		} else {
+			tile.incArmy();
+		}
+		return true;
+	}
+
+	public void attack(Tile attacking, Tile defending) {
+		//idiot.
+		if (attacking.owner == defending.owner) {
+			return;
+		}
+		if (attacking.getForces () < 2) {
+			return;
+		}
+
+		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
+		int attackerLosses = attackResult [0];
+		int defenderLosses = attackResult [1];
+		attacking.decArmy (attackerLosses);
+		//check if defender has more armies than were lost
+		if (defending.getForces () >= defenderLosses) {
+			defending.decArmy (defenderLosses);
+		} else {
+			//defender loses. move one army by default to the next 
+
+			defending.setForces (1);
+			attacking.decArmy();
+			//ph. start combat win phase
+			//viktor: this phase of yours will NEED to update the player ownedTiles member
+		}
+	
+	}
 
 }
 

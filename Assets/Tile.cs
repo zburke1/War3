@@ -175,5 +175,17 @@ public class Tile : MonoBehaviour {
 		return tileNeighbors;
 	}
 
+	public void incArmy(int i = 1) {
+		forces += i;
+	}
+
+	public bool decArmy(int i = 1) {
+		if (forces == 1) {
+			return false;
+		} else {
+			forces -= 1;
+		}
+		return true;
+	}
 
 }

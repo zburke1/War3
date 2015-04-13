@@ -8,7 +8,7 @@ public class Angry : Player //: WarAgent
 	//private int gameMode;
 	//private void Card[] cards;
 	
-	public PhaseHandler ph;
+
 
 	public Angry(int id, int type, int color) {
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
@@ -18,24 +18,75 @@ public class Angry : Player //: WarAgent
 	}
 
 	public void startDeployPhase() {
-		//call AgentUtil.howManyArmies();
 		
+		//call AgentUtil.howManyArmies();
+		//sooooper important to set armies!
+		int numArmies;
+		ownedTiles = AgentUtil.loadPlayerTiles(this);
+
+		//first, check for any urgent tiles.
+		deployUrgent();
+		if (deployableArmies == 0) {
+			//done with deployment
+			return;
+		} 
+
+		//if armies remain do:
+		deployArmies ();
+
+		//ph.nextPhase ();
 
 	}
-	//pick a tile to place an army
-	public Tile thinkTilePlace() {
-		return null;
+
+	public void deployUrgent() {
+		Tile tile = AgentUtil.checkUrgentTile(ownedTiles);
+		while (tile != null && deployableArmies > 0) {
+			deployArmy(this, tile);
+			tile = AgentUtil.checkUrgentTile(ownedTiles);
+		}
+	}
+
+	//default behaviour for angry
+	public void deployArmies() {
+		while (deployableArmies > 3) {
+			if (Random.Range(0,10) > 7) {
+				Tile tile = AgentUtil.findEmptyCorner(this);
+				for (int i = 0; i < 4; i++) {
+					if (tile != null) {
+						deployArmy(this, tile);
+					}
+				}
+			} else {
+				Tile tile = AgentUtil.findSafeTile(ownedTiles);
+				for (int i = 0; i < 4; i++) {
+					if (tile != null) {
+						deployArmy(this, tile);
+					}
+				}
+			}
+		}
+		//hax
+		Tile tile2 = AgentUtil.getTileWithLargestArmyAndEnemy(ownedTiles);
+		while (deployableArmies > 0) {
+			deployArmy(this, tile2);
+		}
+
+		
+	}
+
+	public void startRotatePhase() {
+		//ph.nextPhase ();
+	}
+
+	public void startAttackPhase() {
+		Tile[] bestAttack = AgentUtil.findBestAttack (ownedTiles);
+
 	}
 	
 	public Tile thinkTileAttack() {
 		return null;
 	}
-	
-	//place start armies (unused)
-	public void placeStartArmies() {
 
-	}
-	
 	//think about cards.
 	public void thinkCards() {
 
@@ -43,10 +94,6 @@ public class Angry : Player //: WarAgent
 	
 	public int transferArmies() {
 		return 0;
-	}
-	
-	public void thinkFortify() {
-		
 	}
 
 }

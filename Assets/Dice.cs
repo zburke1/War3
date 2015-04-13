@@ -12,7 +12,7 @@ public class Dice {
 		//set number of dice for attacker
 		if (attackerArmies > 3) {
 			attacking = new int[3];
-		} else if (attackerArmies == 2) {
+		} else if (attackerArmies == 3) {
 			attacking = new int[2];
 		} else {
 			attacking = new int[1];
@@ -44,22 +44,22 @@ public class Dice {
 			//start at the highest values, and move down
 			for (int i = 0; i <defending.Length; i++) {
 				if (attacking[attacking.Length-i] > defending[defending.Length-i]) {
-					//attacking die is higher than defending die. defender -1.
-					result[1]--;
+					//attacking die is higher than defending die. defender losses +1.
+					result[1]++;
 				} else {
-					//defending die is higher than attacking die. attacker -1.
-					result[0]--;
+					//defending die is higher than attacking die. attacker losses +1.
+					result[0]++;
 				}
 			} 
 		} else {
 			//start at the highest values, and move down
 			for (int i = 0; i <attacking.Length; i++) {
 				if (attacking[attacking.Length-i] > defending[defending.Length-i]) {
-					//attacking die is higher than defending die. defender -1
-					result[1]--;
+					//attacking die is higher than defending die. defender losses +1
+					result[1]++;
 				} else {
-					//defending die is higher than attacking die. attacker -1.
-					result[0]--;
+					//defending die is higher than attacking die. attacker losses +1.
+					result[0]++;
 				}
 			} 
 		}
