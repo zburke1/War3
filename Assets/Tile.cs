@@ -20,6 +20,7 @@ public class Tile : MonoBehaviour {
 	//1-54
 	public int tileID = 0;
 	public int face = 0;
+	public bool tileFocus;
 
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
@@ -85,6 +86,11 @@ public class Tile : MonoBehaviour {
 
 				break;
 			case Phase.battlePhase:
+			if(!tileFocus){
+				if (tileID != 0) {
+					renderer.material.color = Color.green;
+				}
+			}
 				break;
 
 		}
@@ -124,13 +130,33 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseExit(){
-		if (tileID != 0) {
-			renderer.material.color = owner.playerColor;
-			for ( int i =0; i < tileNeighbors.Length; i++){
-				tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+		
+		switch (ph.currentPhase) {
+
+		case Phase.spawnPhase:
+			if (tileID != 0) {
+				renderer.material.color = owner.playerColor;
 			}
-			//TODO: Revert changes back to original colors.
+			break;
+
+		case Phase.rotatePhase:
+			if (tileID != 0) {
+				renderer.material.color = owner.playerColor;
+			}
+			break;
+
+		case Phase.battlePhase:
+			if(!tileFocus){
+				if (tileID != 0) {
+					renderer.material.color = owner.playerColor;
+
+				}
+
+			}
+			break;
 		}
+
+
 	}
 		
 	void OnMouseDown(){
@@ -141,8 +167,7 @@ public class Tile : MonoBehaviour {
 		case Phase.spawnPhase:
 			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0) {
 				go.players[go.currentPlayer].troopSpawnCount --;
-				owner = go.players[go.currentPlayer];
-				renderer.material.color = go.players[go.currentPlayer].playerColor;
+				setOwner( go.players[go.currentPlayer]);
 				forces++;
 			}
 			break;
@@ -178,6 +203,9 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.battlePhase:
+			renderer.material.color = Color.green;
+			tileFocus = true;
+
 			break;
 		}
 	}
