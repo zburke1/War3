@@ -77,18 +77,12 @@ public class Tile : MonoBehaviour {
 	} 
 
 	public virtual int getPlayer() {
-		return player;
+		return playerID;
 	}
 	
 	public Player getOwner(){
 		return owner;
 	} 
-
-	public void setOwner(Player newOwner) {
-		owner = newOwner;
-		renderer.material.color = newOwner.playerColor;
-	}
-	
 
 	void OnMouseExit(){
 		if (tileID != 0) {
@@ -103,15 +97,6 @@ public class Tile : MonoBehaviour {
 	void OnMouseDown(){
 
 		forces++;
-	}
-
-	void OnMouseOver(){
-		if (tileID != 0) {
-			renderer.material.color = Color.green;
-			renderer.material.SetInt (14, 300);
-		}
-
-
 	}
 
 	public void setID(int id) {
