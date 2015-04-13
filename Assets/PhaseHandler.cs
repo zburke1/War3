@@ -11,7 +11,6 @@ public class PhaseHandler : MonoBehaviour {
 	enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
 	Phase currentPhase;
 
-	Player whoseTurn;
 	// Use this for initialization
 	void Start () {
 		rotateToggle = GameObject.Find("RotatePhaseToggle").GetComponent<Toggle>();
@@ -19,6 +18,7 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle = GameObject.Find("BattlePhaseToggle").GetComponent<Toggle>();
 		endToggle = GameObject.Find("EndPhaseToggle").GetComponent<Toggle>();
 		currentPhase = Phase.spawnPhase;
+
 
 
 		spawnToggle.isOn = true;
@@ -35,7 +35,7 @@ public class PhaseHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () { //this is primarily for the AI.
 
 		if(currentPhase == Phase.spawnPhase){
 		
@@ -53,7 +53,7 @@ public class PhaseHandler : MonoBehaviour {
 
 	}
 
-	public virtual void disableAllToggles(){
+	public virtual void disableAllToggles(Player currentPlayer){
 		spawnToggle.isOn = false;
 		rotateToggle.isOn = false;
 		battleToggle.isOn = false;
@@ -65,7 +65,8 @@ public class PhaseHandler : MonoBehaviour {
 		endToggle.interactable = false;
 	}
 
-	public virtual void startNewTurn(){
+	public virtual void startNewTurn(Player currentPlayer){
+		Debug.Log ("This player owns " + currentPlayer.playerTileCount(currentPlayer) + "tiles");
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	
@@ -73,7 +74,7 @@ public class PhaseHandler : MonoBehaviour {
 
 	}
 
-	public virtual void startRotationPhase(){
+	public virtual void startRotationPhase(Player currentPlayer){
 		battleToggle.interactable = true;
 		spawnToggle.isOn = false;
 		spawnToggle.interactable = false;
@@ -82,7 +83,7 @@ public class PhaseHandler : MonoBehaviour {
 
 	}
 
-	public virtual void startBattlePhase(){
+	public virtual void startBattlePhase(Player currentPlayer){
 		rotateToggle.isOn = false;
 		rotateToggle.interactable = false;
 		battleToggle.isOn = true;

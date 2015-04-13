@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//AKA TILE
+
 public class Tile : MonoBehaviour {
+	public PhaseHandler ph;
+	public GameController go;
+
 	private int forces = 0;
 	//deprecated...
 	private int player = 0;
@@ -15,10 +18,11 @@ public class Tile : MonoBehaviour {
 	//1-54
 	public int tileID = 0;
 	public int face = 0;
+
 	// Use this for initialization
 	void Start () {
-		//owner = GameObject.Instantiate (Player);
-		//owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
 	
 	// Update is called once per frame
@@ -29,7 +33,14 @@ public class Tile : MonoBehaviour {
 	void OnMouseOver(){
 		if (tileID != 0) {
 			renderer.material.color = Color.green;
+			renderNeighbors(getNeighborTiles ());
 			renderer.material.SetInt (14, 300);
+		}
+	}
+
+	void renderNeighbors( Tile[] neighbors){
+		for (int i = 0; i < neighbors.Length; i++) {
+			neighbors[i].renderer.material.color = Color.gray;
 		}
 	}
 
@@ -49,10 +60,15 @@ public class Tile : MonoBehaviour {
 	void OnMouseExit(){
 		if (tileID != 0) {
 			renderer.material.color = owner.playerColor;
+			for ( int i =0; i < tileNeighbors.Length; i++){
+				tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+			}
+			//TODO: Revert changes back to original colors.
 		}
 	}
 		
 	void OnMouseDown(){
+
 		forces++;
 		Debug.Log(forces);
 		}
