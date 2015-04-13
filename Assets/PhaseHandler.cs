@@ -66,6 +66,7 @@ public class PhaseHandler : MonoBehaviour {
 	}
 
 	public virtual void startNewTurn(Player currentPlayer){
+		Debug.Log ("This player owns " + currentPlayer.playerTileCount(currentPlayer) + "tiles");
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	

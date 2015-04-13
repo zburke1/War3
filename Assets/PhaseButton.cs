@@ -46,8 +46,8 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 			
 		case PhaseToggle.end:
 			ph.disableAllToggles(go.players[go.currentPlayer]);
-			go.nextTurnUpdate();
 			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString());
+			go.nextTurnUpdate();
 			ph.startNewTurn(go.players[go.currentPlayer]);
 			break;
 			
