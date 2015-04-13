@@ -21,17 +21,6 @@ public class AgentUtil //: MonoBehaviour
 	public static void setGameController() {
 		m_gamecontroller = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
-	/*
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	*/
 
 	//this is run before every other function at the start of the turn (and potentially every player action)
 	public static ArrayList loadPlayerTiles(Player owner) {
@@ -232,6 +221,98 @@ public class AgentUtil //: MonoBehaviour
 		}
 		return bestTile;
 	}
+
+	//an agressive placement function for Angry. Finds a empty corner on a face an opponent owns.
+	//unfortunately, this is always going to attack the same face, because it starts counting from the same place.
+	public static Tile findEmptyCorner(Player self) {
+		ArrayList corners = new ArrayList();
+		for (int i = 1; i < 7; i++) {
+			for (int j = 1; j <10; j++) {
+				//is a corner tile
+				if (j == 1 || j == 3 || j == 7 || j == 9) {
+					Tile tile = m_gamecontroller.faces[i,j].gameObject.GetComponent<Tile>();
+					//check if selected corner tile is empty
+					//todo: check id!
+					if (tile.getPlayer() == -1) {
+						Tile center = m_gamecontroller.faces[i,5].gameObject.GetComponent<Tile>();
+						//check if the center is an enemy
+						if (center.owner != self) {
+							corners.Add(tile);
+						}
+					}
+				}
+			}
+		}
+		//check the corner tiles for any that are adjacent to a friendly tile, and which are close to faces with the most forces
+		//priority given to adjacent tile
+		ArrayList tilevalues = new ArrayList();
+		for (int i = 0; i < corners.Count; i++) {
+			Tile tile = (Tile)corners[i];
+			Tile[] neighbors = tile.getNeighborTiles();
+			//check neighbors for friendly tiles, and their face values.
+			for (int j = 0; j < 4; j++) {
+				TileValue tv = new TileValue(tile, 0);
+				if (neighbors[i].owner == self) {
+					//note: 5 is a weight
+					tv.inc(5);
+				}
+				int faceArmies = getNumOwnedTilesOnFace(self, neighbors[i].face);
+				tv.inc(faceArmies);
+				tilevalues.Add(tv);
+			}
+		}
+		//now find the best corner to place an army.
+		double maxi = 0;
+		Tile bestTile = null;
+		//shuffle tiles
+		reshuffle(tilevalues);
+		for (int i = 0; i < tilevalues.Count; i++) {
+			TileValue tv = (TileValue)tilevalues[i];
+			if (tv.value > maxi) {
+				maxi = tv.value;
+				bestTile = tv.getTile();
+			}
+		}
+		return bestTile;
+	}
+
+	public static int getNumOwnedTilesOnFace(Player player, int face) {
+		int count = 0;
+		for (int i = 1; i < 10; i++) {
+			Tile tile = m_gamecontroller.faces[face,i].gameObject.GetComponent<Tile>();
+			if (tile.owner == player) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	//gets the total number of enemy armies adjacent to this tile.
+	public static int getNumEnemiesAdjacent(Tile tile) {
+		Tile[] neighbors = tile.getNeighborTiles();
+		int num = 0;
+		for (int i = 0; i < 4; i++) {
+			Tile neighbor = neighbors[i];
+			//check tile occupied.
+			if (neighbor.owner != tile.owner && neighbor.getPlayer() != -1) {
+				num += neighbor.getForces();
+			}
+		}
+		return num;
+	}
+
+
+	static void reshuffle(ArrayList tiles)
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < tiles.Count; t++ )
+        {
+            Tile tmp = (Tile)tiles[t];
+            int r = Random.Range(t, tiles.Count);
+            tiles[t] = tiles[r];
+            tiles[r] = tmp;
+        }
+    }
 
 
 }

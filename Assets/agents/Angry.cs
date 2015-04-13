@@ -17,6 +17,11 @@ public class Angry : Player //: WarAgent
 		playerID = id;
 	}
 
+	public void startDeployPhase() {
+		//call AgentUtil.howManyArmies();
+		
+
+	}
 	//pick a tile to place an army
 	public Tile thinkTilePlace() {
 		return null;

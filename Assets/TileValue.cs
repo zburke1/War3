@@ -32,5 +32,9 @@ public class TileValue  {
 		value++;
 	}
 
+	public void inc(int a) {
+		value += a;
+	}
+
 
 }
