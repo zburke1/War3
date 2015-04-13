@@ -3,7 +3,6 @@ using System.Collections;
 
 
 public class Tile : MonoBehaviour {
-	public PhaseHandler ph;
 	public GameController go;
 
 	private int forces = 0;
@@ -21,7 +20,6 @@ public class Tile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
 	
