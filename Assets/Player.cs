@@ -89,6 +89,7 @@ public class Player //: MonoBehaviour
 
 	public void attack(Tile attacking, Tile defending) {
 		//idiot.
+		Debug.Log ("attacking!");
 		if (attacking.owner == defending.owner) {
 			return;
 		}
@@ -111,6 +112,7 @@ public class Player //: MonoBehaviour
 			//defender loses. move one army by default to the next 
 
 			defending.setForces (1);
+			defending.owner = this;
 			attacking.decArmy();
 			//ph. start combat win phase
 			//viktor: this phase of yours will NEED to update the player ownedTiles member
