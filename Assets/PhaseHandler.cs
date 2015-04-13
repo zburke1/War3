@@ -70,8 +70,8 @@ public class PhaseHandler : MonoBehaviour {
 	}
 
 	public virtual void startNewTurn(Player currentPlayer){
-	//	Debug.Log ("This player owns " + AgentUtil.loadPlayerTiles(currentPlayer).Capacity.ToString() + "tiles");
-
+		//Debug.Log ("This player owns " + AgentUtil.loadPlayerTiles(currentPlayer).Capacity.ToString() + "tiles");
+		go.players [go.currentPlayer].troopSpawnCount = AgentUtil.loadPlayerTiles (go.players [go.currentPlayer]).Count/3;
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	

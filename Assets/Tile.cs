@@ -46,14 +46,13 @@ public class Tile : MonoBehaviour {
 	void OnMouseOver(){
 
 		switch (ph.currentPhase) {
-
 			case Phase.spawnPhase:
 				if (tileID != 0) {
 					renderer.material.color = Color.green;
 				}
 			break;
 			case Phase.rotatePhase:
-			if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 1) {
+			if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 0) {
 				if (centerTiles.Contains (tileID)) {
 					switch (tileID) {
 					case 5:
@@ -75,6 +74,7 @@ public class Tile : MonoBehaviour {
 						m_RotateScript.Rotate (false, 6);
 						break;
 					}
+					go.players[go.currentPlayer].rotateCards--;	
 				//	m_PhaseHandler.rotateToggle.isOn = false;
 				}
 				mousereleased=false;
@@ -139,12 +139,16 @@ public class Tile : MonoBehaviour {
 		switch (ph.currentPhase) {
 
 		case Phase.spawnPhase:
-			if (tileID != 0) {
+			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0) {
+				go.players[go.currentPlayer].troopSpawnCount --;
+				owner = go.players[go.currentPlayer];
+				renderer.material.color = go.players[go.currentPlayer].playerColor;
 				forces++;
 			}
 			break;
 		case Phase.rotatePhase:
-			if (Input.GetMouseButton (0) && go.players[go.currentPlayer].rotateCards > 1) {
+			if (Input.GetMouseButton (0) && go.players[go.currentPlayer].rotateCards > 0) {
+
 				if (centerTiles.Contains (tileID)) {
 					switch (tileID) {
 					case 5:
@@ -166,7 +170,7 @@ public class Tile : MonoBehaviour {
 						m_RotateScript.Rotate (true, 6);
 						break;
 					}
-					
+					go.players[go.currentPlayer].rotateCards--;	
 					//m_PhaseHandler.rotateToggle.isOn = false;
 
 				}

@@ -13,6 +13,7 @@ public class Player //: MonoBehaviour
 	protected int totalFaces;
 	public GameController go;
 	public int rotateCards;
+	public int troopSpawnCount;
 
 
 	protected int deployableArmies;
