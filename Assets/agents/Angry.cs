@@ -1,13 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Angry //: WarAgent 
+public class Angry : Player //: WarAgent 
 {
-	public int agentID;
+	//public int agentID;
 	//not sure I need this...
-	private int gameMode;
+	//private int gameMode;
 	//private void Card[] cards;
 	
+	public PhaseHandler ph;
+
+	public Angry(int id, int type, int color) {
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		playerType = type;
+		playerColor = playerColors [color];
+		playerID = id;
+	}
+
 	//pick a tile to place an army
 	public Tile thinkTilePlace() {
 		return null;

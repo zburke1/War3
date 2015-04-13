@@ -197,25 +197,40 @@ public class AgentUtil //: MonoBehaviour
 	}
 
 	//takes full list of player tiles, and finds the safest tile on the best face to expand
+	//note, function is biased towards tiles that are alone.
 	public static Tile findSafeTile(ArrayList tiles) {
 		//get player owner of tile set
 		Player self = ((Tile)tiles[0]).owner;
-		ArrayList tilepairs = new ArrayList();
+		ArrayList tilevalues = new ArrayList();
 		//get all tiles that are adjacent to an owned tile and are empty
 		ArrayList emptyTiles = findEmptyAdjacentTiles(tiles);
 		int mostOwnedFace = getFaceWithMostTiles(tiles);
 		//int mostOwnedFace = getFaceWithMostArmies(tiles);
 		for (int i = 0; i < emptyTiles.Count; i++) {
+			//get the tile's neighbors.
 			Tile tmpTile = (Tile)emptyTiles[i];
 			Tile[] neighbors = tmpTile.getNeighborTiles();
+			TileValue tv = new TileValue(tmpTile, 0);
 			for (int j = 0; j < 4; j++) {
 				//check to make sure the neighboring tile isn't also empty and is not owned by self
 				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner != self) {
-
+					//increment every time the empty tile of interest has an empty neighboring tile.
+					tv.inc();
 				}
 			}
+			//add the empty tile (now with a count of empty neighbors)
+			tilevalues.Add(tv);
 		}
-		return new Tile();
+		double best = 0;
+		Tile bestTile = null;
+		for (int i = 0; i < tilevalues.Count; i++) {
+			TileValue tmptv = (TileValue)tilevalues[i];
+			if (tmptv.value > best) {
+				best = tmptv.value;
+				bestTile = tmptv.getTile();
+			}
+		}
+		return bestTile;
 	}
 
 

@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour {
 
 	private int forces = 0;
 	//deprecated...
-	private int player = 0;
+	private int playerID = 0;
 	public Player owner;
 	//GameObject owner;
 
@@ -56,7 +56,7 @@ public class Tile : MonoBehaviour {
 	} 
 	
 	public virtual int getPlayer(){
-		return player;
+		return playerID;
 	} 
 	
 
@@ -96,6 +96,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void setOwner(Player newOwner) {
+		playerID = newOwner.playerID;
 		owner = newOwner;
 		renderer.material.color = newOwner.playerColor;
 	}
