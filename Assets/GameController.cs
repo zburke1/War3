@@ -283,7 +283,7 @@ public class GameController : MonoBehaviour {
 	public void deleteTest(){
 		// Destroy(T[1].gameObject);
 // 		for(int i=1;i<10;i++){
-		Debug.Log("Test get Troops = " + getTroops(1,2));
+		//Debug.Log("Test get Troops = " + getTroops(1,2));
 					
 // 		}
 

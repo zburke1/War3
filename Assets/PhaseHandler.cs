@@ -77,6 +77,9 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.isOn = false;	
 		battleToggle.isOn = false;
 		currentPhase = Phase.spawnPhase;
+		if (currentPlayer.playerType == 1) {
+			currentPlayer.startDeployPhase();
+		}
 
 	}
 

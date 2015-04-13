@@ -21,7 +21,8 @@ public class Angry : Player //: WarAgent
 		
 		//call AgentUtil.howManyArmies();
 		//sooooper important to set armies!
-		int numArmies;
+		Debug.Log ("ANGRY STARTING DEPLOY");
+		deployableArmies = troopSpawnCount;
 		ownedTiles = AgentUtil.loadPlayerTiles(this);
 
 		//first, check for any urgent tiles.
