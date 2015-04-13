@@ -233,7 +233,7 @@ public class AgentUtil //: MonoBehaviour
 					Tile tile = m_gamecontroller.faces[i,j].gameObject.GetComponent<Tile>();
 					//check if selected corner tile is empty
 					//todo: check id!
-					if (tile.getPlayer() == -1) {
+					if (tile.getPlayerID() == -1) {
 						Tile center = m_gamecontroller.faces[i,5].gameObject.GetComponent<Tile>();
 						//check if the center is an enemy
 						if (center.owner != self) {
@@ -294,7 +294,7 @@ public class AgentUtil //: MonoBehaviour
 		for (int i = 0; i < 4; i++) {
 			Tile neighbor = neighbors[i];
 			//check tile occupied.
-			if (neighbor.owner != tile.owner && neighbor.getPlayer() != -1) {
+			if (neighbor.owner != tile.owner && neighbor.getPlayerID() != -1) {
 				num += neighbor.getForces();
 			}
 		}
