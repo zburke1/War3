@@ -130,6 +130,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseExit(){
+
 		
 		switch (ph.currentPhase) {
 
@@ -154,8 +155,20 @@ public class Tile : MonoBehaviour {
 
 			}
 			break;
-		}
+			/*
+		if (tileID != 0) {
+			if (playerID != -1) {
+				renderer.material.color = owner.playerColor;
+				for ( int i =0; i < tileNeighbors.Length; i++){
+					tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+				}
+			} else {
+				renderer.material.color = Color.white;
+			}
+			
 
+		}
+		*/
 
 	}
 		

@@ -153,17 +153,15 @@ public class AgentUtil //: MonoBehaviour
 
 	//calculates the probability of a successful full attack
 	public static double calcAttackSuccess(int attacker, int defender) {
-		return probabilities[attacker, defender];
+		return probabilities[attacker-1, defender-1];
 	}
 	
 	//returns the attacking and defending tiles
 	//returns empty array if none found...
-	public static Tile[] findBestAttack(ArrayList tiles) {
+	public static TileValue findBestAttack(ArrayList tiles) {
 		ArrayList tileList = getTileWithEnemy(tiles);
 		//attack is 0, defend is 1
-		Tile[] result = new Tile[2];
-		result [0] = null;
-		result [1] = null;
+		TileValue pair = new TileValue ();
 		double bestChance = 0;
 		for (int i = 0; i < tiles.Count; i++) {
 			//Tile tmpTile = (Tile)tiles[i];
@@ -175,13 +173,14 @@ public class AgentUtil //: MonoBehaviour
 					double probVictory = calcAttackSuccess(tmpTile.getForces(), neighbors[i].getForces());
 					if (probVictory > bestChance) {
 						bestChance = probVictory;
-						result[0] = tmpTile;
-						result[1] = neighbors[i];
+						pair.setTiles(tmpTile, neighbors[i]);
+						pair.value = probVictory;
+
 					}
 				}
 			}
 		}
-		return result;
+		return pair;
 	}
 
 	//TODO: see below check!
@@ -201,6 +200,26 @@ public class AgentUtil //: MonoBehaviour
 		return tileList;
 	}
 
+	//returns the same as the above, but returns a TileValue pair.
+	public static ArrayList findEmptyAdjacentTilesWithPairing(ArrayList tiles) {
+		ArrayList tileList = new ArrayList();
+		for (int i = 0; i < tiles.Count; i++) {
+			Tile tmpTile = (Tile)tiles[i];
+			Tile[] neighbors = tmpTile.getNeighborTiles();
+			for (int j = 0; j < 4; j++) {
+				//check if neighbor of tile is enemy
+				if (neighbors[i].owner.playerID == -1) { //might be zero! check!
+					//tileList.Add(neighbors[i]);
+					//not necessarily number of armies, but that's what I needed this function for so nyeah
+					TileValue tv = new TileValue(tmpTile, neighbors[i], (double)tmpTile.getForces());
+					tileList.Add (tv);
+				}
+			}
+		}
+		return tileList;
+	}
+
+
 	//takes full list of player tiles, and finds the safest tile on the best face to expand
 	//note, function is biased towards tiles that are alone.
 	public static Tile findSafeTile(ArrayList tiles) {
@@ -218,7 +237,7 @@ public class AgentUtil //: MonoBehaviour
 			TileValue tv = new TileValue(tmpTile, 0);
 			for (int j = 0; j < 4; j++) {
 				//check to make sure the neighboring tile isn't also empty and is not owned by self
-				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner != self) {
+				if (tmpTile.owner != neighbors[j].owner && neighbors[j].owner != self) {
 					//increment every time the empty tile of interest has an empty neighboring tile.
 					tv.inc();
 				}
@@ -228,6 +247,7 @@ public class AgentUtil //: MonoBehaviour
 		}
 		double best = 0;
 		Tile bestTile = null;
+		reshuffle (tilevalues);
 		for (int i = 0; i < tilevalues.Count; i++) {
 			TileValue tmptv = (TileValue)tilevalues[i];
 			if (tmptv.value > best) {
@@ -237,6 +257,67 @@ public class AgentUtil //: MonoBehaviour
 		}
 		return bestTile;
 	}
+	/*
+	//takes full list of player tiles, and finds the safest tile on the best face to expand, but only if there are more than 3 armies
+	//note, function is biased towards tiles that are alone.
+	public static Tile findExpansionTile(ArrayList tiles) {
+		//get player owner of tile set
+		Player self = ((Tile)tiles[0]).owner;
+		ArrayList tilevalues = new ArrayList();
+
+		for (int i = 0; i < tiles.Count; i++) {
+			Tile tmpTile = (Tile)tiles[i];
+			if (tmpTile.getForces() < 4) {
+				tiles.Remove(i);
+			}
+		}
+		if (tiles.Count == 0) {
+			Tile ret = null;
+			return ret;
+		}
+		//get all tiles that are adjacent to an owned tile and are empty
+		ArrayList emptyTiles = findEmptyAdjacentTilesWithPairing(tiles);
+		int mostOwnedFace = getFaceWithMostTiles(tiles);
+
+		for (int i = 0; i < emptyTiles.Count; i++) {
+			//get the tile's neighbors.
+			//Tile tmpTile = (Tile)emptyTiles[i];
+			TileValue tmptv = (TileValue)emptyTiles[i];
+			Tile ownedTile = tmptv.getTiles()[0];
+			Tile emptyTile = tmptv.getTiles ()[1];
+			Tile[] emptyTileNeighbors = (tmptv.getTiles()[1]).getNeighborTiles();
+			//TileValue tv = new TileValue(tmpTile, 0);
+			//TileValue focusNeighbor = new TileValue(focusTile, 0
+			ArrayList focusNeighbors = new ArrayList();
+			for (int j = 0; j < 4; j++) {
+				TileValue tv = new TileValue(focusTile, neighbors[i], 0);
+				int numEmpty = 0;
+				//check to make sure the neighboring tile isn't also empty and is not owned by self
+				if (ownedTile.owner != emptyTileNeighbors[i].owner && emptyTileNeighbors[i].owner != self) {
+					//increment every time the empty tile of interest has an empty neighboring tile.
+					//tv.inc ();
+					numEmpty++;
+				}
+				if (numEmpty > 2) {
+					//return
+				}
+			}
+			//add the empty tile (now with a count of empty neighbors)
+			tilevalues.Add(tv);
+		}
+		double best = 0;
+		Tile bestTile = null;
+		reshuffle (tilevalues);
+		for (int i = 0; i < tilevalues.Count; i++) {
+			TileValue tmptv = (TileValue)tilevalues[i];
+			if (tmptv.value > best) {
+				best = tmptv.value;
+				bestTile = tmptv.getTile();
+			}
+		}
+		return bestTile;
+	}
+*/
 
 	//an agressive placement function for Angry. Finds a empty corner on a face an opponent owns.
 	//unfortunately, this is always going to attack the same face, because it starts counting from the same place.

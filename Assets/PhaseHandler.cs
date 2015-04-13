@@ -79,7 +79,9 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.isOn = false;	
 		battleToggle.isOn = false;
 		currentPhase = Phase.spawnPhase;
+
 		if (currentPlayer.playerType == 1) {
+			Debug.Log ("Calling angry start deploy...");
 			currentPlayer.startDeployPhase();
 		}
 
@@ -92,7 +94,10 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.isOn = true;
 		battleToggle.isOn = false;
 		currentPhase= Phase.rotatePhase;
-
+		if (currentPlayer.playerType == 1) {
+			Debug.Log ("Calling angry start rotate...");
+			currentPlayer.startRotatePhase();	
+		}
 	}
 
 	public virtual void startBattlePhase(Player currentPlayer){
@@ -101,6 +106,10 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle.isOn = true;
 		endToggle.interactable = true;
 		currentPhase = Phase.battlePhase;
+		if (currentPlayer.playerType == 1) {
+			Debug.Log ("Calling angry start battle...");
+			currentPlayer.startAttackPhase();	
+		}
 	}
 
 	public virtual void startWinBattlePhase(Player currentPlayer){

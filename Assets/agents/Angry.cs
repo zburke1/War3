@@ -11,13 +11,14 @@ public class Angry : Player //: WarAgent
 
 
 	public Angry(int id, int type, int color) {
+		Debug.Log ("INIT ANGRY");
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 		playerType = type;
 		playerColor = playerColors [color];
 		playerID = id;
 	}
 
-	public void startDeployPhase() {
+	public override void startDeployPhase() {
 		
 		//call AgentUtil.howManyArmies();
 		//sooooper important to set armies!
@@ -29,6 +30,7 @@ public class Angry : Player //: WarAgent
 		deployUrgent();
 		if (deployableArmies == 0) {
 			//done with deployment
+			ph.nextPhase ();
 			return;
 		} 
 
@@ -69,7 +71,13 @@ public class Angry : Player //: WarAgent
 		//hax
 		Tile tile2 = AgentUtil.getTileWithLargestArmyAndEnemy(ownedTiles);
 		while (deployableArmies > 0) {
-			deployArmy(this, tile2);
+			if (tile2 != null) {
+				deployArmy(this, tile2);
+			} else {
+				//think I just made angry a turtler.
+				tile2 = AgentUtil.getTileWithLargestArmy(ownedTiles);
+			}
+
 		}
 
 		
@@ -80,8 +88,24 @@ public class Angry : Player //: WarAgent
 	}
 
 	public void startAttackPhase() {
-		Tile[] bestAttack = AgentUtil.findBestAttack (ownedTiles);
-		//attack (bestAttack
+		Debug.Log ("ANGRY ATTACK");
+		TileValue bestAttack = AgentUtil.findBestAttack (ownedTiles);
+		if (bestAttack.value < .6) {
+			//best attack sucks. don't attack.
+		} else {
+			attack (bestAttack.getTiles()[0], bestAttack.getTiles()[1]);
+		}
+		Tile tile = AgentUtil.findSafeTile (ownedTiles);
+		while (tile != null) {
+			Tile[] neighbors = tile.getNeighborTiles();
+			Tile expandFrom = null;
+			for (int i = 0; i < 4; i++) {
+				if (neighbors[i].owner == this && neighbors[i].getForces() > 3) {
+					expandFrom = neighbors[i];
+				}
+			}
+			attack (expandFrom, tile);
+		}
 
 	}
 	

@@ -28,6 +28,10 @@ public class TileValue  {
 		return pair;
 	}
 
+	public void setTiles(Tile a, Tile b) {
+		pair [0] = a;
+		pair [1] = b;
+	}
 	public void inc() {
 		value++;
 	}

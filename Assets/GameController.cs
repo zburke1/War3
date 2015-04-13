@@ -239,6 +239,7 @@ public class GameController : MonoBehaviour {
 	
 	public virtual int getTroops(int x,int y){
 		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
+
 		//Debug.Log(Hover.getForces());
 		return Hover.getForces();
 	}
@@ -388,7 +389,13 @@ public class GameController : MonoBehaviour {
 		players = new Player[numPlayers];
 		//only spawns humans at the moment, deal with it
 		for (int i = 0; i < numPlayers; i++) {
-			Player newPlayer = new Player (i, 0, i);
+			Player newPlayer;
+			//Player newPlayer = new Player (i, 0, i);
+			if (i == 0) {
+				newPlayer = new Player (i, 0, i);
+			} else {
+				newPlayer = new Angry(i,1,i);
+			}
 			players[i] = newPlayer;
 			for (int j = 0; j<6/numPlayers; j++) {
 				Tile tile = faces [j + 1 + i * 6/numPlayers, 5].gameObject.GetComponent<Tile> ();
