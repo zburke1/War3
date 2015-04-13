@@ -200,6 +200,7 @@ public class AgentUtil //: MonoBehaviour
 	public static Tile findSafeTile(ArrayList tiles) {
 		//get player owner of tile set
 		Player self = ((Tile)tiles[0]).owner;
+		ArrayList tilepairs = new ArrayList();
 		//get all tiles that are adjacent to an owned tile and are empty
 		ArrayList emptyTiles = findEmptyAdjacentTiles(tiles);
 		int mostOwnedFace = getFaceWithMostTiles(tiles);
@@ -209,8 +210,8 @@ public class AgentUtil //: MonoBehaviour
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check to make sure the neighboring tile isn't also empty and is not owned by self
-				if (tmpTile.owner != neighbors[i].owner && nieghbors[i].owner != self) {
-					//if ()
+				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner != self) {
+					
 				}
 			}
 		}
