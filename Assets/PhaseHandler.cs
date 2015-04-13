@@ -10,9 +10,12 @@ public class PhaseHandler : MonoBehaviour {
 	Toggle endToggle;
 	enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
 	Phase currentPhase;
+	public GameController go;
 
 	// Use this for initialization
 	void Start () {
+		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+	
 		rotateToggle = GameObject.Find("RotatePhaseToggle").GetComponent<Toggle>();
 		spawnToggle = GameObject.Find("SpawnPhaseToggle").GetComponent<Toggle>();
 		battleToggle = GameObject.Find("BattlePhaseToggle").GetComponent<Toggle>();
@@ -66,7 +69,8 @@ public class PhaseHandler : MonoBehaviour {
 	}
 
 	public virtual void startNewTurn(Player currentPlayer){
-		Debug.Log ("This player owns " + currentPlayer.playerTileCount(currentPlayer) + "tiles");
+	//	Debug.Log ("This player owns " + AgentUtil.loadPlayerTiles(currentPlayer).Capacity.ToString() + "tiles");
+
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	
@@ -90,5 +94,28 @@ public class PhaseHandler : MonoBehaviour {
 		endToggle.interactable = true;
 	}
 
+	public virtual void nextPhase(Phase currentPhase){
+		switch(currentPhase){
+		
+		case Phase.spawnPhase:
+			startRotationPhase (go.players[go.currentPlayer]);
+			break;
+
+		case Phase.rotatePhase:
+			startBattlePhase(go.players[go.currentPlayer]);
+			break;
+			
+		case Phase.battlePhase:
+			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
+			break;
+
+		case Phase.endPhase:
+			go.nextTurnUpdate();
+			startNewTurn (go.players[go.currentPlayer]);
+			break;
+	
+		}
+
+	}
 }
 
