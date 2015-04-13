@@ -35,10 +35,13 @@ public class Tile : MonoBehaviour {
 			renderer.material.color = Color.green;
 			renderNeighbors(getNeighborTiles ());
 			renderer.material.SetInt (14, 300);
+			for (int i = 0; i < 4; i++) {
+				Debug.Log(tileID + ": " + neighbors[i]);
+			}
 		}
 	}
 
-	void renderNeighbors( Tile[] neighbors){
+	void renderNeighbors( Tile[] neighbors) {
 		for (int i = 0; i < neighbors.Length; i++) {
 			neighbors[i].renderer.material.color = Color.gray;
 		}

@@ -4,7 +4,7 @@ using System.Collections;
 public class TilePairs  {
 
 	public double value;
-	Tile[] pair = new Tiles[2];
+	Tile[] pair = new Tile[2];
 
 	public TilePairs() {}
 

@@ -126,7 +126,7 @@ public class GameController : MonoBehaviour {
 				//do left/rights
 				if (i < 5) {
 					//tile is in the middle column.
-					if (tileID % 2 == 0) {
+					if (tileID % 3 == 2) {
 						left = tileID - 1;
 						right = tileID + 1;
 							
@@ -175,7 +175,8 @@ public class GameController : MonoBehaviour {
 							down = tileID + 3;
 						//bottom row
 						} else if (j > 6) {
-							up = tileID + 36 - (j-7)*3;
+							up = tileID - 3;
+							down = tileID + 36 - (j-7)*3;
 						} else {
 							up = tileID - 3;
 							down = tileID + 3;
@@ -199,7 +200,7 @@ public class GameController : MonoBehaviour {
 							down = tileID + 3;
 						} else if (j > 6) {
 							up = tileID -3;
-							down = tileID + 14 + (j - 1)*2;
+							down = tileID + 14 + (j - 7)*2;
 						} else {
 							up = tileID - 3;
 							down = tileID + 3;
