@@ -49,14 +49,53 @@ public class Tile : MonoBehaviour {
 		}
 		if (Input.GetMouseButton(0)) {
 			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
-				m_RotateScript.Rotate(true, 1);
+				switch(tileID) {
+					case 5:
+						m_RotateScript.Rotate(true, 1);
+						break;
+					case 14:
+						m_RotateScript.Rotate(true, 2);
+						break;
+					case 23:
+						m_RotateScript.Rotate(true, 3);
+						break;
+					case 32:
+						m_RotateScript.Rotate(true, 4);
+						break;
+					case 41:
+						m_RotateScript.Rotate(true, 5);
+						break;
+					case 50:
+						m_RotateScript.Rotate(true, 6);
+						break;
+				}
+				
 				m_PhaseHandler.rotateToggle.isOn = false;
 			}
 		}
 		
 		if (Input.GetMouseButton(1)) {
 			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
-				m_RotateScript.Rotate(false, 1);
+				switch(tileID) {
+				case 5:
+					m_RotateScript.Rotate(false, 1);
+					break;
+				case 14:
+					m_RotateScript.Rotate(false, 2);
+					break;
+				case 23:
+					m_RotateScript.Rotate(false, 3);
+					break;
+				case 32:
+					m_RotateScript.Rotate(false, 4);
+					break;
+				case 41:
+					m_RotateScript.Rotate(false, 5);
+					break;
+				case 50:
+					m_RotateScript.Rotate(false, 6);
+					break;
+				}
 				m_PhaseHandler.rotateToggle.isOn = false;
 			}
 		}
@@ -82,7 +121,7 @@ public class Tile : MonoBehaviour {
 	
 	public Player getOwner(){
 		return owner;
-	} 
+	}
 
 	void OnMouseExit(){
 		if (tileID != 0) {
