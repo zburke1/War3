@@ -107,13 +107,17 @@ public class PhaseHandler : MonoBehaviour {
 
 		case Phase.rotatePhase:
 			startBattlePhase(go.players[go.currentPlayer]);
+		
 			break;
 			
 		case Phase.battlePhase:
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
+			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			break;
 
 		case Phase.endPhase:
+			go.players[go.currentPlayer].rotateCards++;
+			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
 			startNewTurn (go.players[go.currentPlayer]);
 			break;

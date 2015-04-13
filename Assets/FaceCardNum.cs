@@ -6,17 +6,20 @@ using System.Collections;
 
 public class FaceCardNum : MonoBehaviour {
 	public Text rotateCardNum;
-	public int rotationCards;
+	public GameController go;
+	//public int rotationCards;
+
 	// Use this for initialization
 	void Start () {
 		rotateCardNum = GetComponent<Text>();
+		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 		//rotationCards = 25;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		rotateCardNum.text = rotationCards.ToString();
+		rotateCardNum.text = go.players[go.currentPlayer].rotateCards.ToString ();
 	}
 	
 	
