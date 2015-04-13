@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour {
 
 		//todo: need to get the menu items (num players, difficulty, etc) from the menu
 
-		numPlayers = 3; //getNumPlayers();
+		numPlayers = 2; //getNumPlayers();
 		spawnPlayers (numPlayers);
 
 	}

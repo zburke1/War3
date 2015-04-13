@@ -23,6 +23,7 @@ public class PlayerTurntext : MonoBehaviour {
 	void Update () {
 		playerString = "Turn: Player " + go.currentPlayer.ToString ();
 		whoseTurn.text = playerString;
+
 	}
 }
 

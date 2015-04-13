@@ -35,7 +35,7 @@ public class PhaseHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () { //this is primarily for the AI.
 
 		if(currentPhase == Phase.spawnPhase){
 		
