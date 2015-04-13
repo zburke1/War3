@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
 	public GameController go;
+	public PhaseHandler ph;
 	public PhaseHandler m_PhaseHandler;
 	public RotateScript m_RotateScript;
 	private int forces = 0;
@@ -25,6 +26,9 @@ public class Tile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+
+
 		List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
 		m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
@@ -115,7 +119,7 @@ public class Tile : MonoBehaviour {
 		forces = armies;
 	} 
 
-	public virtual int getPlayer() {
+	public virtual int getPlayerID() {
 		return playerID;
 	}
 	
