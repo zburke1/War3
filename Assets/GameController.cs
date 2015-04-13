@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour {
 
 		numPlayers = 2; //getNumPlayers();
 		spawnPlayers (numPlayers);
+		AgentUtil.setGameController ();
 
 	}
 	
