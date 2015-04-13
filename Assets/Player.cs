@@ -6,14 +6,14 @@ using System.Collections;
 public class Player //: MonoBehaviour
 {
 	//HUMAN=0; AI = 1;
-	public int playerType;
-	public Color playerColor;
+	protected int playerType;
+	protected Color playerColor;
 	protected Color[] playerColors = { Color.blue, Color.red, Color.magenta, Color.yellow, Color.cyan, new Color(0.2F, 0.3F, 0.4F)};
-	public int playerID;
+	protected int playerID;
 	protected int totalFaces;
 	public GameController go;
 	public int rotateCards;
-	public int troopSpawnCount;
+	protected int troopSpawnCount;
 
 
 	protected int deployableArmies;
@@ -52,6 +52,21 @@ public class Player //: MonoBehaviour
 		playerID = id;
 	}
 
+	public int getSpawnCount() {
+		return troopSpawnCount;
+	}
+
+	public void setSpawnCount(int i) {
+		troopSpawnCount = i;
+	}
+
+	public Color getColor() {
+		return playerColor;
+	}
+
+	public int getPlayerType() {
+		return playerType;
+	}
 	public  int playerTileCount(Player owner) {
 		int tiles = 0;
 		Tile tile;
@@ -66,6 +81,9 @@ public class Player //: MonoBehaviour
 		return tiles;
 	}
 
+	public int getPlayerID() {
+		return playerID;
+	}
 	//deployment phase place armies.
 	//not to be confused with placeArmy.
 	public bool deployArmy(Player player, Tile tile) {

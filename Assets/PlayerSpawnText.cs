@@ -25,8 +25,8 @@ public class PlayerSpawnText : MonoBehaviour {
 	void Update () {
 
 		if (ph.currentPhase == Phase.spawnPhase) {
-			playerString = "Spawn " + go.players [go.currentPlayer].troopSpawnCount + " troops";
-			if(go.players [go.currentPlayer].troopSpawnCount == 0)
+			playerString = "Spawn " + go.players [go.currentPlayer].getSpawnCount() + " troops";
+			if(go.players [go.currentPlayer].getSpawnCount() == 0)
 				playerString = "Proceed to next phase";
 			countText.text = playerString;
 		} else

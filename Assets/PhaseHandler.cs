@@ -73,14 +73,14 @@ public class PhaseHandler : MonoBehaviour {
 
 	public virtual void startNewTurn(Player currentPlayer){
 		//Debug.Log ("This player owns " + AgentUtil.loadPlayerTiles(currentPlayer).Capacity.ToString() + "tiles");
-		go.players [go.currentPlayer].troopSpawnCount = AgentUtil.loadPlayerTiles (go.players [go.currentPlayer]).Count/3;
+		(go.players [go.currentPlayer]).setSpawnCount(  AgentUtil.loadPlayerTiles (go.players [go.currentPlayer]).Count/3);
 		spawnToggle.isOn = true;
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	
 		battleToggle.isOn = false;
 		currentPhase = Phase.spawnPhase;
 
-		if (currentPlayer.playerType == 1) {
+		if (currentPlayer.getPlayerType() == 1) {
 			Debug.Log ("Calling angry start deploy...");
 			currentPlayer.startDeployPhase();
 		}
@@ -94,7 +94,7 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.isOn = true;
 		battleToggle.isOn = false;
 		currentPhase= Phase.rotatePhase;
-		if (currentPlayer.playerType == 1) {
+		if (currentPlayer.getPlayerType() == 1) {
 			Debug.Log ("Calling angry start rotate...");
 			currentPlayer.startRotatePhase();	
 		}
@@ -106,7 +106,7 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle.isOn = true;
 		endToggle.interactable = true;
 		currentPhase = Phase.battlePhase;
-		if (currentPlayer.playerType == 1) {
+		if (currentPlayer.getPlayerType() == 1) {
 			Debug.Log ("Calling angry start battle...");
 			currentPlayer.startAttackPhase();	
 		}

@@ -73,7 +73,7 @@ public class AgentUtil //: MonoBehaviour
 			//iterate through tile neighbors
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
-				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.playerID != -1) {
+				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.getPlayerID() != -1) {
 					if (tmpTile.getForces() > max) {
 						tile = tmpTile;
 						max = tmpTile.getForces();
@@ -95,7 +95,7 @@ public class AgentUtil //: MonoBehaviour
 			//iterate through tile neighbors
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
-				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.playerID != -1) {
+				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.getPlayerID() != -1) {
 					tileList.Add(tmpTile);
 				}
 			}
@@ -169,7 +169,7 @@ public class AgentUtil //: MonoBehaviour
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
-				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.playerID != -1) {
+				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner.getPlayerID() != -1) {
 					double probVictory = calcAttackSuccess(tmpTile.getForces(), neighbors[i].getForces());
 					if (probVictory > bestChance) {
 						bestChance = probVictory;
@@ -192,7 +192,7 @@ public class AgentUtil //: MonoBehaviour
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
-				if (neighbors[i].owner.playerID == -1) { //might be zero! check!
+				if (neighbors[i].owner.getPlayerID() == -1) { //might be zero! check!
 					tileList.Add(neighbors[i]);
 				}
 			}
@@ -208,7 +208,7 @@ public class AgentUtil //: MonoBehaviour
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check if neighbor of tile is enemy
-				if (neighbors[i].owner.playerID == -1) { //might be zero! check!
+				if (neighbors[i].owner.getPlayerID() == -1) { //might be zero! check!
 					//tileList.Add(neighbors[i]);
 					//not necessarily number of armies, but that's what I needed this function for so nyeah
 					TileValue tv = new TileValue(tmpTile, neighbors[i], (double)tmpTile.getForces());

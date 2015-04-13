@@ -136,13 +136,13 @@ public class Tile : MonoBehaviour {
 
 		case Phase.spawnPhase:
 			if (tileID != 0) {
-				renderer.material.color = owner.playerColor;
+				renderer.material.color = owner.getColor();
 			}
 			break;
 
 		case Phase.rotatePhase:
 			if (tileID != 0) {
-				renderer.material.color = owner.playerColor;
+				renderer.material.color = owner.getColor ();
 			}
 			break;
 
@@ -156,7 +156,7 @@ public class Tile : MonoBehaviour {
 
 			}*/
 			for (int i = 0; i < 4; i++) {
-				if (neighbors[i] == ph.focusedTile) {
+				if (tileNeighbors[i] == ph.focusedTile) {
 					renderer.material.color = Color.gray;
 				}
 			}
@@ -185,8 +185,9 @@ public class Tile : MonoBehaviour {
 		switch (ph.currentPhase) {
 
 		case Phase.spawnPhase:
-			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0) {
-				go.players[go.currentPlayer].troopSpawnCount --;
+			if (tileID != 0 && go.players[go.currentPlayer].getSpawnCount() > 0) {
+				int i = go.players[go.currentPlayer].getSpawnCount();
+				go.players[go.currentPlayer].setSpawnCount(i-1);
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
 			}
@@ -238,6 +239,7 @@ public class Tile : MonoBehaviour {
 				for (int i = 0; i < 4; i++) {
 					if (tileNeighbors[i] == ph.focusedTile) {
 						Debug.Log ("player attacking");
+						//go.get
 						owner.attack(ph.focusedTile, tileNeighbors[i]);
 						isAttack = true;
 					}
@@ -265,7 +267,7 @@ public class Tile : MonoBehaviour {
 		if (on) {
 			renderer.material.color = Color.gray;
 		} else {
-			renderer.material.color = owner.playerColor;
+			renderer.material.color = owner.getColor();
 		}
 	}
 
@@ -290,9 +292,9 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void setOwner(Player newOwner) {
-		playerID = newOwner.playerID;
+		playerID = newOwner.getPlayerID();
 		owner = newOwner;
-		renderer.material.color = newOwner.playerColor;
+		renderer.material.color = newOwner.getColor();
 	}
 
 	public int getNeighborID(int i) {
