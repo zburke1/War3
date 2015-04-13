@@ -2,14 +2,14 @@
 using UnityEngine.UI;
 using System.Collections;
 
+ public enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
 public class PhaseHandler : MonoBehaviour {
 	//These variables contain the toggle objects which we will use for phase visual and interaction
 	Toggle spawnToggle;
 	public Toggle rotateToggle;
 	Toggle battleToggle;
 	Toggle endToggle;
-	public enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
-	Phase currentPhase;
+	public Phase currentPhase;
 	public GameController go;
 
 	// Use this for initialization
@@ -66,6 +66,7 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.interactable = false;
 		battleToggle.interactable = false;
 		endToggle.interactable = false;
+		currentPhase = Phase.endPhase;
 	}
 
 	public virtual void startNewTurn(Player currentPlayer){
@@ -75,6 +76,7 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.interactable = true;
 		rotateToggle.isOn = false;	
 		battleToggle.isOn = false;
+		currentPhase = Phase.spawnPhase;
 
 	}
 
@@ -84,6 +86,7 @@ public class PhaseHandler : MonoBehaviour {
 		spawnToggle.interactable = false;
 		rotateToggle.isOn = true;
 		battleToggle.isOn = false;
+		currentPhase= Phase.rotatePhase;
 
 	}
 
@@ -92,9 +95,10 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.interactable = false;
 		battleToggle.isOn = true;
 		endToggle.interactable = true;
+		currentPhase = Phase.battlePhase;
 	}
 
-	public virtual void nextPhase(Phase currentPhase){
+	public virtual void nextPhase(){
 		switch(currentPhase){
 		
 		case Phase.spawnPhase:
@@ -103,13 +107,17 @@ public class PhaseHandler : MonoBehaviour {
 
 		case Phase.rotatePhase:
 			startBattlePhase(go.players[go.currentPlayer]);
+		
 			break;
 			
 		case Phase.battlePhase:
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
+			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			break;
 
 		case Phase.endPhase:
+			go.players[go.currentPlayer].rotateCards++;
+			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
 			startNewTurn (go.players[go.currentPlayer]);
 			break;

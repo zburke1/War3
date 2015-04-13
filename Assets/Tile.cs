@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour {
 	private int playerID = 0;
 	public Player owner;
 	//GameObject owner;
-
+	private bool mousereleased = false;
 	//[0:3] - > right, up, left, down
 	int[] neighbors = new int[4]; //this must be private, otherwise unity loses it's shit.
 	Tile[] tileNeighbors = new Tile[4];
@@ -26,8 +26,8 @@ public class Tile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
-		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
-
+	//	ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		ph = GameObject.Find("PhaseHandlerGO").GetComponent<PhaseHandler>();
 
 		List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
@@ -39,70 +39,66 @@ public class Tile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 		//renderer.material.color = owner.playerColor;
 	}
 
 	void OnMouseOver(){
-		if (tileID != 0) {
-			renderer.material.color = Color.green;
-			renderNeighbors(getNeighborTiles ());
-			renderer.material.SetInt (14, 300);
-			for (int i = 0; i < 4; i++) {
-				Debug.Log(tileID + ": " + neighbors[i]);
-			}
-		}
-		if (Input.GetMouseButton(0)) {
-			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
-				switch(tileID) {
+
+		switch (ph.currentPhase) {
+
+			case Phase.spawnPhase:
+				if (tileID != 0) {
+					renderer.material.color = Color.green;
+				}
+			break;
+			case Phase.rotatePhase:
+			if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 1) {
+				if (centerTiles.Contains (tileID)) {
+					switch (tileID) {
 					case 5:
-						m_RotateScript.Rotate(true, 1);
+						m_RotateScript.Rotate (false, 1);
 						break;
 					case 14:
-						m_RotateScript.Rotate(true, 2);
+						m_RotateScript.Rotate (false, 2);
 						break;
 					case 23:
-						m_RotateScript.Rotate(true, 3);
+						m_RotateScript.Rotate (false, 3);
 						break;
 					case 32:
-						m_RotateScript.Rotate(true, 4);
+						m_RotateScript.Rotate (false, 4);
 						break;
 					case 41:
-						m_RotateScript.Rotate(true, 5);
+						m_RotateScript.Rotate (false, 5);
 						break;
 					case 50:
-						m_RotateScript.Rotate(true, 6);
+						m_RotateScript.Rotate (false, 6);
 						break;
+					}
+				//	m_PhaseHandler.rotateToggle.isOn = false;
 				}
-				
-				m_PhaseHandler.rotateToggle.isOn = false;
+				mousereleased=false;
 			}
+			if(Input.GetMouseButtonUp(1))
+				mousereleased=true;
+			break;
+
+				break;
+			case Phase.battlePhase:
+				break;
+
 		}
 		
-		if (Input.GetMouseButton(1)) {
-			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
-				switch(tileID) {
-				case 5:
-					m_RotateScript.Rotate(false, 1);
-					break;
-				case 14:
-					m_RotateScript.Rotate(false, 2);
-					break;
-				case 23:
-					m_RotateScript.Rotate(false, 3);
-					break;
-				case 32:
-					m_RotateScript.Rotate(false, 4);
-					break;
-				case 41:
-					m_RotateScript.Rotate(false, 5);
-					break;
-				case 50:
-					m_RotateScript.Rotate(false, 6);
-					break;
-				}
-				m_PhaseHandler.rotateToggle.isOn = false;
+		/*}
+
+		//	renderNeighbors(getNeighborTiles ());
+			renderer.material.SetInt (14, 300);
+		/*	for (int i = 0; i < 4; i++) {
+				Debug.Log(tileID + ": " + neighbors[i]);
 			}
-		}
+			*/
+		//}
+
 	}
 
 	void renderNeighbors( Tile[] neighbors) {
@@ -139,12 +135,51 @@ public class Tile : MonoBehaviour {
 		
 	void OnMouseDown(){
 
-		forces++;
-	}
 
-	public void setID(int id) {
-		tileID = id;
+		switch (ph.currentPhase) {
+
+		case Phase.spawnPhase:
+			if (tileID != 0) {
+				forces++;
+			}
+			break;
+		case Phase.rotatePhase:
+			if (Input.GetMouseButton (0) && go.players[go.currentPlayer].rotateCards > 1) {
+				if (centerTiles.Contains (tileID)) {
+					switch (tileID) {
+					case 5:
+						m_RotateScript.Rotate (true, 1);
+						break;
+					case 14:
+						m_RotateScript.Rotate (true, 2);
+						break;
+					case 23:
+						m_RotateScript.Rotate (true, 3);
+						break;
+					case 32:
+						m_RotateScript.Rotate (true, 4);
+						break;
+					case 41:
+						m_RotateScript.Rotate (true, 5);
+						break;
+					case 50:
+						m_RotateScript.Rotate (true, 6);
+						break;
+					}
+					
+					//m_PhaseHandler.rotateToggle.isOn = false;
+
+				}
+			}
+			break;
+
+		case Phase.battlePhase:
+			break;
+		}
 	}
+		public void setID(int id) {
+			tileID = id;
+		}
 
 	public void setFace(int face) {
 		this.face = face;

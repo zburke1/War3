@@ -31,31 +31,36 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
 	public void OnPointerClick(PointerEventData data)
 	{
-		switch(phaseType){
+		if (theToggle.isActiveAndEnabled) {
+			switch (phaseType) {
 			
 			
-		case PhaseToggle.rotate:
-			ph.startRotationPhase(go.players[go.currentPlayer]);
-			Debug.Log ("Player " + go.currentPlayer.ToString() + " Starting Rotation Phase");
-			break;
+			case PhaseToggle.rotate:
+			//ph.startRotationPhase(go.players[go.currentPlayer]);
+			ph.nextPhase();
+				Debug.Log ("Player " + go.currentPlayer.ToString () + " Starting Rotation Phase");
+				break;
 			
-		case PhaseToggle.battle:
-			ph.startBattlePhase(go.players[go.currentPlayer]);
-			Debug.Log ("Player " + go.currentPlayer.ToString()+" Battle Phase");
-			break;
+			case PhaseToggle.battle:
+			//ph.startBattlePhase(go.players[go.currentPlayer]);
+			ph.nextPhase();
+				Debug.Log ("Player " + go.currentPlayer.ToString () + " Battle Phase");
+				break;
 			
-		case PhaseToggle.end:
-			ph.disableAllToggles(go.players[go.currentPlayer]);
-			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString());
-			go.nextTurnUpdate();
-			ph.startNewTurn(go.players[go.currentPlayer]);
-			break;
+			case PhaseToggle.end:
+			//ph.disableAllToggles(go.players[go.currentPlayer]);
+			ph.nextPhase();
+				Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
+			//go.nextTurnUpdate();
+		//	ph.startNewTurn(go.players[go.currentPlayer]);
+				break;
 			
-		default: 
-			break;
+			default: 
+				break;
 			
 			//invoke start new turn with]
 			//ph.startNewTurn ();
+			}
 		}
 	}
 

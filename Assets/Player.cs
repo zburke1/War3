@@ -12,6 +12,8 @@ public class Player //: MonoBehaviour
 	public int playerID;
 	protected int totalFaces;
 	public GameController go;
+	public int rotateCards;
+
 
 	protected int deployableArmies;
 	protected ArrayList ownedTiles;
@@ -35,6 +37,7 @@ public class Player //: MonoBehaviour
 		playerID = 0;
 		playerColor = Color.gray;
 		playerType = -1;
+		rotateCards = 0;
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
 
