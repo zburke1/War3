@@ -125,10 +125,15 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseExit(){
 		if (tileID != 0) {
-			renderer.material.color = owner.playerColor;
-			for ( int i =0; i < tileNeighbors.Length; i++){
-				tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+			if (playerID != -1) {
+				renderer.material.color = owner.playerColor;
+				for ( int i =0; i < tileNeighbors.Length; i++){
+					tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+				}
+			} else {
+				renderer.material.color = Color.white;
 			}
+			
 			//TODO: Revert changes back to original colors.
 		}
 	}

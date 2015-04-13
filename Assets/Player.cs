@@ -92,9 +92,13 @@ public class Player //: MonoBehaviour
 		if (attacking.owner == defending.owner) {
 			return;
 		}
+		if (attacking.owner == this) {
+			return;
+		}
 		if (attacking.getForces () < 2) {
 			return;
 		}
+
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
 		int attackerLosses = attackResult [0];
@@ -115,10 +119,9 @@ public class Player //: MonoBehaviour
 	}
 
 	//overridden by AI:
-	public virtual void startDeployPhase (){}
-	public virtual void startRotatePhase(){}
+	public virtual void startDeployPhase () {}
+	public virtual void startRotatePhase() {}
 	public virtual void startAttackPhase() {}
-
 }
 
 

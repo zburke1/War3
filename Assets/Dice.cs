@@ -9,6 +9,12 @@ public class Dice {
 	public static int[] roll(int attackerArmies, int defenderArmies) {
 		int[] attacking, defending;
 		int[] result = {0,0};
+
+		if (defenderArmies == 0) {
+			result[0] = 0;
+			result[1] = 1;
+		}
+
 		//set number of dice for attacker
 		if (attackerArmies > 3) {
 			attacking = new int[3];
