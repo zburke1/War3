@@ -8,7 +8,7 @@ public class PhaseHandler : MonoBehaviour {
 	Toggle rotateToggle;
 	Toggle battleToggle;
 	Toggle endToggle;
-	enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
+	public enum Phase {spawnPhase, rotatePhase, battlePhase, endPhase};
 	Phase currentPhase;
 	public GameController go;
 
