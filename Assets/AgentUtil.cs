@@ -209,11 +209,12 @@ public class AgentUtil //: MonoBehaviour
 			Tile[] neighbors = tmpTile.getNeighborTiles();
 			for (int j = 0; j < 4; j++) {
 				//check to make sure the neighboring tile isn't also empty and is not owned by self
-				if (tmpTile.owner != neighbors[i].owner && nieghbors[i].owner != self) {
+				if (tmpTile.owner != neighbors[i].owner && neighbors[i].owner != self) {
 					//if ()
 				}
 			}
 		}
+		return new Tile();
 	}
 
 
