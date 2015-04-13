@@ -19,6 +19,7 @@ public class Tile : MonoBehaviour {
 	void Start () {
 		//owner = GameObject.Instantiate (Player);
 		//owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
+	
 	}
 	
 	// Update is called once per frame

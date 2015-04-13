@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 
+
 [RequireComponent (typeof(Toggle))]
 
 public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
@@ -11,12 +12,14 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 	Toggle theToggle; 
 	public enum  PhaseToggle {spawn, rotate, battle, end};
 	public PhaseToggle phaseType;
+	GameController go;
 	// Use this for initialization
 
 	void Start () {
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 	//	ph = GameObject.Find("PhaseHandler").GetComponent<PhaseHandler>();
 		theToggle = GetComponent<Toggle> ();
+		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 
 	}
 	
@@ -32,18 +35,20 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 			
 			
 		case PhaseToggle.rotate:
-			ph.startRotationPhase();
-			Debug.Log ("Starting Rotation Phase");
+			ph.startRotationPhase(go.players[go.currentPlayer]);
+			Debug.Log ("Player " + go.currentPlayer.ToString() + " Starting Rotation Phase");
 			break;
 			
 		case PhaseToggle.battle:
-			ph.startBattlePhase();
-			Debug.Log ("Starting Battle Phase");
+			ph.startBattlePhase(go.players[go.currentPlayer]);
+			Debug.Log ("Player " + go.currentPlayer.ToString()+" Battle Phase");
 			break;
 			
 		case PhaseToggle.end:
-			ph.disableAllToggles();
-			Debug.Log ("Turn End");
+			ph.disableAllToggles(go.players[go.currentPlayer]);
+			go.nextTurnUpdate();
+			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString());
+			ph.startNewTurn(go.players[go.currentPlayer]);
 			break;
 			
 		default: 

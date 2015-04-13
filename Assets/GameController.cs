@@ -8,12 +8,14 @@ public class GameController : MonoBehaviour {
 	private int count = 0;
 	private int testCount = 0;
 	private int blockNum=1;
+	public int currentPlayer = 0;
 	public GameObject[,] board;
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
 	public RotateScript m_RotateScript;	
 	public Player[] players;
+	public int numPlayers;
 
 	//*****************************************************************************
 	//Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
@@ -44,7 +46,7 @@ public class GameController : MonoBehaviour {
 
 		//todo: need to get the menu items (num players, difficulty, etc) from the menu
 
-		int numPlayers = 3; //getNumPlayers();
+		numPlayers = 3; //getNumPlayers();
 		spawnPlayers (numPlayers);
 
 	}
@@ -257,7 +259,14 @@ public class GameController : MonoBehaviour {
 	public virtual GameObject[,] getFaceArray(){
 		return faces;
 	}
-	
+
+	public virtual void nextTurnUpdate(){
+		if (currentPlayer == numPlayers-1)
+			currentPlayer = 0;
+		else 
+			currentPlayer++;
+	}
+
 	public void pushFace(GameObject[,] temp){
 		faces = temp;	
 	}
