@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class Tile : MonoBehaviour {
 	public GameController go;
-
+	public PhaseHandler m_PhaseHandler;
+	public RotateScript m_RotateScript;
 	private int forces = 0;
 	//deprecated...
 	private int playerID = 0;
@@ -18,9 +20,17 @@ public class Tile : MonoBehaviour {
 	public int tileID = 0;
 	public int face = 0;
 
+	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
+
 	// Use this for initialization
 	void Start () {
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+		List<int> centerTiles = new List<int> {5,14,41,32,23,50};
+
+		m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
+		m_PhaseHandler = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		//owner = GameObject.Instantiate (Player);
+		//owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
 	}
 	
 	// Update is called once per frame
@@ -35,6 +45,19 @@ public class Tile : MonoBehaviour {
 			renderer.material.SetInt (14, 300);
 			for (int i = 0; i < 4; i++) {
 				Debug.Log(tileID + ": " + neighbors[i]);
+			}
+		}
+		if (Input.GetMouseButton(0)) {
+			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
+				m_RotateScript.Rotate(true, 1);
+				m_PhaseHandler.rotateToggle.isOn = false;
+			}
+		}
+		
+		if (Input.GetMouseButton(1)) {
+			if (centerTiles.Contains(tileID) && m_PhaseHandler.rotateToggle.isOn) {
+				m_RotateScript.Rotate(false, 1);
+				m_PhaseHandler.rotateToggle.isOn = false;
 			}
 		}
 	}
@@ -52,10 +75,19 @@ public class Tile : MonoBehaviour {
 	public virtual void setForces(int armies){
 		forces = armies;
 	} 
+
+	public virtual int getPlayer() {
+		return player;
+	}
 	
-	public virtual int getPlayer(){
-		return playerID;
+	public Player getOwner(){
+		return owner;
 	} 
+
+	public void setOwner(Player newOwner) {
+		owner = newOwner;
+		renderer.material.color = newOwner.playerColor;
+	}
 	
 
 	void OnMouseExit(){
@@ -71,8 +103,16 @@ public class Tile : MonoBehaviour {
 	void OnMouseDown(){
 
 		forces++;
-		Debug.Log(forces);
+	}
+
+	void OnMouseOver(){
+		if (tileID != 0) {
+			renderer.material.color = Color.green;
+			renderer.material.SetInt (14, 300);
 		}
+
+
+	}
 
 	public void setID(int id) {
 		tileID = id;

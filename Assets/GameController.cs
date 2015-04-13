@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour {
 	public GameObject[,] faces;
 	private Object temp;
 	private Transform tempFace;
-	public RotateScript m_RotateScript;	
+	public RotateScript m_RotateScript;
+	public PhaseHandler m_PhaseHandler;
 	public Player[] players;
 	public int numPlayers;
 
@@ -54,11 +55,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKey(KeyCode.Space)){
-			faces = m_RotateScript.Rotate(true,faces,board,1);
-				//Destroy(board[1,testCount+1]);
-				//testCount++;
-			}
+			
+		//faces = m_RotateScript.Rotate(true,faces,board,1);
+
 	}
 	
 	
@@ -222,7 +221,7 @@ public class GameController : MonoBehaviour {
 		setAllTileNeighbors ();
 		
 	}
-	
+
 	public static GameObject getSide(GameObject A,int i){
 		//GETS ARRAY OF SIDES. T[1] = Side A, T[2] = Side B, etc...
 		//Manipulate Side using T[1].gameObject (i.e. Destroy(T[1].gameObject) will destroy Side A of this block)
@@ -240,6 +239,7 @@ public class GameController : MonoBehaviour {
 	
 	public virtual int getTroops(int x,int y){
 		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
+		//Debug.Log(Hover.getForces());
 		return Hover.getForces();
 	}
 
@@ -446,6 +446,9 @@ public class GameController : MonoBehaviour {
 		return null;
 	}
 
+	public Tile findTileFromIndex(int i, int j) {
+		return faces[i,j].gameObject.GetComponent<Tile>();
+	}
 	
 
 	
