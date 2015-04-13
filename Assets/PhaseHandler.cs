@@ -11,8 +11,8 @@ public class PhaseHandler : MonoBehaviour {
 	Toggle endToggle;
 	public Phase currentPhase;
 	public GameController go;
-	Tile focusedTile;
-	Tile targetTile;
+	public Tile focusedTile;
+	public Tile targetTile;
 
 	// Use this for initialization
 	void Start () {

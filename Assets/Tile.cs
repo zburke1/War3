@@ -203,15 +203,56 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.battlePhase:
-			renderer.material.color = Color.green;
-			tileFocus = true;
+			renderer.material.color = Color.green;/*
+			if(ph.focusedTile == this){
+				ph.focusedTile = this;
+				tileFocus = true;}
+			else{
+				ph.targetTile = this;
+				ph.focusedTile.owner.attack(ph.focusedTile,ph.targetTile);
+
+			}
+	*/
+			if (ph.focusedTile != this) {
+				bool isAttack = false;
+				for (int i = 0; i < 4; i++) {
+					if (tileNeighbors[i] == ph.focusedTile) {
+						Debug.Log ("player attacking");
+						owner.attack(ph.focusedTile, tileNeighbors[i]);
+						isAttack = true;
+					}
+				}
+				if(!isAttack) {
+					ph.focusedTile = this;
+					battleColors (true);
+				}
+			
+			}
+
+
 
 			break;
 		}
 	}
-		public void setID(int id) {
-			tileID = id;
+
+	public void battleColors(bool on) {
+		for (int i = 0; i < 4; i++) {
+			tileNeighbors[i].setBattleColor(on);
 		}
+	}
+
+	public void setBattleColor(bool on) {
+		if (on) {
+			renderer.material.color = Color.gray;
+		} else {
+			renderer.material.color = owner.playerColor;
+		}
+	}
+
+
+	public void setID(int id) {
+		tileID = id;
+	}
 
 	public void setFace(int face) {
 		this.face = face;

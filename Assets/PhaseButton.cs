@@ -13,6 +13,7 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 	public enum  PhaseToggle {spawn, rotate, battle, end};
 	public PhaseToggle phaseType;
 	GameController go;
+
 	// Use this for initialization
 
 	void Start () {
