@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 public class Dice {
-	private int[] dies = new int[3]; 
+	//private int[] dies = new int[3]; 
 	public Dice() {}
 	//returns a result of the number of armies lost for attacking and defending sides for this dice roll.
 	public static int[] roll(int attackerArmies, int defenderArmies) {

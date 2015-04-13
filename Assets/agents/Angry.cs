@@ -34,7 +34,7 @@ public class Angry : Player //: WarAgent
 		//if armies remain do:
 		deployArmies ();
 
-		//ph.nextPhase ();
+		ph.nextPhase ();
 
 	}
 
@@ -80,6 +80,7 @@ public class Angry : Player //: WarAgent
 
 	public void startAttackPhase() {
 		Tile[] bestAttack = AgentUtil.findBestAttack (ownedTiles);
+		//attack (bestAttack
 
 	}
 	

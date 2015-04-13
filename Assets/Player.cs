@@ -6,7 +6,7 @@ using System.Collections;
 public class Player //: MonoBehaviour
 {
 	//HUMAN=0; AI = 1;
-	protected int playerType;
+	public int playerType;
 	public Color playerColor;
 	protected Color[] playerColors = { Color.blue, Color.red, Color.magenta, Color.yellow, Color.cyan, new Color(0.2F, 0.3F, 0.4F)};
 	public int playerID;
@@ -113,6 +113,11 @@ public class Player //: MonoBehaviour
 		}
 	
 	}
+
+	//overridden by AI:
+	public virtual void startDeployPhase (){}
+	public virtual void startRotatePhase(){}
+	public virtual void startAttackPhase() {}
 
 }
 

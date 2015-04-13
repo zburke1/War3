@@ -398,11 +398,6 @@ public class AgentUtil //: MonoBehaviour
             tiles[r] = tmp;
         }
     }
-
-	//public static Tile findBestTileOnFace() {
-
-	//}
-
-
+	
 
 }
