@@ -147,7 +147,7 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.battlePhase:
-			if(!tileFocus){
+			if (!tileFocus) {
 				if (tileID != 0) {
 					renderer.material.color = owner.playerColor;
 
@@ -155,7 +155,7 @@ public class Tile : MonoBehaviour {
 
 			}
 			break;
-			/*
+		/*
 		if (tileID != 0) {
 			if (playerID != -1) {
 				renderer.material.color = owner.playerColor;
@@ -170,6 +170,7 @@ public class Tile : MonoBehaviour {
 		}
 		*/
 
+		}
 	}
 		
 	void OnMouseDown(){
