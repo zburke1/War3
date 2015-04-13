@@ -245,7 +245,7 @@ public class GameController : MonoBehaviour {
 
 	public virtual int getOwner(int x,int y){
 		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
-		return Hover.getPlayer();
+		return Hover.getPlayerID();
 	}
 
 	
