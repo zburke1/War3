@@ -6,31 +6,23 @@ public class RotateScript : MonoBehaviour{
 	private GameObject[,] rotateBoard = new GameObject[7,10];
 	private GameObject[,] rotateFace = new GameObject[7,10];
 	private Vector3[,] BoardLocation = new Vector3[7,10];
+	private Quaternion[,] BoardRotation = new Quaternion[7,10];
+	private Vector3 RotateDirection = new Vector3(0,0,0);
 	public int u = 0;
 	private bool init;
+	public CameraControll m_CameraControll;
 	private GameObject[,] tempBoard = new GameObject[7,10];
 	private GameObject[,] tempFace = new GameObject[7,10];
-
+	private int rotate = 0;
+	private int sideRotate = 0;
 	int[,] armies = new int[7,10];
 	Player[,] owners = new Player[7,10];
 	
 	void Start(){
 		m_gameController = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+		m_CameraControll = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 	}
 	
-	void Update(){
-		//Test code.....
-		if(Input.GetKeyDown(KeyCode.Space)){
-			Rotate(true,1);
-		}
-		//This code is checking to see if the board has been initialized in the GameController script
-		if(m_gameController.getSingleFace(1,1)!=null&& !init){
-			Debug.Log("Initialize Logic.......");
-			init = true;
-		}
-
-		
-	}
 	public void initializeRotate(){
 		rotateBoard = m_gameController.getBoard();
 		Debug.Log("Rotate Board Logic Created");
@@ -38,13 +30,75 @@ public class RotateScript : MonoBehaviour{
 		Debug.Log("Rotate Face Logic Created");
 		initializeLocations();
 	}
-			
-	public void deleteBoard(){
-		Destroy(rotateBoard[1,3]);
+	
+	public void PhysicalRotateSpecs(){
+		sideRotate = m_CameraControll.GetSide();
+		Debug.Log(m_CameraControll.GetSide());
+		if(sideRotate==1){
+			RotateDirection = Vector3.back;
+		}
+		if(sideRotate==2){
+			RotateDirection = Vector3.down;
+		}
+		
 	}
-			
-	public void Rotate(bool clockwise, int side) {
+	
+	void Update(){
+		//Test 
+		if(Input.GetKeyDown(KeyCode.Space)){
+			PhysicalRotateSpecs();
+			Rotate(true,m_CameraControll.GetSide());
+			Debug.Log(rotateBoard[1,1].transform.eulerAngles.z-90f);
+			//rotate = 1;
+		}
+		//This code is checking to see if the board has been initialized in the GameController script
+		if(m_gameController.getSingleFace(1,1)!=null&& !init){
+			Debug.Log("Initialize Logic.......");
+			init = true;
+		}
+		
+		if(rotate == 1){
+			if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z >=270f ){
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, RotateDirection, 50 * Time.deltaTime);
+		}
+		else if(rotateBoard[sideRotate,1].transform.eulerAngles.z !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.z <=270f ){
+			Debug.Log("FUCKING WORK");
+			rotateBoard[sideRotate,1].transform.position = BoardLocation[1,1];
+			rotateBoard[sideRotate,1].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,2].transform.position = BoardLocation[1,2];
+			rotateBoard[sideRotate,2].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,3].transform.position = BoardLocation[1,3];
+			rotateBoard[sideRotate,3].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,4].transform.position = BoardLocation[1,4];
+			rotateBoard[sideRotate,4].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,5].transform.position = BoardLocation[1,5];
+			rotateBoard[sideRotate,5].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,6].transform.position = BoardLocation[1,6];
+			rotateBoard[sideRotate,6].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,7].transform.position = BoardLocation[1,7];
+			rotateBoard[sideRotate,7].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,8].transform.position = BoardLocation[1,8];
+			rotateBoard[sideRotate,8].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotateBoard[sideRotate,9].transform.position = BoardLocation[1,9];
+			rotateBoard[sideRotate,9].transform.localRotation = Quaternion.Euler(0,0,0);
+			rotate =0;
+		}
+	}
+	
+	
 
+		
+	}
+		
+	public void Rotate(bool clockwise, int side) {
 
 		for(int i = 1; i < 7; i++){
 			for(int j = 1; j < 10; j++){
@@ -58,6 +112,7 @@ public class RotateScript : MonoBehaviour{
 		switch(side){
 		case 1:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(1);
 				
 				transfer(2, 3, 6, 1, false);
@@ -98,6 +153,7 @@ public class RotateScript : MonoBehaviour{
 			break;
 		case 2:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(2);
 				
 				transfer(1, 1, 5, 1, false);
@@ -138,6 +194,7 @@ public class RotateScript : MonoBehaviour{
 			break;
 		case 3:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(3);
 				
 				transfer(2, 7, 5, 1, false);
@@ -178,6 +235,7 @@ public class RotateScript : MonoBehaviour{
 			break;
 		case 4:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(4);
 				
 				transfer(3, 7, 5, 3, false);
@@ -218,6 +276,7 @@ public class RotateScript : MonoBehaviour{
 			break;
 		case 5:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(5);
 				
 				transfer(4, 1, 3, 1, false);
@@ -258,6 +317,7 @@ public class RotateScript : MonoBehaviour{
 			break;
 		case 6:
 			if(clockwise){
+				rotate = 1;
 				RotateDirectCW(6);
 				
 				transfer(4, 7, 1, 7, false);
@@ -348,9 +408,11 @@ public class RotateScript : MonoBehaviour{
 	}
 
 	public void initializeLocations(){
+		Debug.Log("Getting static locations for rotate logic");
 		for(int i = 1;i<7;i++){
 			for(int j = 1;j<10;j++){
 				BoardLocation[i,j] = rotateBoard[i,j].transform.position;
+				//BoardRotation[i,j] = rotateBoard[i,j].transform.eulerAngles;
 			}
 		}
 			

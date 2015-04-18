@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraControll : MonoBehaviour {
-	int loc = 1;
+	public int loc = 1;
 	bool rotate =false;
 	bool RotateLeft = false;
 	bool RotateRight = false;
@@ -158,20 +158,13 @@ public class CameraControll : MonoBehaviour {
 				GetComponent<Skybox>().material = StarSkyBox;
 		
 			}
-			
+	}
+	public virtual int GetSide(){
+		return loc;
 	}
 	
 	public void AIRotateCamera(int side){
 		loc = side;
-	}
-	
-	public void RotateCam(int mov){
-		if(mov==1){
-			
-			transform.position = Vector3.Lerp(startMarker.position,LocB.position,0.1f);
- 		   transform.rotation = Quaternion.Lerp(startMarker.rotation, LocB.rotation, 0.1f);
-		
-		}
 	}
 }
 
