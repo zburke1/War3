@@ -82,6 +82,9 @@ public class PhaseHandler : MonoBehaviour {
 		}
 
 	}
+	public virtual void endTurn(Player currentPlayer){
+		currentPhase = Phase.endPhase;
+	}
 
 	public virtual void startRotationPhase(Player currentPlayer){
 		battleToggle.interactable = true;
@@ -136,7 +139,6 @@ public class PhaseHandler : MonoBehaviour {
 			
 		case Phase.battlePhase:
 			checkWin ();
-			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			startResolvePhase (go.players[go.currentPlayer]);
 			break;
@@ -147,7 +149,7 @@ public class PhaseHandler : MonoBehaviour {
 			break;
 
 		case Phase.endPhase:
-			checkWin ();
+			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			go.players[go.currentPlayer].rotateCards++;
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
