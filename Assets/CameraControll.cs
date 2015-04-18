@@ -166,5 +166,6 @@ public class CameraControll : MonoBehaviour {
 	public void AIRotateCamera(int side){
 		loc = side;
 	}
+	
 }
 

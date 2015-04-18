@@ -94,6 +94,7 @@ public class Angry : Player //: WarAgent
 			//best attack sucks. don't attack.
 			Debug.Log ("Angry: bestAttack null or less than .6");
 		} else {
+			Debug.Log("Angry attack with best attack chance.");
 			attack (bestAttack.getTiles()[0], bestAttack.getTiles()[1]);
 		}
 
@@ -103,6 +104,7 @@ public class Angry : Player //: WarAgent
 			TileValue tiles = AgentUtil.findSafeTile (largeTiles);
 			if (tiles != null) {
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
+				camera.AIRotateCamera(tiles.getTiles()[0].face);
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 			}
 		}
@@ -121,5 +123,5 @@ public class Angry : Player //: WarAgent
 	public int transferArmies() {
 		return 0;
 	}
-
+	
 }

@@ -13,6 +13,7 @@ public class Player //: MonoBehaviour
 	public Color playerColorLight;
 	protected int totalFaces;
 	public GameController go;
+	public CameraControll camera;
 	public int rotateCards;
 	public int troopSpawnCount;
 
@@ -28,6 +29,7 @@ public class Player //: MonoBehaviour
 		playerColor = Color.white;
 		playerColorLight = new Color32(127,153,255,1);
 		playerType = -1; //Nonplayer
+		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 	}
 
 	public Player(int id, int type, int color) {
@@ -43,6 +45,7 @@ public class Player //: MonoBehaviour
 		playerType = -1;
 		rotateCards = 0;
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 	}
 
 	void Update() {
