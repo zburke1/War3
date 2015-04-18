@@ -99,15 +99,22 @@ public class Player //: MonoBehaviour
 	}
 
 	public void resolve() {
+		Color tempColor = attackResolve.owner.playerColorLight;
+
 		attackResolve.setForces (1);
 		attackResolve.isResolving = true;
+		attackResolve.renderer.material.color = tempColor;
+
 		defendResolve.setForces (1);
 		defendResolve.isResolving = true;
+		defendResolve.renderer.material.color = tempColor;
 	}
 
 	public void stopResolving() {
 		attackResolve.isResolving = false;
+		attackResolve.renderOwnerColor ();
 		defendResolve.isResolving = false;
+		defendResolve.renderOwnerColor ();
 	}
 
 	public void attack(Tile attacking, Tile defending) {
@@ -118,10 +125,7 @@ public class Player //: MonoBehaviour
 		if (attacking.owner == defending.owner || attacking.getForces () < 2) {
 			return;
 		}
-		//if (attacking.owner == this) {
 
-		//	return;
-		//}
 		if (attacking.getForces () < 2) {
 			return;
 		}
@@ -131,17 +135,16 @@ public class Player //: MonoBehaviour
 
 			attackResolve = attacking;
 			defendResolve = defending;
-
+			defending.owner = this;
+			
 			if (attacking.getForces () > 2) {
 				resolve();
 				ph.nextPhase ();
 			} else {
 				attacking.setForces (1);
 				defending.setForces (1);
+				defending.renderOwnerColor ();
 			}
-
-			defending.owner = this;
-			defending.renderOwnerColor();
 
 			return;
 		}

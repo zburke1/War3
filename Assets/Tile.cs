@@ -91,7 +91,7 @@ public class Tile : MonoBehaviour {
 			case Phase.battlePhase:
 				if (tileID != 0) {
 					if (owner.playerID == 1) {
-						renderer.material.color = new Color32(127,153,255,1);
+						renderer.material.color = owner.playerColorLight;
 					}
 				}
 				break;
@@ -153,8 +153,8 @@ public class Tile : MonoBehaviour {
 
 			if (tileID != 0) {
 				if (owner.playerID == 1) {
-					renderer.material.color = owner.playerColor;
-				}	
+					renderer.material.color = owner.playerColor;	
+				}
 			}
 			
 			break;
@@ -264,8 +264,13 @@ public class Tile : MonoBehaviour {
 		for (int i = 0; i < 4; i++) {
 			if (highlight)
 				neighbors[i].renderer.material.color = Color.gray;
-			else
-				neighbors[i].renderer.material.color = neighbors[i].owner.playerColor;
+			else {
+				if (neighbors[i].isResolving) {
+					neighbors[i].renderer.material.color = neighbors[i].owner.playerColorLight;
+				} else {
+					neighbors[i].renderer.material.color = neighbors[i].owner.playerColor;
+				}
+			}
 		}
 	}
 
