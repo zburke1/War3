@@ -156,7 +156,7 @@ public class AgentUtil //: MonoBehaviour
 		return probabilities[attacker-1, defender-1];
 	}
 	
-	//returns the attacking and defending tiles
+	//returns the attacking and defending tiles. defending tiles must have an enemy army on them.
 	//returns empty array if none found...
 	public static TileValue findBestAttack(ArrayList tiles) {
 		ArrayList tileList = getTileWithEnemy(tiles);
@@ -221,11 +221,10 @@ public class AgentUtil //: MonoBehaviour
 		}
 		return tileList;
 	}
-
-
+	
 	//takes full list of player tiles, and finds the safest tile on the best face to expand
 	//note, function is biased towards tiles that are alone.
-	public static Tile findSafeTile(ArrayList tiles) {
+	public static TileValue findSafeTile(ArrayList tiles) {
 		//get player owner of tile set
 		Player self = ((Tile)tiles[0]).owner;
 		ArrayList tilevalues = new ArrayList();
@@ -237,9 +236,10 @@ public class AgentUtil //: MonoBehaviour
 			//get the tile's neighbors.
 			Tile tmpTile = (Tile)emptyTiles[i];
 			Tile[] neighbors = tmpTile.getNeighborTiles();
-			TileValue tv = new TileValue(tmpTile, 0);
+			TileValue tv = new TileValue();
 			for (int j = 0; j < 4; j++) {
 				//check to make sure the neighboring tile isn't also empty and is not owned by self
+				tv.setTiles(tmpTile, neighbors[j]);
 				if (tmpTile.owner != neighbors[j].owner && neighbors[j].owner != self) {
 					//increment every time the empty tile of interest has an empty neighboring tile.
 					tv.inc();
@@ -249,16 +249,17 @@ public class AgentUtil //: MonoBehaviour
 			tilevalues.Add(tv);
 		}
 		double best = 0;
-		Tile bestTile = null;
+		//Tile bestTile = null;
+		TileValue bestTiles = null;
 		reshuffle (tilevalues);
 		for (int i = 0; i < tilevalues.Count; i++) {
 			TileValue tmptv = (TileValue)tilevalues[i];
 			if (tmptv.value > best) {
 				best = tmptv.value;
-				bestTile = tmptv.getTile();
+				bestTiles = tmptv;
 			}
 		}
-		return bestTile;
+		return bestTiles;
 	}
 	/*
 	//takes full list of player tiles, and finds the safest tile on the best face to expand, but only if there are more than 3 armies
@@ -469,6 +470,17 @@ public class AgentUtil //: MonoBehaviour
 	//finds potential rotations.
 	public void scoutRotate(ArrayList tiles) {
 
+	}
+
+	public static ArrayList getTilesWithArmiesAtLeast(ArrayList tiles, int armies) {
+		ArrayList tmp = new ArrayList();
+		for (int i = 0; i < tiles.Count; i++) {
+			Tile tile = (Tile) tiles[i];
+			if (tile.getForces() > armies) {
+				tmp.Add (tile);
+			}
+		}
+		return tmp;
 	}
 
 	static void reshuffle(ArrayList tiles)

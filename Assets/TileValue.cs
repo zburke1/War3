@@ -10,7 +10,8 @@ public class TileValue  {
 	public TileValue() {}
 
 	public TileValue(Tile a, double value) {
-		single = a;
+		pair [0] = a;
+		pair [1] = null;
 		this.value = value;
 	}
 
@@ -21,7 +22,7 @@ public class TileValue  {
 	}
 
 	public Tile getTile() {
-		return single;
+		return pair [0];
 	}
 	
 	public Tile[] getTiles() {

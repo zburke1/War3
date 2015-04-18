@@ -54,17 +54,16 @@ public class Angry : Player //: WarAgent
 		while (deployableArmies > 3) {
 			if (Random.Range(0,10) > 7) {
 				Tile tile = AgentUtil.findEmptyCorner(this);
-				for (int i = 0; i < 4; i++) {
-					if (tile != null) {
-						deployArmy(this, tile);
-					}
+
+				if (tile != null) {
+					deployArmy(this, tile);
 				}
+				
 			} else {
-				Tile tile = AgentUtil.findSafeTile(ownedTiles);
-				for (int i = 0; i < 4; i++) {
-					if (tile != null) {
-						deployArmy(this, tile);
-					}
+				TileValue tile = AgentUtil.findSafeTile(ownedTiles);
+
+				if (tile != null) {
+					deployArmy(this, tile.getTiles()[1]);
 				}
 			}
 		}
@@ -93,23 +92,19 @@ public class Angry : Player //: WarAgent
 		Debug.Log ("DID BESTATTACK");
 		if (bestAttack == null || bestAttack.value < .6) {
 			//best attack sucks. don't attack.
+			Debug.Log ("Angry: bestAttack null or less than .6");
 		} else {
 			attack (bestAttack.getTiles()[0], bestAttack.getTiles()[1]);
 		}
-		Tile tile = AgentUtil.findSafeTile (ownedTiles);
-		while (tile != null) {
-			Tile[] neighbors = tile.getNeighborTiles();
-			Tile expandFrom = null;
 
-			for (int i = 0; i < 4; i++) {
-				if (neighbors[i].owner == this && neighbors[i].getForces() > 3) {
-					expandFrom = neighbors[i];
-				}
+		ArrayList largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
+
+		for (int i = 0; i < largeTiles.Count; i++) {
+			TileValue tiles = AgentUtil.findSafeTile (largeTiles);
+			if (tiles != null) {
+				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
+				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 			}
-			if (expandFrom != null) {
-				attack (expandFrom, tile);
-			}
-			tile = null;
 		}
 
 	}

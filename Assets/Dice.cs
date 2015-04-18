@@ -49,7 +49,7 @@ public class Dice {
 		if (attacking.Length > defending.Length) {
 			//start at the highest values, and move down
 			for (int i = 0; i <defending.Length; i++) {
-				if (attacking[attacking.Length-i] > defending[defending.Length-i]) {
+				if (attacking[attacking.Length-1-i] > defending[defending.Length-1-i]) {
 					//attacking die is higher than defending die. defender losses +1.
 					result[1]++;
 				} else {
@@ -60,7 +60,7 @@ public class Dice {
 		} else {
 			//start at the highest values, and move down
 			for (int i = 0; i <attacking.Length; i++) {
-				if (attacking[attacking.Length-i] > defending[defending.Length-i]) {
+				if (attacking[attacking.Length-1-i] > defending[defending.Length-1-i]) {
 					//attacking die is higher than defending die. defender losses +1
 					result[1]++;
 				} else {
