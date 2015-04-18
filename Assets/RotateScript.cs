@@ -18,11 +18,13 @@ public class RotateScript : MonoBehaviour{
 	private int sideRotate = 0;
 	int[,] armies = new int[7,10];
 	Player[,] owners = new Player[7,10];
+	GameObject tileNumberGUI;
 	
 	void Start(){
 		m_gameController = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 		m_CameraControll = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		tileNumberGUI = GameObject.Find ("Face_Num_GUI");
 
 	}
 	
@@ -50,6 +52,7 @@ public class RotateScript : MonoBehaviour{
 	void Update(){
 		if (ph.currentPhase == Phase.rotatePhase && m_gameController.players [m_gameController.currentPlayer].playerType == 0 && m_gameController.players [m_gameController.currentPlayer].rotateCards > 0) {
 			if (Input.GetKeyDown (KeyCode.E)) {
+				StartCoroutine(turnOffText());
 				//PhysicalRotateSpecs();
 				sideRotate = m_CameraControll.GetSide ();
 				Rotate (true, m_CameraControll.GetSide ());
@@ -58,6 +61,7 @@ public class RotateScript : MonoBehaviour{
 		
 			if (Input.GetKeyDown (KeyCode.Q)) {
 				//PhysicalRotateSpecs();
+				StartCoroutine(turnOffText());
 				sideRotate = m_CameraControll.GetSide ();
 				Rotate (false, m_CameraControll.GetSide ());
 				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
@@ -826,6 +830,14 @@ public class RotateScript : MonoBehaviour{
 		}
 			
 	}			
+
+	IEnumerator turnOffText() {
+		Debug.Log("Before Waiting 2 seconds");
+		tileNumberGUI.SetActive (false);
+		yield return new WaitForSeconds(1.2f);
+		tileNumberGUI.SetActive (true);		
+		Debug.Log("After Waiting 2 Seconds");
+	}
 			
 			
 }
