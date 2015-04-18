@@ -42,6 +42,15 @@ public class PhaseHandler : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			nextPhase ();
 		}
+		if (currentPhase == Phase.spawnPhase && go.players [go.currentPlayer].troopSpawnCount <= 0) {
+			nextPhase ();
+		}
+
+		if (currentPhase == Phase.rotatePhase && go.players [go.currentPlayer].rotateCards <= 0) {
+			nextPhase ();
+		}
+
+
 
 	}
 
