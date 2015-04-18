@@ -171,7 +171,7 @@ public class Tile : MonoBehaviour {
 		switch (ph.currentPhase) {
 
 		case Phase.spawnPhase:
-			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0) {
+			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0 && go.players[go.currentPlayer].playerID == owner.playerID) {
 				go.players[go.currentPlayer].troopSpawnCount --;
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
