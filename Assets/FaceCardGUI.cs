@@ -6,11 +6,11 @@ using System.Collections;
 
 public class FaceCardGUI : MonoBehaviour {
 	public RawImage faceCardHUD;
-	public int rotationCards;
+	//public int rotationCards;
 	// Use this for initialization
 	void Start () {
 		faceCardHUD = GetComponent<RawImage>();
-		rotationCards = 16;
+	//	rotationCards = 16;
 		
 	}
 	

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class RotateScript : MonoBehaviour{
 	public GameController m_gameController;
-	private GameObject[,] rotateBoard = new GameObject[7,10];
+	public PhaseHandler ph;
+	public GameObject[,] rotateBoard = new GameObject[7,10];
 	private GameObject[,] rotateFace = new GameObject[7,10];
 	private Vector3[,] BoardLocation = new Vector3[7,10];
 	private Quaternion[,] BoardRotation = new Quaternion[7,10];
@@ -21,6 +22,8 @@ public class RotateScript : MonoBehaviour{
 	void Start(){
 		m_gameController = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 		m_CameraControll = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+
 	}
 	
 	public void initializeRotate(){
@@ -45,16 +48,20 @@ public class RotateScript : MonoBehaviour{
 	}
 	
 	void Update(){
-		//Test 
-		if(Input.GetKeyDown(KeyCode.T)){
-			//PhysicalRotateSpecs();
-			sideRotate = m_CameraControll.GetSide();
-			Rotate(true,m_CameraControll.GetSide());
-		}
-		if(Input.GetKeyDown(KeyCode.R)){
-			//PhysicalRotateSpecs();
-			sideRotate = m_CameraControll.GetSide();
-			Rotate(false,m_CameraControll.GetSide());
+		if (ph.currentPhase == Phase.rotatePhase && m_gameController.players [m_gameController.currentPlayer].playerType == 0 && m_gameController.players [m_gameController.currentPlayer].rotateCards > 0) {
+			if (Input.GetKeyDown (KeyCode.E)) {
+				//PhysicalRotateSpecs();
+				sideRotate = m_CameraControll.GetSide ();
+				Rotate (true, m_CameraControll.GetSide ());
+				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+			}
+		
+			if (Input.GetKeyDown (KeyCode.Q)) {
+				//PhysicalRotateSpecs();
+				sideRotate = m_CameraControll.GetSide ();
+				Rotate (false, m_CameraControll.GetSide ());
+				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+			}
 		}
 		//This code is checking to see if the board has been initialized in the GameController script
 		/*if(m_gameController.getSingleFace(1,1)!=null&& !init){
