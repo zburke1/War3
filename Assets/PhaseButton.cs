@@ -18,44 +18,42 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
 	void Start () {
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
-	//	ph = GameObject.Find("PhaseHandler").GetComponent<PhaseHandler>();
 		theToggle = GetComponent<Toggle> ();
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
-
 	}
 	
 
 
 	void Update () {
-	//theToggle.onC
 	}
 
 	public void OnPointerClick(PointerEventData data)
 	{
 		if (theToggle.isActiveAndEnabled) {
 			switch (phaseType) {
-			
-			
+
 			case PhaseToggle.rotate:
-			//ph.startRotationPhase(go.players[go.currentPlayer]);
-			ph.nextPhase();
-				Debug.Log ("Player " + go.currentPlayer.ToString () + " Starting Rotation Phase");
+
+				if(ph.currentPhase == Phase.spawnPhase){
+					Debug.Log ("Player " + go.currentPlayer.ToString () + " Starting Rotation Phase");
+					ph.nextPhase();	
+				}
 				break;
-			
+
 			case PhaseToggle.battle:
-			//ph.startBattlePhase(go.players[go.currentPlayer]);
-			ph.nextPhase();
-				Debug.Log ("Player " + go.currentPlayer.ToString () + " Battle Phase");
+				if(ph.currentPhase == Phase.rotatePhase){
+					ph.nextPhase();
+					Debug.Log ("Player " + go.currentPlayer.ToString () + " Battle Phase");
+				}
 				break;
 			
 			case PhaseToggle.end:
-			//ph.disableAllToggles(go.players[go.currentPlayer]);
-			ph.nextPhase();
-				Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
-			//go.nextTurnUpdate();
-		//	ph.startNewTurn(go.players[go.currentPlayer]);
+				if(ph.currentPhase == Phase.battlePhase){
+					ph.nextPhase();
+					Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
+				}
 				break;
-			
+
 			default: 
 				break;
 			
