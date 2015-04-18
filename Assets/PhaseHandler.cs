@@ -41,20 +41,7 @@ public class PhaseHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { //this is primarily for the AI.
-
-		if(currentPhase == Phase.spawnPhase){
-		
-		}
-
-		else if(currentPhase == Phase.rotatePhase){
-		}
-
-		else if(currentPhase == Phase.battlePhase){
-		}
-
-		else if(currentPhase == Phase.endPhase){
-
-		}
+		checkWin (go.currentPlayer);
 
 	}
 
@@ -145,6 +132,11 @@ public class PhaseHandler : MonoBehaviour {
 	
 		}
 
+	}
+
+	public virtual bool checkWin(Player potentialWinner){
+		Player winner;
+		
 	}
 }
 
