@@ -25,7 +25,12 @@ public class TileNumDisplay : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		troopNumText.text = gc.getTroops (face, tile).ToString ();
+		int num = gc.getTroops (face, tile);
+		if (num == 0) {
+			troopNumText.text = "";
+		} else {
+			troopNumText.text = gc.getTroops (face, tile).ToString ();
+		}
 		//debug.log( gc.randomInt);
 	}
 
