@@ -16,6 +16,9 @@ public class Player //: MonoBehaviour
 	public CameraControll camera;
 	public int rotateCards;
 	public int troopSpawnCount;
+	public int resolveTileCount;
+	public Tile attackResolve;
+	public Tile defendResolve;
 
 
 	protected int deployableArmies;
@@ -37,6 +40,7 @@ public class Player //: MonoBehaviour
 		playerColor = playerColors [color];
 		playerColorLight = new Color32(127,153,255,1);
 		playerID = id;
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 	}
 
 
@@ -94,12 +98,24 @@ public class Player //: MonoBehaviour
 		return true;
 	}
 
+	public void resolve() {
+		attackResolve.setForces (1);
+		attackResolve.isResolving = true;
+		defendResolve.setForces (1);
+		defendResolve.isResolving = true;
+	}
+
+	public void stopResolving() {
+		attackResolve.isResolving = false;
+		defendResolve.isResolving = false;
+	}
+
 	public void attack(Tile attacking, Tile defending) {
 		Debug.Log ("attacking!");
 		Debug.Log ("AttackerID: " + attacking.owner.playerID);
 		Debug.Log ("DefenderID: " + defending.owner.playerID);
-		if (attacking.owner == defending.owner) {
-			Debug.Log ("Same team!");
+
+		if (attacking.owner == defending.owner || attacking.getForces () < 2) {
 			return;
 		}
 		//if (attacking.owner == this) {
@@ -111,11 +127,22 @@ public class Player //: MonoBehaviour
 		}
 
 		if (defending.getForces () == 0) {
-			defending.setForces (1);
+			resolveTileCount = attacking.getForces () - 2;
+
+			attackResolve = attacking;
+			defendResolve = defending;
+
+			if (attacking.getForces () > 2) {
+				resolve();
+				ph.nextPhase ();
+			} else {
+				attacking.setForces (1);
+				defending.setForces (1);
+			}
+
 			defending.owner = this;
-			attacking.decArmy();
 			defending.renderOwnerColor();
-			//ph.startWinBattlePhase();
+
 			return;
 		}
 
