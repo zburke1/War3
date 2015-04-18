@@ -169,13 +169,13 @@ public class Tile : MonoBehaviour {
 					renderer.material.color = Color.white;
 				}
 				
-				
-			}
-			for (int i = 0; i < 4; i++) {
-				if (tileNeighbors[i] == ph.focusedTile) {
-					renderer.material.color = ph.focusedTile.owner.playerColor;
+				for (int i = 0; i < 4; i++) {
+					if (tileNeighbors[i] == ph.focusedTile) {
+						renderer.material.color = ph.focusedTile.owner.playerColor;
+					}
 				}
 			}
+			
 			break;
 		
 		
