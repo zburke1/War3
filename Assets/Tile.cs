@@ -151,6 +151,7 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.battlePhase:
+
 			/*if (!tileFocus) {
 				if (tileID != 0) {
 					renderer.material.color = owner.playerColor;
@@ -179,6 +180,7 @@ public class Tile : MonoBehaviour {
 		
 		
 		
+
 		}
 	}
 		
