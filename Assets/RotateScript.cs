@@ -64,7 +64,7 @@ public class RotateScript : MonoBehaviour{
 		//SIDE 1---------------------------------------------------------------------
 		//Side1 Clockwise
 		if(rotate == 1){
-			if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z >=270f ){
+			if(rotateBoard[1,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z >=270f ){
 			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
 			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
 			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
