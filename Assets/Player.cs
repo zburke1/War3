@@ -37,6 +37,7 @@ public class Player //: MonoBehaviour
 		playerID = id;
 	}
 
+
 	void Start() {
 		playerID = 0;
 		playerColor = Color.gray;
@@ -120,7 +121,7 @@ public class Player //: MonoBehaviour
 		int defenderLosses = attackResult [1];
 		attacking.decArmy (attackerLosses);
 		//check if defender has more armies than were lost
-		if (defending.getForces () >= defenderLosses) {
+		if (defending.getForces () > defenderLosses) {
 			defending.decArmy (defenderLosses);
 		} else {
 			//defender loses. move one army by default to the next 

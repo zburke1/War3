@@ -296,11 +296,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	public bool decArmy(int i = 1) {
-		if (forces == 1) {
-			return false;
-		} else {
-			forces -= 1;
-		}
+		forces -= i;
 		return true;
 	}
 

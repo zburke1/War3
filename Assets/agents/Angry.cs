@@ -68,17 +68,26 @@ public class Angry : Player //: WarAgent
 			}
 		}
 		//hax
-		Tile tile2 = AgentUtil.getTileWithLargestArmyAndEnemy(ownedTiles);
+
 		while (deployableArmies > 0) {
+			Tile tile2 = AgentUtil.getTileWithLargestArmyAndEnemy(ownedTiles);
 			if (tile2 != null) {
 				deployArmy(this, tile2);
 			} else {
 				//think I just made angry a turtler.
-				tile2 = AgentUtil.getTileWithLargestArmy(ownedTiles);
+				break;
 			}
-
 		}
 
+		while (deployableArmies > 0) {
+			TileValue tile = AgentUtil.findSafeTile(ownedTiles);
+			
+			if (tile != null) {
+				deployArmy(this, tile.getTiles()[1]);
+			} else {
+				break;
+			}
+		} 
 		
 	}
 

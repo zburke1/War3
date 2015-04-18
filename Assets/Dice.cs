@@ -36,19 +36,33 @@ public class Dice {
 		for (int i = 0; i < attacking.Length; i++) {
 			//note: not sure about using UnityEngine.Random vs System.Random
 			attacking[i] = UnityEngine.Random.Range (1, 7); //max is exclusive
+
 		}
+	
 		for (int i = 0; i < defending.Length; i++) {
 			//note: not sure about using UnityEngine.Random vs System.Random
-			defending[i] = UnityEngine.Random.Range (1, 7); //max is exclusive
+			defending [i] = UnityEngine.Random.Range (1, 7); //max is exclusive 
 		}
 		//sort arrays least to greatest.
 		Array.Sort (attacking);
 		Array.Sort (defending);
 
+		//for debug:
+		//attacker roll string:
+		string attackerRolls = "", defenderRolls = "";
+		for (int i = 0; i < attacking.Length; i++) {
+			attackerRolls += attacking[i] + ", ";
+		}
+		for (int i = 0; i < defending.Length; i++) {
+			defenderRolls += defending[i] + ", ";
+		}
+		Debug.Log ("Attacker rolled: " + attackerRolls);
+		Debug.Log ("Defender rolled: " + defenderRolls);
+
 		//compare dice rolls.
 		if (attacking.Length > defending.Length) {
 			//start at the highest values, and move down
-			for (int i = 0; i <defending.Length; i++) {
+			for (int i = 0; i < defending.Length; i++) {
 				if (attacking[attacking.Length-1-i] > defending[defending.Length-1-i]) {
 					//attacking die is higher than defending die. defender losses +1.
 					result[1]++;
@@ -69,7 +83,8 @@ public class Dice {
 				}
 			} 
 		}
-
+		Debug.Log ("Attacker loses: " + result[0]);
+		Debug.Log ("Defender loses: " + result [1]);
 		return result;
 	}
 }
