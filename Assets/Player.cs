@@ -157,16 +157,23 @@ public class Player //: MonoBehaviour
 		if (defending.getForces () > defenderLosses) {
 			defending.decArmy (defenderLosses);
 		} else {
-			//defender loses. move one army by default to the next 
+			//defender loses
+			resolveTileCount = attacking.getForces () - 2;
 
-			defending.setForces (1);
+			attackResolve = attacking;
+			defendResolve = defending;
 			defending.owner = this;
-			attacking.decArmy();
-			defending.renderOwnerColor();
-			//ph.startWinBattlePhase();
+
+			if (attacking.getForces () > 2) {
+				resolve ();
+				ph.nextPhase ();
+			} else {
+				attacking.setForces (1);
+				defending.setForces (1);
+				defending.renderOwnerColor ();
+			}
+
 			return;
-			//ph. start combat win phase
-			//viktor: this phase of yours will NEED to update the player ownedTiles member
 		}
 	
 	}
