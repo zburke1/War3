@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
- public enum Phase {gameStartPhase, spawnPhase, rotatePhase, battlePhase, winBattlePhase, endPhase,victoryPhase};
+ public enum Phase {gameStartPhase, spawnPhase, rotatePhase, battlePhase, resolvePhase, endPhase,victoryPhase};
 public class PhaseHandler : MonoBehaviour {
 	//These variables contain the toggle objects which we will use for phase visual and interaction
 	Toggle spawnToggle;
@@ -101,8 +101,8 @@ public class PhaseHandler : MonoBehaviour {
 		}
 	}
 
-	public virtual void startWinBattlePhase(Player currentPlayer){
-		currentPhase = Phase.winBattlePhase;
+	public virtual void resolvePhase(Player currentPlayer){
+		currentPhase = Phase.resolvePhase;
 	}
 
 	public virtual void nextPhase(){

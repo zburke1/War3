@@ -91,7 +91,6 @@ public class Player //: MonoBehaviour
 	}
 
 	public void attack(Tile attacking, Tile defending) {
-		//idiot.
 		Debug.Log ("attacking!");
 		Debug.Log ("AttackerID: " + attacking.owner.playerID);
 		Debug.Log ("DefenderID: " + defending.owner.playerID);
