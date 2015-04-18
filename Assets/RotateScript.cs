@@ -766,7 +766,8 @@ public class RotateScript : MonoBehaviour{
 				destination.setOwner (owners[i,j]);
 			}
 		}
-		
+
+		//ph.checkWin();
 		return;
 	}
 	

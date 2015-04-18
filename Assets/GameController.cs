@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class GameController : MonoBehaviour {
 	public PhaseHandler m_PhaseHandler;
 	public Player[] players;
 	public int numPlayers;
+	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
 	//*****************************************************************************
 	//Hardcoded BlockNumbers to go with Unity Instantiated Cube. DO NOT EDIT!
@@ -280,15 +282,6 @@ public class GameController : MonoBehaviour {
 	}
 	//Get and Set functions for RotateScript END
 	//*****************************************************************************
-	
-	public void deleteTest(){
-		// Destroy(T[1].gameObject);
-// 		for(int i=1;i<10;i++){
-		//Debug.Log("Test get Troops = " + getTroops(1,2));
-					
-// 		}
-
-	}
 
 
 	public void hardcodeTop() {
@@ -462,6 +455,18 @@ public class GameController : MonoBehaviour {
 		return faces[i,j].gameObject.GetComponent<Tile>();
 	}
 	
+	/*public void highlightCenterTiles() {
+		foreach (int i in centerTiles) {
+			Tile tile = findTileFromID(i);
+			tile.renderer.material.color.a = 0.8f;
+		}
+	}
 
+	public void dehighlightCenterTiles() {
+		foreach (int i in centerTiles) {
+			Tile tile = findTileFromID(i);
+			tile.renderer.material.color.a = 0.8f;
+		}
+	}*/
 	
 }

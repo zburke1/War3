@@ -10,6 +10,7 @@ public class Player //: MonoBehaviour
 	public Color playerColor;
 	protected Color[] playerColors = { Color.blue, Color.red, Color.magenta, Color.yellow, Color.cyan, new Color(0.2F, 0.3F, 0.4F)};
 	public int playerID;
+	public Color playerColorLight;
 	protected int totalFaces;
 	public GameController go;
 	public int rotateCards;
@@ -25,12 +26,14 @@ public class Player //: MonoBehaviour
 	public Player (){
 		playerID = -1; //Nonplayer
 		playerColor = Color.white;
+		playerColorLight = new Color32(127,153,255,1);
 		playerType = -1; //Nonplayer
 	}
 
 	public Player(int id, int type, int color) {
 		playerType = type;
 		playerColor = playerColors [color];
+		playerColorLight = new Color32(127,153,255,1);
 		playerID = id;
 	}
 
