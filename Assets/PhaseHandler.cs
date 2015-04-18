@@ -24,8 +24,6 @@ public class PhaseHandler : MonoBehaviour {
 		endToggle = GameObject.Find("EndPhaseToggle").GetComponent<Toggle>();
 		currentPhase = Phase.spawnPhase;
 
-
-
 		spawnToggle.isOn = true;
 		rotateToggle.isOn = false;
 		battleToggle.isOn = false;
@@ -41,7 +39,7 @@ public class PhaseHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { //this is primarily for the AI.
-		checkWin (go.currentPlayer);
+
 
 	}
 
@@ -81,6 +79,7 @@ public class PhaseHandler : MonoBehaviour {
 		rotateToggle.isOn = true;
 		battleToggle.isOn = false;
 		currentPhase= Phase.rotatePhase;
+
 		if (currentPlayer.playerType == 1) {
 			Debug.Log ("Calling angry start rotate...");
 			currentPlayer.startRotatePhase();	
@@ -93,6 +92,7 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle.isOn = true;
 		endToggle.interactable = true;
 		currentPhase = Phase.battlePhase;
+
 		if (currentPlayer.playerType == 1) {
 			Debug.Log ("Calling angry start battle...");
 			currentPlayer.startAttackPhase();	
@@ -107,15 +107,18 @@ public class PhaseHandler : MonoBehaviour {
 		switch(currentPhase){
 		
 		case Phase.spawnPhase:
+			checkWin ();
 			startRotationPhase (go.players[go.currentPlayer]);
 			break;
 
 		case Phase.rotatePhase:
+			checkWin ();
 			startBattlePhase(go.players[go.currentPlayer]);
 		
 			break;
 			
 		case Phase.battlePhase:
+			checkWin ();
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			break;
@@ -124,6 +127,7 @@ public class PhaseHandler : MonoBehaviour {
 
 		//	break;
 		case Phase.endPhase:
+			checkWin ();
 			go.players[go.currentPlayer].rotateCards++;
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
@@ -134,8 +138,8 @@ public class PhaseHandler : MonoBehaviour {
 
 	}
 
-	public virtual bool checkWin(Player potentialWinner){
-		Player winner;
+	public virtual Player checkWin( ){
+		return null;
 		
 	}
 }
