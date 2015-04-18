@@ -65,15 +65,15 @@ public class RotateScript : MonoBehaviour{
 		//Side1 Clockwise
 		if(rotate == 1){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z >=270f ){
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.z !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.z <=270f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -100,15 +100,15 @@ public class RotateScript : MonoBehaviour{
 	//Side1 CounterClockwise
 	if(rotate == 2){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z <=90f ){
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.z !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.z >90f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -137,15 +137,15 @@ public class RotateScript : MonoBehaviour{
 		if(rotate == 3){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.x ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.x !=270f ){
 				Debug.Log(rotateBoard[sideRotate,1].transform.eulerAngles.x);
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.x !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.x ==270f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -172,15 +172,15 @@ public class RotateScript : MonoBehaviour{
 	//Side2 CounterClockwise
 	if(rotate == 4){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.x ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.x !=90f ){
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.x !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.x ==00f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -208,15 +208,15 @@ public class RotateScript : MonoBehaviour{
 		//Side3 Clockwise
 		if(rotate == 5){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z <=90f ){
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.forward,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.z !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.z >90f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -244,15 +244,15 @@ public class RotateScript : MonoBehaviour{
 	if(rotate == 6){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.z ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.z >=270f ){
 			Debug.Log(rotateBoard[sideRotate,1].transform.eulerAngles.z);
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.back,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.z !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.z <270f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -280,15 +280,15 @@ public class RotateScript : MonoBehaviour{
 		//Side4 Clockwise
 		if(rotate == 7){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.x ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.x !=90f ){
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.right,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.x !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.x ==90f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -315,15 +315,15 @@ public class RotateScript : MonoBehaviour{
 	//Side4 CounterClockwise
 	if(rotate == 8){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.x ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.x !=270f ){
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.left,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.x !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.x ==270f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -352,15 +352,15 @@ public class RotateScript : MonoBehaviour{
 		if(rotate == 9){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.y ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.y <=90f ){
 			Debug.Log(rotateBoard[sideRotate,1].transform.eulerAngles.y);
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.y !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.y >90f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -387,15 +387,15 @@ public class RotateScript : MonoBehaviour{
 	//Side5 CounterClockwise
 	if(rotate == 10){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.y ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.y >=270f ){
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.y !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.y <270f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -423,16 +423,15 @@ public class RotateScript : MonoBehaviour{
 		//Side6 Clockwise
 		if(rotate == 11){
 			if(rotateBoard[sideRotate,1].transform.eulerAngles.y ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.y >=270f ){
-			Debug.Log(rotateBoard[sideRotate,1].transform.eulerAngles.y);
-			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
-			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);	
-			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down, 70 * Time.deltaTime);
+			rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
+			rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);	
+			rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.down,100 * Time.deltaTime);
 		}
 		else if(rotateBoard[sideRotate,1].transform.eulerAngles.y !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.y <270f ){
 			rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
@@ -459,15 +458,15 @@ public class RotateScript : MonoBehaviour{
 	//Side6 CounterClockwise
 	if(rotate == 12){
 		if(rotateBoard[sideRotate,1].transform.eulerAngles.y ==0 || rotateBoard[sideRotate,1].transform.eulerAngles.y <=90f ){
-		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
-		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);	
-		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up, 70 * Time.deltaTime);
+		rotateBoard[sideRotate,1].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,2].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,3].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,4].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,5].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,6].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,7].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
+		rotateBoard[sideRotate,8].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);	
+		rotateBoard[sideRotate,9].transform.RotateAround(rotateBoard[sideRotate,5].transform.GetChild(6).position, Vector3.up,100 * Time.deltaTime);
 	}
 	else if(rotateBoard[sideRotate,1].transform.eulerAngles.y !=0 ||rotateBoard[sideRotate,1].transform.eulerAngles.y >90f ){
 		rotateBoard[sideRotate,1].transform.position = BoardLocation[sideRotate,1];
