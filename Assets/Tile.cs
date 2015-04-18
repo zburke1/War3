@@ -21,6 +21,7 @@ public class Tile : MonoBehaviour {
 	public int tileID = 0;
 	public int face = 0;
 	public bool tileFocus;
+	public bool isAttacking;
 
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
@@ -55,46 +56,44 @@ public class Tile : MonoBehaviour {
 				if (tileID != 0) {
 					renderer.material.color = Color.green;
 				}
-			break;
+				break;
 			case Phase.rotatePhase:
-			if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 0) {
-				if (centerTiles.Contains (tileID)) {
-					switch (tileID) {
-					case 5:
-						m_RotateScript.Rotate (false, 1);
-						break;
-					case 14:
-						m_RotateScript.Rotate (false, 2);
-						break;
-					case 23:
-						m_RotateScript.Rotate (false, 3);
-						break;
-					case 32:
-						m_RotateScript.Rotate (false, 4);
-						break;
-					case 41:
-						m_RotateScript.Rotate (false, 5);
-						break;
-					case 50:
-						m_RotateScript.Rotate (false, 6);
-						break;
+				if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 0) {
+					if (centerTiles.Contains (tileID)) {
+						switch (tileID) {
+						case 5:
+							m_RotateScript.Rotate (false, 1);
+							break;
+						case 14:
+							m_RotateScript.Rotate (false, 2);
+							break;
+						case 23:
+							m_RotateScript.Rotate (false, 3);
+							break;
+						case 32:
+							m_RotateScript.Rotate (false, 4);
+							break;
+						case 41:
+							m_RotateScript.Rotate (false, 5);
+							break;
+						case 50:
+							m_RotateScript.Rotate (false, 6);
+							break;
+						}
+						go.players[go.currentPlayer].rotateCards--;	
+					//	m_PhaseHandler.rotateToggle.isOn = false;
 					}
-					go.players[go.currentPlayer].rotateCards--;	
-				//	m_PhaseHandler.rotateToggle.isOn = false;
+					mousereleased=false;
 				}
-				mousereleased=false;
-			}
-			if(Input.GetMouseButtonUp(1))
-				mousereleased=true;
-			break;
-
+				if(Input.GetMouseButtonUp(1))
+					mousereleased=true;
 				break;
 			case Phase.battlePhase:
-			if(!tileFocus){
 				if (tileID != 0) {
-					renderer.material.color = Color.green;
+					if (owner.playerID == 1) {
+						renderer.material.color = new Color32(127,153,255,1);
+					}
 				}
-			}
 				break;
 
 		}
@@ -152,28 +151,10 @@ public class Tile : MonoBehaviour {
 
 		case Phase.battlePhase:
 
-			/*if (!tileFocus) {
-				if (tileID != 0) {
-					renderer.material.color = owner.playerColor;
-
-				}
-
-			}*/
 			if (tileID != 0) {
-				if (playerID != -1) {
+				if (owner.playerID == 1) {
 					renderer.material.color = owner.playerColor;
-					for ( int i =0; i < tileNeighbors.Length; i++){
-						tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
-					}
-				} else {
-					renderer.material.color = Color.white;
-				}
-				
-				for (int i = 0; i < 4; i++) {
-					if (tileNeighbors[i] == ph.focusedTile) {
-						renderer.material.color = ph.focusedTile.owner.playerColor;
-					}
-				}
+				}	
 			}
 			
 			break;
@@ -228,59 +209,53 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.battlePhase:
-			renderer.material.color = Color.green;/*
-			if(ph.focusedTile == this){
-				ph.focusedTile = this;
-				tileFocus = true;}
-			else{
-				ph.targetTile = this;
-				ph.focusedTile.owner.attack(ph.focusedTile,ph.targetTile);
 
-			}
-	*/
-			if (ph.focusedTile != this) {
-				bool isAttack = false;
+			if (!isAttacking) {
+				if (owner.playerID == 1) {
+					renderer.material.color = owner.playerColorLight;
+					setNeighborColors(true, this);
+				}
+
 				for (int i = 0; i < 4; i++) {
-					if (tileNeighbors[i] == ph.focusedTile) {
-						Debug.Log ("player attacking");
-						Debug.Log ("ph.focusedID: " + ph.focusedTile.owner.playerID);
-						//Debug.Log ("tileNeighborID: " + 
-						ph.focusedTile.owner.attack(ph.focusedTile, this);
-						renderOwnerColor();
-						isAttack = true;
-						battleColors (false);
+					Tile neighbor = tileNeighbors[i];
+					if (neighbor.isAttacking) {
+						neighbor.owner.attack(neighbor, this);
+						setNeighborColors(false, neighbor);
+						neighbor.isAttacking = false;
 					}
 				}
-				if(!isAttack) {
-					ph.focusedTile = this;
-					battleColors (true);
-				}
-			
-			}
 
+				isAttacking = true;
+
+			} else {
+				if (owner.playerID == 1) {
+					renderer.material.color = owner.playerColor;
+					setNeighborColors(false, this);
+				}
+				isAttacking = false;
+			}
+		
 
 
 			break;
 		}
 	}
 
-	public void battleColors(bool on) {
+	public void setNeighborColors(bool highlight, Tile tile) {
+		Tile[] neighbors = tile.getNeighborTiles();
+
 		for (int i = 0; i < 4; i++) {
-			tileNeighbors[i].setBattleColor(on);
+			if (highlight)
+				neighbors[i].renderer.material.color = Color.gray;
+			else
+				neighbors[i].renderer.material.color = neighbors[i].owner.playerColor;
 		}
 	}
+
 
 	public void renderOwnerColor() {
 		renderer.material.color = owner.playerColor;
 	}
-	public void setBattleColor(bool on) {
-		if (on) {
-			renderer.material.color = Color.gray;
-		} else {
-			renderer.material.color = owner.playerColor;
-		}
-	}
-
 
 	public void setID(int id) {
 		tileID = id;
@@ -305,6 +280,7 @@ public class Tile : MonoBehaviour {
 		playerID = newOwner.playerID;
 		owner = newOwner;
 		renderer.material.color = newOwner.playerColor;
+		//ph.checkWin();
 	}
 
 	public int getNeighborID(int i) {

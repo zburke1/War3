@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
- public enum Phase {gameStartPhase, spawnPhase, rotatePhase, battlePhase, winBattlePhase, endPhase,victoryPhase};
+ public enum Phase {gameStartPhase, spawnPhase, rotatePhase, battlePhase, resolvePhase, endPhase,victoryPhase};
 public class PhaseHandler : MonoBehaviour {
 	//These variables contain the toggle objects which we will use for phase visual and interaction
 	Toggle spawnToggle;
@@ -22,15 +22,15 @@ public class PhaseHandler : MonoBehaviour {
 		spawnToggle = GameObject.Find("SpawnPhaseToggle").GetComponent<Toggle>();
 		battleToggle = GameObject.Find("BattlePhaseToggle").GetComponent<Toggle>();
 		endToggle = GameObject.Find("EndPhaseToggle").GetComponent<Toggle>();
-		currentPhase = Phase.spawnPhase;
+		currentPhase = Phase.gameStartPhase;
 
-		spawnToggle.isOn = true;
+		spawnToggle.isOn = false;
 		rotateToggle.isOn = false;
 		battleToggle.isOn = false;
 		endToggle.isOn = false;
 
-		spawnToggle.interactable = true;
-		rotateToggle.interactable = true;
+		spawnToggle.interactable = false;
+		rotateToggle.interactable = false;
 		battleToggle.interactable = false;
 		endToggle.interactable = false;
 	
@@ -39,6 +39,17 @@ public class PhaseHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { //this is primarily for the AI.
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			nextPhase ();
+		}
+		if (currentPhase == Phase.spawnPhase && go.players [go.currentPlayer].troopSpawnCount <= 0) {
+			nextPhase ();
+		}
+
+		if (currentPhase == Phase.rotatePhase && go.players [go.currentPlayer].rotateCards <= 0) {
+			nextPhase ();
+		}
+
 
 
 	}
@@ -99,13 +110,17 @@ public class PhaseHandler : MonoBehaviour {
 		}
 	}
 
-	public virtual void startWinBattlePhase(Player currentPlayer){
-		currentPhase = Phase.winBattlePhase;
+	public virtual void resolvePhase(Player currentPlayer){
+		currentPhase = Phase.resolvePhase;
 	}
 
 	public virtual void nextPhase(){
 		switch(currentPhase){
 		
+		case Phase.gameStartPhase:
+			startNewTurn ( go.players[go.currentPlayer]);
+			break;
+				
 		case Phase.spawnPhase:
 			checkWin ();
 			startRotationPhase (go.players[go.currentPlayer]);
@@ -121,11 +136,9 @@ public class PhaseHandler : MonoBehaviour {
 			checkWin ();
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
+			nextPhase();
 			break;
 
-		//case Phase.winBattlePhase:
-
-		//	break;
 		case Phase.endPhase:
 			checkWin ();
 			go.players[go.currentPlayer].rotateCards++;
