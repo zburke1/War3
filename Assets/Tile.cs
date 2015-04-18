@@ -35,7 +35,11 @@ public class Tile : MonoBehaviour {
 		m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
 		m_PhaseHandler = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 		//owner = GameObject.Instantiate (Player);
-		//owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
+		if (owner == null) {
+			owner = new Player (); //initialize id = 0, playerColor = grey, playerType = -1 (for nonplayer entity type)
+		}
+		Debug.Log ("Why am I starting again?");
+
 	}
 	
 	// Update is called once per frame
@@ -45,7 +49,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-
+		Debug.Log ("Tile Owner: " + owner.playerID);
 		switch (ph.currentPhase) {
 			case Phase.spawnPhase:
 				if (tileID != 0) {
@@ -154,26 +158,27 @@ public class Tile : MonoBehaviour {
 				}
 
 			}*/
+			if (tileID != 0) {
+				if (playerID != -1) {
+					renderer.material.color = owner.playerColor;
+					for ( int i =0; i < tileNeighbors.Length; i++){
+						tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
+					}
+				} else {
+					renderer.material.color = Color.white;
+				}
+				
+				
+			}
 			for (int i = 0; i < 4; i++) {
-				if (neighbors[i] == ph.focusedTile) {
-					renderer.material.color = Color.gray;
+				if (tileNeighbors[i] == ph.focusedTile) {
+					renderer.material.color = ph.focusedTile.owner.playerColor;
 				}
 			}
 			break;
-		/*
-		if (tileID != 0) {
-			if (playerID != -1) {
-				renderer.material.color = owner.playerColor;
-				for ( int i =0; i < tileNeighbors.Length; i++){
-					tileNeighbors[i].renderer.material.color = tileNeighbors[i].owner.playerColor;
-				}
-			} else {
-				renderer.material.color = Color.white;
-			}
-			
-
-		}
-		*/
+		
+		
+		
 		}
 	}
 		
@@ -236,8 +241,12 @@ public class Tile : MonoBehaviour {
 				for (int i = 0; i < 4; i++) {
 					if (tileNeighbors[i] == ph.focusedTile) {
 						Debug.Log ("player attacking");
-						owner.attack(ph.focusedTile, tileNeighbors[i]);
+						Debug.Log ("ph.focusedID: " + ph.focusedTile.owner.playerID);
+						//Debug.Log ("tileNeighborID: " + 
+						ph.focusedTile.owner.attack(ph.focusedTile, this);
+						renderOwnerColor();
 						isAttack = true;
+						battleColors (false);
 					}
 				}
 				if(!isAttack) {
@@ -259,6 +268,9 @@ public class Tile : MonoBehaviour {
 		}
 	}
 
+	public void renderOwnerColor() {
+		renderer.material.color = owner.playerColor;
+	}
 	public void setBattleColor(bool on) {
 		if (on) {
 			renderer.material.color = Color.gray;

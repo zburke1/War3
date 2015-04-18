@@ -87,10 +87,11 @@ public class Angry : Player //: WarAgent
 		//ph.nextPhase ();
 	}
 
-	public void startAttackPhase() {
+	public override void startAttackPhase() {
 		Debug.Log ("ANGRY ATTACK");
 		TileValue bestAttack = AgentUtil.findBestAttack (ownedTiles);
-		if (bestAttack.value < .6) {
+		Debug.Log ("DID BESTATTACK");
+		if (bestAttack == null || bestAttack.value < .6) {
 			//best attack sucks. don't attack.
 		} else {
 			attack (bestAttack.getTiles()[0], bestAttack.getTiles()[1]);
@@ -99,12 +100,16 @@ public class Angry : Player //: WarAgent
 		while (tile != null) {
 			Tile[] neighbors = tile.getNeighborTiles();
 			Tile expandFrom = null;
+
 			for (int i = 0; i < 4; i++) {
 				if (neighbors[i].owner == this && neighbors[i].getForces() > 3) {
 					expandFrom = neighbors[i];
 				}
 			}
-			attack (expandFrom, tile);
+			if (expandFrom != null) {
+				attack (expandFrom, tile);
+			}
+			tile = null;
 		}
 
 	}

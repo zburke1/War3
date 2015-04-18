@@ -392,9 +392,9 @@ public class GameController : MonoBehaviour {
 			Player newPlayer;
 			//Player newPlayer = new Player (i, 0, i);
 			if (i == 0) {
-				newPlayer = new Player (i, 0, i);
+				newPlayer = new Player (i+1, 0, i);
 			} else {
-				newPlayer = new Angry(i,1,i);
+				newPlayer = new Angry(i+1,1,i);
 			}
 			players[i] = newPlayer;
 			for (int j = 0; j<6/numPlayers; j++) {
@@ -402,7 +402,11 @@ public class GameController : MonoBehaviour {
 				tile.setOwner (newPlayer);
 				tile.setForces (3);
 			}
+
 		}
+		Debug.Log ("Player0: " + players[0].playerID);
+		Debug.Log ("Player1: " + players[1].playerID);
+
 	}
 
 	//params can also be tileIDs if necessary.
@@ -411,6 +415,7 @@ public class GameController : MonoBehaviour {
 		int attackerForces = attacker.getForces();
 		int defenderForces = defender.getForces();
 		int[] attackResult = Dice.roll (attackerForces, defenderForces);
+		Debug.Log ("AttackerID: " + attacker.owner.playerID);
 		attacker.setForces(attackerForces + attackResult[0]);
 		defender.setForces(defenderForces + attackResult[1]);
 

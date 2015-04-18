@@ -90,16 +90,28 @@ public class Player //: MonoBehaviour
 	public void attack(Tile attacking, Tile defending) {
 		//idiot.
 		Debug.Log ("attacking!");
+		Debug.Log ("AttackerID: " + attacking.owner.playerID);
+		Debug.Log ("DefenderID: " + defending.owner.playerID);
 		if (attacking.owner == defending.owner) {
+			Debug.Log ("Same team!");
 			return;
 		}
-		if (attacking.owner == this) {
-			return;
-		}
+		//if (attacking.owner == this) {
+
+		//	return;
+		//}
 		if (attacking.getForces () < 2) {
 			return;
 		}
 
+		if (defending.getForces () == 0) {
+			defending.setForces (1);
+			defending.owner = this;
+			attacking.decArmy();
+			defending.renderOwnerColor();
+			//ph.startWinBattlePhase();
+			return;
+		}
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
 		int attackerLosses = attackResult [0];
@@ -114,6 +126,9 @@ public class Player //: MonoBehaviour
 			defending.setForces (1);
 			defending.owner = this;
 			attacking.decArmy();
+			defending.renderOwnerColor();
+			//ph.startWinBattlePhase();
+			return;
 			//ph. start combat win phase
 			//viktor: this phase of yours will NEED to update the player ownedTiles member
 		}

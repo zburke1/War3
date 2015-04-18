@@ -133,6 +133,9 @@ public class PhaseHandler : MonoBehaviour {
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			break;
 
+		//case Phase.winBattlePhase:
+
+		//	break;
 		case Phase.endPhase:
 			go.players[go.currentPlayer].rotateCards++;
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");

@@ -121,7 +121,7 @@ public class AgentUtil //: MonoBehaviour
 		int[] faceValues = {0,0,0,0,0,0};
 		for (int i = 0; i < tiles.Count; i++) {
 			Tile tile = (Tile)tiles[i];
-			faceValues[tile.face]++;
+			faceValues[tile.face-1]++;
 		}
 		int max = 0;
 		int maxi = 0;
@@ -160,6 +160,9 @@ public class AgentUtil //: MonoBehaviour
 	//returns empty array if none found...
 	public static TileValue findBestAttack(ArrayList tiles) {
 		ArrayList tileList = getTileWithEnemy(tiles);
+		if (tileList.Count == 0) {
+			return null;
+		}
 		//attack is 0, defend is 1
 		TileValue pair = new TileValue ();
 		double bestChance = 0;
@@ -470,14 +473,19 @@ public class AgentUtil //: MonoBehaviour
 
 	static void reshuffle(ArrayList tiles)
     {
+		/*
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < tiles.Count; t++ )
         {
-            Tile tmp = (Tile)tiles[t];
-            int r = Random.Range(t, tiles.Count);
-            tiles[t] = tiles[r];
-            tiles[r] = tmp;
+			if ((Tile)(tiles[t]) != null) {
+				Tile tmp = (Tile)(tiles[t]);
+				int r = Random.Range(t, tiles.Count);
+				tiles[t] = tiles[r];
+				tiles[r] = tmp;
+			}
+            
         }
+        */
     }
 	
 
