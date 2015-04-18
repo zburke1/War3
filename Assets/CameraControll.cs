@@ -94,30 +94,21 @@ public class CameraControll : MonoBehaviour {
 			
 			}
 			
-			if (Input.GetKey (KeyCode.Alpha2)) {
-				loc = 2;
-					
-				}
-				
-				if (Input.GetKey (KeyCode.Alpha3)) {
-					loc = 3;
-						
-					}
-					
-					if (Input.GetKey (KeyCode.Alpha4)) {
-						loc = 4;
-						
-						}	
-						
-						if (Input.GetKey (KeyCode.Alpha5)) {
-							loc = 5;
-							
-							}	
-							
-							if (Input.GetKey (KeyCode.Alpha6)) {
-								loc = 6;
-							
-								}				
+		if (Input.GetKey (KeyCode.Alpha2)) {
+			loc = 2;
+		}	
+		if (Input.GetKey (KeyCode.Alpha3)) {
+			loc = 3;		
+		}
+		if (Input.GetKey (KeyCode.Alpha4)) {
+			loc = 4;		
+		}			
+		if (Input.GetKey (KeyCode.Alpha5)) {
+			loc = 5;			
+		}						
+		if (Input.GetKey (KeyCode.Alpha6)) {
+			loc = 6;				
+		}				
 			
 		if(loc==1 && startMarker.position!=LocA.position){
 			

@@ -19,6 +19,10 @@ public class RotateScript : MonoBehaviour{
 	}
 	
 	void Update(){
+		//Test code.....
+		if(Input.GetKeyDown(KeyCode.Space)){
+			Rotate(true,1);
+		}
 		//This code is checking to see if the board has been initialized in the GameController script
 		if(m_gameController.getSingleFace(1,1)!=null&& !init){
 			Debug.Log("Initialize Logic.......");
