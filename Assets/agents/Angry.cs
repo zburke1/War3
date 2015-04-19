@@ -105,7 +105,9 @@ public class Angry : Player //: WarAgent
 			//stupid to have to check this condition twice
 			while (bestAttack != null && bestAttack.value > .6) {
 				Debug.Log ("BestAttack: " + bestAttack.getTiles () [0].tileID);
-				attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
+				camera.AIRotateCamera(bestAttack.getTiles()[0].face);
+				monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
+				//attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
 				bestAttack = AgentUtil.findBestAttack (ownedTiles);
 				Debug.Log ("new best attack");
 				//this is so stupid
