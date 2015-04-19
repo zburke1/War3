@@ -68,8 +68,9 @@ public class Angry : Player //: WarAgent
 
 		int face = AgentUtil.getFaceWithMostTiles(ownedTiles);
 		ArrayList tiles = AgentUtil.getTilesOnFace(ownedTiles, face);
-		int least = 100;
+
 		while (deployableArmies > 0) {
+			int least = 100;
 			Tile placementTile = null;
 			for (int i = 0; i < tiles.Count; i++) {
 				Tile tmpTile = (Tile)tiles[i];
@@ -126,8 +127,6 @@ public class Angry : Player //: WarAgent
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
 				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
 				delay (1);
-
-
 				Debug.Log ("Han shot first");
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
