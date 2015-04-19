@@ -55,15 +55,6 @@ public class Angry : Player //: WarAgent
 
 	//default behaviour for angry
 	public void deployArmies() {
-		while (deployableArmies > 2) {
-			Debug.Log ("Angry deploying corner");
-			Tile tile = AgentUtil.findEmptyCorner(this);
-
-			if (tile != null) {
-				deployArmy(this, tile);
-			}
-		}
-		//hax
 		Debug.Log ("Angry deploying safe");
 		while (deployableArmies > 0) {
 			Tile tile = AgentUtil.getTileWithLargestArmyAndEnemy(ownedTiles);
@@ -135,6 +126,8 @@ public class Angry : Player //: WarAgent
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
 				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
 				delay (1);
+
+
 				Debug.Log ("Han shot first");
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
