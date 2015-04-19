@@ -11,11 +11,18 @@ public class Player //: MonoBehaviour
 	protected Color[] playerColors = { Color.blue, Color.red, Color.magenta, Color.yellow, Color.cyan, new Color(0.2F, 0.3F, 0.4F)};
 	public int playerID;
 	public Color playerColorLight;
+	public Color playerColorText;
 	protected int totalFaces;
 	public GameController go;
+	public CameraControll camera;
 	public int rotateCards;
 	public int troopSpawnCount;
-
+	public int resolveTileCount;
+	public Tile attackResolve;
+	public Tile defendResolve;
+	public ResolveGUI rsGUI;
+	public bool showResolveCount;
+	public MonoBehaviour monoB;
 
 	protected int deployableArmies;
 	protected ArrayList ownedTiles;
@@ -26,15 +33,22 @@ public class Player //: MonoBehaviour
 	public Player (){
 		playerID = -1; //Nonplayer
 		playerColor = Color.white;
-		playerColorLight = new Color32(127,153,255,1);
+		//playerColorLight = new Color32(127,153,255,1);
+		//playerColorText = Color.white;
 		playerType = -1; //Nonplayer
+		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
+		rsGUI = GameObject.FindObjectOfType(typeof(ResolveGUI)) as ResolveGUI;
+		monoB = monoB = GameObject.FindObjectOfType<MonoBehaviour>();
 	}
 
 	public Player(int id, int type, int color) {
+
 		playerType = type;
 		playerColor = playerColors [color];
-		playerColorLight = new Color32(127,153,255,1);
+		playerColorLight = playerColor + new Color( 0.15f,0.15f,0.15f);
+		playerColorText = playerColor + new Color( 0.45f,0.45f,0.45f);
 		playerID = id;
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 	}
 
 
@@ -44,6 +58,7 @@ public class Player //: MonoBehaviour
 		playerType = -1;
 		rotateCards = 0;
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 	}
 
 	void Update() {
@@ -92,29 +107,66 @@ public class Player //: MonoBehaviour
 		return true;
 	}
 
+	public void resolve() {
+		Color tempColor = attackResolve.owner.playerColorLight;
+
+		attackResolve.setForces (1);
+		attackResolve.isResolving = true;
+		showResolveCount = true;
+		attackResolve.renderer.material.color = tempColor;
+
+		defendResolve.setForces (1);
+		defendResolve.isResolving = true;
+		defendResolve.renderer.material.color = tempColor;
+	}
+
+	public void stopResolving() {
+	
+		attackResolve.isResolving = false;
+		attackResolve.renderOwnerColor ();
+		showResolveCount = true;		
+		defendResolve.isResolving = false;
+		defendResolve.renderOwnerColor ();
+	}
+
 	public void attack(Tile attacking, Tile defending) {
 		Debug.Log ("attacking!");
 		Debug.Log ("AttackerID: " + attacking.owner.playerID);
 		Debug.Log ("DefenderID: " + defending.owner.playerID);
-		if (attacking.owner == defending.owner) {
-			Debug.Log ("Same team!");
+
+		if (attacking.owner == defending.owner || attacking.getForces () < 2) {
 			return;
 		}
-		//if (attacking.owner == this) {
 
-		//	return;
-		//}
 		if (attacking.getForces () < 2) {
 			return;
 		}
 
 		if (defending.getForces () == 0) {
-			defending.setForces (1);
+			resolveTileCount = attacking.getForces () - 2;
+
+			attackResolve = attacking;
+			defendResolve = defending;
 			defending.owner = this;
-			attacking.decArmy();
-			defending.renderOwnerColor();
-			//ph.startWinBattlePhase();
- 			return;
+//commented instead of removed for safety.
+//<<<<<<< HEAD
+//			attacking.decArmy();
+//			defending.renderOwnerColor();
+//			//ph.startWinBattlePhase();
+// 			return;
+//=======
+			
+			if (attacking.getForces () > 2) {
+				resolve();
+				ph.nextPhase ();
+			} else {
+				attacking.setForces (1);
+				defending.setForces (1);
+				defending.renderOwnerColor ();
+			}
+
+			return;
+//>>>>>>> f5f82733ed89f5e4a42094c454ec18308558a566
 		}
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
@@ -125,16 +177,31 @@ public class Player //: MonoBehaviour
 		if (defending.getForces () > defenderLosses) {
 			defending.decArmy (defenderLosses);
 		} else {
-			//defender loses. move one army by default to the next 
+			//defender loses
+			resolveTileCount = attacking.getForces () - 2;
+//commented out for safety
+//<<<<<<< HEAD
+//			defending.setForces (1);
+//			defending.setOwner (this);
+//			attacking.decArmy();
+//			defending.renderOwnerColor();
+//			//ph.startWinBattlePhase();
+//=======
+			attackResolve = attacking;
+			defendResolve = defending;
+			defending.owner = this;
 
-			defending.setForces (1);
-			defending.setOwner (this);
-			attacking.decArmy();
-			defending.renderOwnerColor();
-			//ph.startWinBattlePhase();
+			if (attacking.getForces () > 2) {
+				resolve ();
+				ph.nextPhase ();
+			} else {
+				attacking.setForces (1);
+				defending.setForces (1);
+				defending.renderOwnerColor ();
+			}
+
+//>>>>>>> f5f82733ed89f5e4a42094c454ec18308558a566
 			return;
-			//ph. start combat win phase
-			//viktor: this phase of yours will NEED to update the player ownedTiles member
 		}
 	
 	}

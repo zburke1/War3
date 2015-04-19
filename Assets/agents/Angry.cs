@@ -16,6 +16,8 @@ public class Angry : Player //: WarAgent
 		playerType = type;
 		playerColor = playerColors [color];
 		playerID = id;
+		playerColorLight = playerColor + new Color( 0.15f,0.15f,0.15f);
+		playerColorText = playerColor + new Color( 0.5f,0.5f,0.5f);
 	}
 
 	public override void startDeployPhase() {
@@ -121,6 +123,8 @@ public class Angry : Player //: WarAgent
 			TileValue tiles = AgentUtil.findSafeTile (largeTiles);
 			if (tiles != null) {
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
+				camera.AIRotateCamera(tiles.getTiles()[0].face);
+				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1]));
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 			} else {
 				Debug.Log ("No safe tiles found!");
@@ -129,7 +133,7 @@ public class Angry : Player //: WarAgent
 		*/
 		//used to halt the loop via debug.
 		bool masterKey = true;
-		//loop until no safe tiles found
+		//loop until no safe tiles found	
 		while(masterKey) {
 			if (largeTiles.Count == 0) {
 				break;
@@ -148,7 +152,10 @@ public class Angry : Player //: WarAgent
 		} 
 
 	}
-	
+	private IEnumerator waitAttack(Tile x, Tile y){
+		yield return new WaitForSeconds(5);
+		attack (x, y);
+	}
 	public Tile thinkTileAttack() {
 		return null;
 	}
@@ -161,5 +168,5 @@ public class Angry : Player //: WarAgent
 	public int transferArmies() {
 		return 0;
 	}
-
+	
 }

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class RotateScript : MonoBehaviour{
 	public GameController m_gameController;
-	private GameObject[,] rotateBoard = new GameObject[7,10];
+	public PhaseHandler ph;
+	public GameObject[,] rotateBoard = new GameObject[7,10];
 	private GameObject[,] rotateFace = new GameObject[7,10];
 	private Vector3[,] BoardLocation = new Vector3[7,10];
 	private Quaternion[,] BoardRotation = new Quaternion[7,10];
@@ -13,14 +14,19 @@ public class RotateScript : MonoBehaviour{
 	public CameraControll m_CameraControll;
 	private GameObject[,] tempBoard = new GameObject[7,10];
 	private GameObject[,] tempFace = new GameObject[7,10];
+	private int logicRotate = 0;
 	private int rotate = 0;
 	private int sideRotate = 0;
 	int[,] armies = new int[7,10];
 	Player[,] owners = new Player[7,10];
+	GameObject tileNumberGUI;
 	
 	void Start(){
 		m_gameController = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 		m_CameraControll = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
+		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+		tileNumberGUI = GameObject.Find ("Face_Num_GUI");
+
 	}
 	
 	public void initializeRotate(){
@@ -45,16 +51,22 @@ public class RotateScript : MonoBehaviour{
 	}
 	
 	void Update(){
-		//Test 
-		if(Input.GetKeyDown(KeyCode.T)){
-			//PhysicalRotateSpecs();
-			sideRotate = m_CameraControll.GetSide();
-			Rotate(true,m_CameraControll.GetSide());
-		}
-		if(Input.GetKeyDown(KeyCode.R)){
-			//PhysicalRotateSpecs();
-			sideRotate = m_CameraControll.GetSide();
-			Rotate(false,m_CameraControll.GetSide());
+		if (ph.currentPhase == Phase.rotatePhase && m_gameController.players [m_gameController.currentPlayer].playerType == 0 && m_gameController.players [m_gameController.currentPlayer].rotateCards > 0) {
+			if (Input.GetKeyDown (KeyCode.E)) {
+				StartCoroutine(turnOffText());
+				//PhysicalRotateSpecs();
+				sideRotate = m_CameraControll.GetSide ();
+				Rotate (true, m_CameraControll.GetSide ());
+				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+			}
+		
+			if (Input.GetKeyDown (KeyCode.Q)) {
+				//PhysicalRotateSpecs();
+				StartCoroutine(turnOffText());
+				sideRotate = m_CameraControll.GetSide ();
+				Rotate (false, m_CameraControll.GetSide ());
+				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+			}
 		}
 		//This code is checking to see if the board has been initialized in the GameController script
 		/*if(m_gameController.getSingleFace(1,1)!=null&& !init){
@@ -95,6 +107,7 @@ public class RotateScript : MonoBehaviour{
 			rotateBoard[sideRotate,9].transform.position = BoardLocation[sideRotate,9];
 			rotateBoard[sideRotate,9].transform.localRotation = Quaternion.Euler(0,0,0);
 			rotate =0;
+			logicRotate = 1;
 		}
 	}
 	//Side1 CounterClockwise
@@ -509,6 +522,8 @@ public class RotateScript : MonoBehaviour{
 		case 1:
 			if(clockwise){
 				rotate = 1;
+	
+				
 				RotateDirectCW(1);
 				
 				transfer(2, 3, 6, 1, false);
@@ -526,7 +541,7 @@ public class RotateScript : MonoBehaviour{
 				transfer(6, 1, 4, 7, false);
 				transfer(6, 2, 4, 4, false);
 				transfer(6, 3, 4, 1, false);
-				
+			
 			} else {
 				rotate=2;
 				RotateDirectCCW(1);
@@ -819,6 +834,14 @@ public class RotateScript : MonoBehaviour{
 		}
 			
 	}			
+
+	IEnumerator turnOffText() {
+		Debug.Log("Before Waiting 2 seconds");
+		tileNumberGUI.SetActive (false);
+		yield return new WaitForSeconds(1.2f);
+		tileNumberGUI.SetActive (true);		
+		Debug.Log("After Waiting 2 Seconds");
+	}
 			
 			
 }

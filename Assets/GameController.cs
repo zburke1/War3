@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
 	public PhaseHandler m_PhaseHandler;
 	public Player[] players;
 	public int numPlayers;
+	public Player winner;
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
 	//*****************************************************************************
@@ -57,7 +58,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-			
+		if (Input.GetKeyDown (KeyCode.Backspace)) {  
+			Application.LoadLevel (0);  
+		}  
 		//faces = m_RotateScript.Rotate(true,faces,board,1);
 
 	}
@@ -441,19 +444,29 @@ public class GameController : MonoBehaviour {
 	public Tile findTileFromIndex(int i, int j) {
 		return faces[i,j].gameObject.GetComponent<Tile>();
 	}
-	
-	/*public void highlightCenterTiles() {
-		foreach (int i in centerTiles) {
-			Tile tile = findTileFromID(i);
-			tile.renderer.material.color.a = 0.8f;
-		}
-	}
 
-	public void dehighlightCenterTiles() {
-		foreach (int i in centerTiles) {
-			Tile tile = findTileFromID(i);
-			tile.renderer.material.color.a = 0.8f;
+	public void checkWin() {
+		bool win = true;
+
+		for (int i = 1; i < 7; i++) {
+			Tile tile = faces[i,1].gameObject.GetComponent<Tile>();
+			Player owner = tile.getOwner ();
+
+			for (int j = 2; j < 10; j++) {
+				Tile nextTile = faces[i,j].gameObject.GetComponent<Tile>();
+				if (nextTile.getOwner () != owner) {
+					win = false;
+				}
+			}
+
+			if (win) {
+				m_PhaseHandler.currentPhase = Phase.victoryPhase;
+				winner = owner;
+			}
+
 		}
-	}*/
+
+		return;
+	}
 	
 }

@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour {
 	public int face = 0;
 	public bool tileFocus;
 	public bool isAttacking;
+	public bool isResolving;
 
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
@@ -50,7 +51,6 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-		Debug.Log ("Tile Owner: " + owner.playerID);
 		switch (ph.currentPhase) {
 			case Phase.spawnPhase:
 				if (tileID != 0) {
@@ -91,7 +91,7 @@ public class Tile : MonoBehaviour {
 			case Phase.battlePhase:
 				if (tileID != 0) {
 					if (owner.playerID == 1) {
-						renderer.material.color = new Color32(127,153,255,1);
+						renderer.material.color = owner.playerColorLight;
 					}
 				}
 				break;
@@ -153,8 +153,8 @@ public class Tile : MonoBehaviour {
 
 			if (tileID != 0) {
 				if (owner.playerID == 1) {
-					renderer.material.color = owner.playerColor;
-				}	
+					renderer.material.color = owner.playerColor;	
+				}
 			}
 			
 			break;
@@ -171,7 +171,7 @@ public class Tile : MonoBehaviour {
 		switch (ph.currentPhase) {
 
 		case Phase.spawnPhase:
-			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0) {
+			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0 && go.players[go.currentPlayer].playerID == owner.playerID) {
 				go.players[go.currentPlayer].troopSpawnCount --;
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
@@ -210,32 +210,49 @@ public class Tile : MonoBehaviour {
 
 		case Phase.battlePhase:
 
-			if (!isAttacking) {
-				if (owner.playerID == 1) {
-					renderer.material.color = owner.playerColorLight;
-					setNeighborColors(true, this);
-				}
-
-				for (int i = 0; i < 4; i++) {
-					Tile neighbor = tileNeighbors[i];
-					if (neighbor.isAttacking) {
-						neighbor.owner.attack(neighbor, this);
-						setNeighborColors(false, neighbor);
-						neighbor.isAttacking = false;
-					}
-				}
-
-				isAttacking = true;
-
-			} else {
+			if (isAttacking) {
 				if (owner.playerID == 1) {
 					renderer.material.color = owner.playerColor;
 					setNeighborColors(false, this);
+					isAttacking = false;
 				}
-				isAttacking = false;
+			} else {
+				if (owner.playerID == 1) {
+					renderer.material.color = owner.playerColorLight;
+					setNeighborColors(true, this);
+					isAttacking = true;
+				} else {
+					for (int i = 0; i < 4; i++) {
+						Tile neighbor = tileNeighbors[i];
+						if (neighbor.isAttacking) {
+							neighbor.owner.attack(neighbor, this);
+							setNeighborColors(false, neighbor);
+							neighbor.isAttacking = false;
+						}
+					}
+				}
 			}
 		
 
+
+			break;
+
+		case Phase.resolvePhase:
+			if (isResolving) {
+				if (owner.resolveTileCount > 0) {
+					forces += 1;
+					owner.resolveTileCount--;
+
+					if (owner.resolveTileCount == 0) {
+						owner.stopResolving ();
+						ph.nextPhase ();
+					}
+
+				} else {
+					owner.stopResolving ();
+					ph.nextPhase();
+				}
+			}
 
 			break;
 		}
@@ -247,8 +264,13 @@ public class Tile : MonoBehaviour {
 		for (int i = 0; i < 4; i++) {
 			if (highlight)
 				neighbors[i].renderer.material.color = Color.gray;
-			else
-				neighbors[i].renderer.material.color = neighbors[i].owner.playerColor;
+			else {
+				if (neighbors[i].isResolving) {
+					neighbors[i].renderer.material.color = neighbors[i].owner.playerColorLight;
+				} else {
+					neighbors[i].renderer.material.color = neighbors[i].owner.playerColor;
+				}
+			}
 		}
 	}
 
