@@ -554,7 +554,48 @@ public class AgentUtil //: MonoBehaviour
         }
         */
     }
+
+	public static int getNumEnemyTilesAdjacent(Tile tile) {
+		int num = 0;
+		for (int i = 0; i < 4; i++) {
+			if ((tile.getNeighborTiles()[i].getPlayerID()) != -1 && tile.getNeighborTiles()[i].owner != tile.owner) {
+				num++;
+			}
+		}
+		return num;
+	}
 	
+	public static int[] resolveArmies(Tile source, Tile dest, int availableArmies) {
+		int sourceCounter = 0;
+		int destCounter = 0;
+
+		int sourceEnemies = getNumEnemiesAdjacent (source);
+		int destEnemies = getNumEnemiesAdjacent (dest);
+
+
+		if (sourceEnemies > destEnemies) {
+			//use average enemies per neighbor
+			int numTiles = getNumEnemyTilesAdjacent (source);
+			while (sourceCounter < sourceEnemies / numTiles && availableArmies != 0) {
+				sourceCounter++;
+				availableArmies--;
+			}
+		} else {
+			int numTiles = getNumEnemyTilesAdjacent (source);
+			while (destCounter < destEnemies / numTiles && availableArmies != 0) {
+				destCounter++;
+				availableArmies--;
+			}
+		}
+		while (availableArmies > 0) {
+			destCounter++;
+			availableArmies--;
+		}
+		int[] result = {sourceCounter, destCounter};
+		return result;
+
+	}
+
 	/*
 	//takes full list of player tiles, and finds the safest tile on the best face to expand, but only if there are more than 3 armies
 	//note, function is biased towards tiles that are alone.

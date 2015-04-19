@@ -135,16 +135,16 @@ public class Player //: MonoBehaviour
 		Debug.Log ("DefenderID: " + defending.owner.playerID);
 
 		if (attacking.owner == defending.owner || attacking.getForces () < 2) {
+			Debug.Log ("Friendly fire, or too few armies");
 			return;
 		}
-
 
 		if (defending.getForces () == 0) {
 			resolveTileCount = attacking.getForces () - 2;
 
 			attackResolve = attacking;
 			defendResolve = defending;
-			defending.owner = this;
+			defending.setOwner (this);
 //commented instead of removed for safety.
 //<<<<<<< HEAD
 //			attacking.decArmy();
@@ -186,7 +186,7 @@ public class Player //: MonoBehaviour
 //=======
 			attackResolve = attacking;
 			defendResolve = defending;
-			defending.owner = this;
+			defending.setOwner (this);
 
 			if (attacking.getForces () > 2) {
 				resolve ();
@@ -207,6 +207,7 @@ public class Player //: MonoBehaviour
 	public virtual void startDeployPhase () {}
 	public virtual void startRotatePhase() {}
 	public virtual void startAttackPhase() {}
+	public virtual void startResolvePhase() {}
 }
 
 
