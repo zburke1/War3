@@ -32,7 +32,6 @@ public class TileNumDisplay : MonoBehaviour {
 			troopNumText.text = gc.getTroops (face, tile).ToString ();
 			troopNumText.color = gc.findTileFromIndex (face, tile).owner.playerColorText;
 		}
-		troopNumText.text = gc.getTroops (face, tile).ToString ();
 		//debug.log( gc.randomInt);
 	}
 
