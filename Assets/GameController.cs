@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
 	public PhaseHandler m_PhaseHandler;
 	public Player[] players;
 	public int numPlayers;
+	public Player winner;
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
 	//*****************************************************************************
@@ -57,7 +58,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-			
+		if (Input.GetKeyDown (KeyCode.Backspace)) {  
+			Application.LoadLevel (0);  
+		}  
 		//faces = m_RotateScript.Rotate(true,faces,board,1);
 
 	}
@@ -457,10 +460,8 @@ public class GameController : MonoBehaviour {
 			}
 
 			if (win) {
-				if (owner.playerID == 1)
-					Debug.Log ("YOU WON!");
-				else
-					Debug.Log ("YOU LOST!");
+				m_PhaseHandler.currentPhase = Phase.victoryPhase;
+				winner = owner;
 			}
 
 		}
