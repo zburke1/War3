@@ -107,7 +107,7 @@ public class Angry : Player //: WarAgent
 				Debug.Log ("BestAttack: " + bestAttack.getTiles () [0].tileID);
 				camera.AIRotateCamera(bestAttack.getTiles()[0].face);
 				//monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
-				//attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
+				attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
 				bestAttack = AgentUtil.findBestAttack (ownedTiles);
 				Debug.Log ("new best attack");
 				//this is so stupid
@@ -146,13 +146,20 @@ public class Angry : Player //: WarAgent
 
 		} 
 		Debug.Log ("Angry ends attack");
-		ph.nextPhase ();
+		//for some reason, this messes it up. this is not good.
+		//todo: reenable
+		//ph.nextPhase ();
 	}
+
+	public void startResolvePhase() {
+		//todo: hi justin
+	}
+
 	//just pass the number of seconds you want to wait.
 	private void delay(int t) {
-		Debug.Log ("starting delay");
+		//Debug.Log ("starting delay");
 		Waiter.StartTimer (t);
-		Debug.LogWarning ("done with delay");
+		//Debug.LogWarning ("done with delay");
 	}
 	private IEnumerator waitAttack(Tile x, Tile y,int t){
 		//t = seconds

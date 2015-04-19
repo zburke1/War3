@@ -117,6 +117,9 @@ public class PhaseHandler : MonoBehaviour {
 	public virtual void startResolvePhase(Player currentPlayer){
 		Debug.Log ("STARTING RESOLVE PHASE");
 		currentPhase = Phase.resolvePhase;
+		if (currentPlayer.playerType == 1) {
+			//currentPlayer.startResolvePhase();
+		}
 	}
 
 	public virtual void nextPhase(){
