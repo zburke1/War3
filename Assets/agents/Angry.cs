@@ -105,7 +105,9 @@ public class Angry : Player //: WarAgent
 			//stupid to have to check this condition twice
 			while (bestAttack != null && bestAttack.value > .6) {
 				Debug.Log ("BestAttack: " + bestAttack.getTiles () [0].tileID);
-				attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
+				camera.AIRotateCamera(bestAttack.getTiles()[0].face);
+				monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
+				//attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
 				bestAttack = AgentUtil.findBestAttack (ownedTiles);
 				Debug.Log ("new best attack");
 				//this is so stupid
@@ -129,10 +131,11 @@ public class Angry : Player //: WarAgent
 			TileValue tiles = AgentUtil.findSafeExpandTile (largeTiles);
 			if (tiles != null) {
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
-				//camera.AIRotateCamera(tiles.getTiles()[0].face);
-				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
-				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
+				camera.AIRotateCamera(tiles.getTiles()[0].face);
+				monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
+				//attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
+				break;
 			} else {
 				Debug.Log ("No safe tiles found!");
 				break;
@@ -145,6 +148,7 @@ public class Angry : Player //: WarAgent
 		//t = seconds
 		yield return new WaitForSeconds(t);
 		attack (x, y);
+		
 	}
 	public Tile thinkTileAttack() {
 		return null;
