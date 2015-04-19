@@ -26,12 +26,13 @@ public class PlayerSpawnText : MonoBehaviour {
 
 		if (ph.currentPhase == Phase.spawnPhase) {
 			playerString = "Spawn " + go.players [go.currentPlayer].troopSpawnCount + " troops";
-			if(go.players [go.currentPlayer].troopSpawnCount == 0)
-				playerString = "Proceed to next phase";
+			//if(go.players [go.currentPlayer].troopSpawnCount == 0)
+			//playerString = "Proceed to next phase";
 			countText.text = playerString;
-		} else
-			countText.text = "";
+			//} else
+			//countText.text = "";
 		
+		}
 	}
 
 

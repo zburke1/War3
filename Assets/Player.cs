@@ -73,6 +73,7 @@ public class Player //: MonoBehaviour
 	//deployment phase place armies.
 	//not to be confused with placeArmy.
 	public bool deployArmy(Player player, Tile tile) {
+		Debug.Log ("Placing army on tile " + tile.tileID + "(" + deployableArmies + " armies before placement)");
 		if (deployableArmies > 0) {
 			placeArmy(player, tile);
 			deployableArmies--;
@@ -113,7 +114,7 @@ public class Player //: MonoBehaviour
 			attacking.decArmy();
 			defending.renderOwnerColor();
 			//ph.startWinBattlePhase();
-			return;
+ 			return;
 		}
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
@@ -127,7 +128,7 @@ public class Player //: MonoBehaviour
 			//defender loses. move one army by default to the next 
 
 			defending.setForces (1);
-			defending.owner = this;
+			defending.setOwner (this);
 			attacking.decArmy();
 			defending.renderOwnerColor();
 			//ph.startWinBattlePhase();
