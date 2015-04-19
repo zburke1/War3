@@ -564,7 +564,7 @@ public class AgentUtil //: MonoBehaviour
 		}
 		return num;
 	}
-	
+
 	public static int[] resolveArmies(Tile source, Tile dest, int availableArmies) {
 		int sourceCounter = 0;
 		int destCounter = 0;
