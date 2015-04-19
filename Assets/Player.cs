@@ -20,7 +20,8 @@ public class Player //: MonoBehaviour
 	public int resolveTileCount;
 	public Tile attackResolve;
 	public Tile defendResolve;
-
+	public ResolveGUI rsGUI;
+	public bool showResolveCount;
 
 	protected int deployableArmies;
 	protected ArrayList ownedTiles;
@@ -35,7 +36,7 @@ public class Player //: MonoBehaviour
 		//playerColorText = Color.white;
 		playerType = -1; //Nonplayer
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
-
+		rsGUI = GameObject.FindObjectOfType(typeof(ResolveGUI)) as ResolveGUI;
 	}
 
 	public Player(int id, int type, int color) {
@@ -108,6 +109,7 @@ public class Player //: MonoBehaviour
 
 		attackResolve.setForces (1);
 		attackResolve.isResolving = true;
+		showResolveCount = true;
 		attackResolve.renderer.material.color = tempColor;
 
 		defendResolve.setForces (1);
@@ -116,8 +118,10 @@ public class Player //: MonoBehaviour
 	}
 
 	public void stopResolving() {
+	
 		attackResolve.isResolving = false;
 		attackResolve.renderOwnerColor ();
+		showResolveCount = true;		
 		defendResolve.isResolving = false;
 		defendResolve.renderOwnerColor ();
 	}

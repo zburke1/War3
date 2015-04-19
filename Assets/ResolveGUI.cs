@@ -3,11 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent (typeof(Text))]
-public class PlayerSpawnText : MonoBehaviour {
+public class ResolveGUI : MonoBehaviour {
 	
 	
 	string playerString;
-	Text countText;
+	public Text spawnText;
 	GameController go;
 	public PhaseHandler ph;
 	
@@ -16,24 +16,23 @@ public class PlayerSpawnText : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		countText = GetComponent<Text>();
+		spawnText = GetComponent<Text>();
 		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		if (ph.currentPhase == Phase.spawnPhase) {
-			playerString = "Spawn " + go.players [go.currentPlayer].troopSpawnCount + " troops";
-			if(go.players [go.currentPlayer].troopSpawnCount == 0)
-				playerString = "";
-			countText.text = playerString;
-		} else
-			countText.text = "";
-		
-	}
-
-
+			
+		if (go.players [go.currentPlayer].showResolveCount && go.players [go.currentPlayer].resolveTileCount != 0) {
+			spawnText.enabled = true;
+			playerString = "Place " + go.players [go.currentPlayer].resolveTileCount + " troop(s)";
+			spawnText.text = playerString;
+		}
+		else {
+			spawnText.enabled = false;
+		}
+	
+	}	
 }
 
