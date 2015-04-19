@@ -118,19 +118,6 @@ public class Angry : Player //: WarAgent
 		}
 
 		ArrayList largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
-		/*
-		for (int i = 0; i < largeTiles.Count; i++) {
-			TileValue tiles = AgentUtil.findSafeTile (largeTiles);
-			if (tiles != null) {
-				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
-				camera.AIRotateCamera(tiles.getTiles()[0].face);
-				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1]));
-				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
-			} else {
-				Debug.Log ("No safe tiles found!");
-			}
-		}
-		*/
 		//used to halt the loop via debug.
 		bool masterKey = true;
 		//loop until no safe tiles found	
