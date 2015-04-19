@@ -138,9 +138,6 @@ public class Player //: MonoBehaviour
 			return;
 		}
 
-		if (attacking.getForces () < 2) {
-			return;
-		}
 
 		if (defending.getForces () == 0) {
 			resolveTileCount = attacking.getForces () - 2;
