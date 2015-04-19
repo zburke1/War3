@@ -1,15 +1,13 @@
 using System;
-
 using System.Timers;
-
 public static class Waiter
 {
 	private static Timer myTimer;
 	public static bool wait = true;
-	public static void StartTimer(double t)
+	public static void StartTimer(int t)
 	{
 		wait = true;
-		myTimer = new Timer ((float)t*1000);
+		myTimer = new Timer (t*1000);
 		myTimer.Elapsed += OnTimerComplete;
 		myTimer.Start ();
 		while (wait) {
