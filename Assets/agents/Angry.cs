@@ -135,9 +135,6 @@ public class Angry : Player //: WarAgent
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
 				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
 				delay (1);
-				while (Waiter.wait) {
-					//more waiting!
-				}
 				Debug.Log ("Han shot first");
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
@@ -155,9 +152,6 @@ public class Angry : Player //: WarAgent
 	private void delay(int t) {
 		Debug.Log ("starting delay");
 		Waiter.StartTimer (t);
-		while (Waiter.wait) {
-			//wait...
-		}
 		Debug.LogWarning ("done with delay");
 	}
 	private IEnumerator waitAttack(Tile x, Tile y,int t){
