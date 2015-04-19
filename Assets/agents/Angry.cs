@@ -7,7 +7,7 @@ public class Angry : Player //: WarAgent
 	//not sure I need this...
 	//private int gameMode;
 	//private void Card[] cards;
-	
+
 
 
 	public Angry(int id, int type, int color) {
@@ -106,7 +106,7 @@ public class Angry : Player //: WarAgent
 			while (bestAttack != null && bestAttack.value > .6) {
 				Debug.Log ("BestAttack: " + bestAttack.getTiles () [0].tileID);
 				camera.AIRotateCamera(bestAttack.getTiles()[0].face);
-				monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
+				//monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
 				//attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
 				bestAttack = AgentUtil.findBestAttack (ownedTiles);
 				Debug.Log ("new best attack");
@@ -124,6 +124,7 @@ public class Angry : Player //: WarAgent
 		bool masterKey = true;
 		//loop until no safe tiles found	
 		while(masterKey) {
+			Debug.Log ("startloop");
 			if (largeTiles.Count == 0) {
 				break;
 			}
@@ -132,8 +133,10 @@ public class Angry : Player //: WarAgent
 			if (tiles != null) {
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
-				monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
-				//attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
+				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
+				wait (1);
+				Debug.Log ("Han shot first");
+				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
 				break;
 			} else {
@@ -142,14 +145,20 @@ public class Angry : Player //: WarAgent
 			}
 
 		} 
-
+		Debug.Log ("endloop");
+	}
+	//just pass the number of seconds you want to wait.
+	private void wait(double t) {
+		Delayer.StartTimer (t);
 	}
 	private IEnumerator waitAttack(Tile x, Tile y,int t){
 		//t = seconds
 		yield return new WaitForSeconds(t);
+		Debug.Log ("Done waiting");
 		attack (x, y);
 		
 	}
+
 	public Tile thinkTileAttack() {
 		return null;
 	}
