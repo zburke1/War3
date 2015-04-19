@@ -116,12 +116,16 @@ public class Angry : Player //: WarAgent
 			if (tiles != null) {
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
+				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1]));
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 			}
 		}
 
 	}
-	
+	private IEnumerator waitAttack(Tile x, Tile y){
+		yield return new WaitForSeconds(5);
+		attack (x, y);
+	}
 	public Tile thinkTileAttack() {
 		return null;
 	}

@@ -22,6 +22,7 @@ public class Player //: MonoBehaviour
 	public Tile defendResolve;
 	public ResolveGUI rsGUI;
 	public bool showResolveCount;
+	public MonoBehaviour monoB;
 
 	protected int deployableArmies;
 	protected ArrayList ownedTiles;
@@ -37,6 +38,7 @@ public class Player //: MonoBehaviour
 		playerType = -1; //Nonplayer
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 		rsGUI = GameObject.FindObjectOfType(typeof(ResolveGUI)) as ResolveGUI;
+		monoB = monoB = GameObject.FindObjectOfType<MonoBehaviour>();
 	}
 
 	public Player(int id, int type, int color) {
