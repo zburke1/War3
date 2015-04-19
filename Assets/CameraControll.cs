@@ -39,6 +39,7 @@ public class CameraControll : MonoBehaviour {
 		
 		if(Input.GetKeyUp(KeyCode.A)){
 			if(loc==1){
+				//StartCoroutine(wait5());
 				loc=2;}
 			else if(loc==2){
 				loc=3;}
@@ -166,6 +167,11 @@ public class CameraControll : MonoBehaviour {
 	public void AIRotateCamera(int side){
 		loc = side;
 	}
-	
+	/*
+	 IEnumerator wait5() {
+		 yield return new WaitForSeconds(5);
+		 Debug.Log("TEST");
+	 }
+	*/
 }
 

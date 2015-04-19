@@ -14,6 +14,7 @@ public class RotateScript : MonoBehaviour{
 	public CameraControll m_CameraControll;
 	private GameObject[,] tempBoard = new GameObject[7,10];
 	private GameObject[,] tempFace = new GameObject[7,10];
+	private int logicRotate = 0;
 	private int rotate = 0;
 	private int sideRotate = 0;
 	int[,] armies = new int[7,10];
@@ -106,6 +107,7 @@ public class RotateScript : MonoBehaviour{
 			rotateBoard[sideRotate,9].transform.position = BoardLocation[sideRotate,9];
 			rotateBoard[sideRotate,9].transform.localRotation = Quaternion.Euler(0,0,0);
 			rotate =0;
+			logicRotate = 1;
 		}
 	}
 	//Side1 CounterClockwise
@@ -520,6 +522,8 @@ public class RotateScript : MonoBehaviour{
 		case 1:
 			if(clockwise){
 				rotate = 1;
+	
+				
 				RotateDirectCW(1);
 				
 				transfer(2, 3, 6, 1, false);
@@ -537,7 +541,7 @@ public class RotateScript : MonoBehaviour{
 				transfer(6, 1, 4, 7, false);
 				transfer(6, 2, 4, 4, false);
 				transfer(6, 3, 4, 1, false);
-				
+			
 			} else {
 				rotate=2;
 				RotateDirectCCW(1);
