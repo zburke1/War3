@@ -38,7 +38,7 @@ public class Player //: MonoBehaviour
 		playerType = -1; //Nonplayer
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 		rsGUI = GameObject.FindObjectOfType(typeof(ResolveGUI)) as ResolveGUI;
-		monoB = monoB = GameObject.FindObjectOfType<MonoBehaviour>();
+		monoB= GameObject.FindObjectOfType<MonoBehaviour>();
 	}
 
 	public Player(int id, int type, int color) {
