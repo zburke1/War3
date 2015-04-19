@@ -26,6 +26,7 @@ public class TileNumDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		troopNumText.text = gc.getTroops (face, tile).ToString ();
+		troopNumText.color = gc.findTileFromIndex (face, tile).owner.playerColorText;
 		//debug.log( gc.randomInt);
 	}
 

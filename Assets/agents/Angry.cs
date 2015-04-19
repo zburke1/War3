@@ -16,6 +16,8 @@ public class Angry : Player //: WarAgent
 		playerType = type;
 		playerColor = playerColors [color];
 		playerID = id;
+		playerColorLight = playerColor + new Color( 0.15f,0.15f,0.15f);
+		playerColorText = playerColor + new Color( 0.5f,0.5f,0.5f);
 	}
 
 	public override void startDeployPhase() {

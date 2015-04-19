@@ -11,6 +11,7 @@ public class Player //: MonoBehaviour
 	protected Color[] playerColors = { Color.blue, Color.red, Color.magenta, Color.yellow, Color.cyan, new Color(0.2F, 0.3F, 0.4F)};
 	public int playerID;
 	public Color playerColorLight;
+	public Color playerColorText;
 	protected int totalFaces;
 	public GameController go;
 	public CameraControll camera;
@@ -30,15 +31,19 @@ public class Player //: MonoBehaviour
 	public Player (){
 		playerID = -1; //Nonplayer
 		playerColor = Color.white;
-		playerColorLight = new Color32(127,153,255,1);
+		//playerColorLight = new Color32(127,153,255,1);
+		//playerColorText = Color.white;
 		playerType = -1; //Nonplayer
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
+
 	}
 
 	public Player(int id, int type, int color) {
+
 		playerType = type;
 		playerColor = playerColors [color];
-		playerColorLight = new Color32(127,153,255,1);
+		playerColorLight = playerColor + new Color( 0.15f,0.15f,0.15f);
+		playerColorText = playerColor + new Color( 0.45f,0.45f,0.45f);
 		playerID = id;
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 	}
