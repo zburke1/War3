@@ -299,8 +299,19 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void setOwner(Player newOwner) {
+		//if not an unoccupied tile
+		//if (owner != null && playerID != -1) {
+			//remove tile from loser ownedTile AList
+		//	owner.dropTile(this);
+		//}
+		//add tile to winner ownedTile AList
+		if (newOwner.playerType != -1) {
+			newOwner.addTile (this);
+			owner = newOwner;
+		}
+
 		playerID = newOwner.playerID;
-		owner = newOwner;
+
 		renderer.material.color = newOwner.playerColor;
 		//ph.checkWin();
 	}

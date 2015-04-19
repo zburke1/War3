@@ -39,7 +39,10 @@ public class Player //: MonoBehaviour
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 		rsGUI = GameObject.FindObjectOfType(typeof(ResolveGUI)) as ResolveGUI;
 		monoB= GameObject.FindObjectOfType<MonoBehaviour>();
+
+		ownedTiles = new ArrayList ();
 	}
+
 
 	public Player(int id, int type, int color) {
 
@@ -49,9 +52,11 @@ public class Player //: MonoBehaviour
 		playerColorText = playerColor + new Color( 0.45f,0.45f,0.45f);
 		playerID = id;
 		ph = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
+
+		ownedTiles = new ArrayList ();
 	}
 
-
+	//this doesn't do anything.
 	void Start() {
 		playerID = 0;
 		playerColor = Color.gray;
@@ -61,6 +66,7 @@ public class Player //: MonoBehaviour
 		camera = GameObject.FindObjectOfType(typeof(CameraControll)) as CameraControll;
 	}
 
+	//neither does this
 	void Update() {
 
 	}
@@ -71,18 +77,8 @@ public class Player //: MonoBehaviour
 		playerID = id;
 	}
 
-	public  int playerTileCount(Player owner) {
-		int tiles = 0;
-		Tile tile;
-		for (int i = 1; i < 7; i++) {
-			for (int j = 1; j <10; j++) {
-				tile = go.faces[i,j].gameObject.GetComponent<Tile>();
-				if (tile.owner == owner) {
-					tiles++;
-				}
-			}
-		}
-		return tiles;
+	public  int playerTileCount() {
+		return ownedTiles.Count;
 	}
 
 	//deployment phase place armies.
@@ -105,6 +101,22 @@ public class Player //: MonoBehaviour
 			tile.incArmy();
 		}
 		return true;
+	}
+
+	public void dropTile(Tile tile) {
+		if (ownedTiles.Contains (tile)) {
+			ownedTiles.Remove (tile);
+		} else {
+			Debug.Log ("Not my tile, dog.");
+		}
+	}
+
+	public void addTile(Tile tile) {
+		if (ownedTiles.Contains (tile)) {
+			Debug.Log (playerID + " already owns tile " + tile.tileID);
+		} else {
+			ownedTiles.Add (tile);
+		}
 	}
 
 	public void resolve() {
@@ -131,8 +143,8 @@ public class Player //: MonoBehaviour
 
 	public void attack(Tile attacking, Tile defending) {
 		Debug.Log ("attacking!");
-		Debug.Log ("AttackerID: " + attacking.owner.playerID);
-		Debug.Log ("DefenderID: " + defending.owner.playerID);
+		Debug.Log ("AttackerID: " + attacking.tileID);
+		Debug.Log ("DefenderID: " + defending.tileID);
 
 		if (attacking.owner == defending.owner || attacking.getForces () < 2) {
 			Debug.Log ("Friendly fire, or too few armies");
@@ -184,9 +196,13 @@ public class Player //: MonoBehaviour
 //			defending.renderOwnerColor();
 //			//ph.startWinBattlePhase();
 //=======
+
 			attackResolve = attacking;
 			defendResolve = defending;
+			//removes the old owner, and the tile from old owner's ownedTile AList
+			//sets the new owner, and adds the tile to the new owner's ownedTile AList
 			defending.setOwner (this);
+
 
 			if (attacking.getForces () > 2) {
 				resolve ();

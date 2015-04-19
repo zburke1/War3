@@ -26,7 +26,7 @@ public class Angry : Player //: WarAgent
 		//sooooper important to set armies!
 		Debug.Log ("ANGRY STARTING DEPLOY");
 		deployableArmies = troopSpawnCount;
-		ownedTiles = AgentUtil.loadPlayerTiles(this);
+		//ownedTiles = AgentUtil.loadPlayerTiles(this);
 
 		//first, check for any urgent tiles.
 		deployUrgent();
@@ -130,7 +130,7 @@ public class Angry : Player //: WarAgent
 				Debug.Log ("Han shot first");
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
-				break;
+				//break;
 			} else {
 				Debug.Log ("No safe tiles found!");
 				break;

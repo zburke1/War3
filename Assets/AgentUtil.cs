@@ -25,8 +25,11 @@ public class AgentUtil //: MonoBehaviour
 		m_gamecontroller = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
 
+	/*
+	 * DEPRECATED: now updated on init and attack.
 	//this is run before every other function at the start of the turn (and potentially every player action)
-	public static ArrayList loadPlayerTiles(Player owner) {
+	*/
+	public static ArrayList loadPlayerTilesDEP(Player owner) {
 		ArrayList tiles = new ArrayList();
 		for (int i = 1; i < 7; i++) {
 			for (int j = 1; j <10; j++) {
@@ -39,7 +42,8 @@ public class AgentUtil //: MonoBehaviour
 		return tiles;
 	}
 
-	public static ArrayList loadPlayerTiles(int playerID) {
+
+	public static ArrayList loadPlayerTilesDEP(int playerID) {
 		ArrayList tiles = new ArrayList();
 		for (int i = 1; i < 7; i++) {
 			for (int j = 1; j <10; j++) {
@@ -51,6 +55,7 @@ public class AgentUtil //: MonoBehaviour
 		}
 		return tiles;
 	}
+
 
 	public static Tile getTileWithLargestArmy(ArrayList tiles) {
 		int max = 0;
@@ -516,8 +521,9 @@ public class AgentUtil //: MonoBehaviour
 	}
 
 	//finds a random empty tile
+	//not used
 	public static Tile findEmptyTile() {
-		ArrayList tiles = loadPlayerTiles (-1);
+		ArrayList tiles = loadPlayerTilesDEP (-1);
 		reshuffle (tiles);
 		return (Tile)tiles [0];
 	}
