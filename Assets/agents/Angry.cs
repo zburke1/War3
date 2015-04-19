@@ -149,7 +149,7 @@ public class Angry : Player //: WarAgent
 	}
 	//just pass the number of seconds you want to wait.
 	private void wait(double t) {
-		Delayer.StartTimer (t);
+		Waiter.StartTimer (t);
 	}
 	private IEnumerator waitAttack(Tile x, Tile y,int t){
 		//t = seconds
