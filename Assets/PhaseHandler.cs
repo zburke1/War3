@@ -40,6 +40,10 @@ public class PhaseHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { //this is primarily for the AI.
+
+		if (currentPhase == Phase.gameStartPhase) {
+			nextPhase ();
+		}
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			nextPhase ();
 		}
