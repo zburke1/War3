@@ -133,7 +133,8 @@ public class Player //: MonoBehaviour
 	}
 
 	public void stopResolving() {
-	
+
+		ph.nextPhase ();
 		attackResolve.isResolving = false;
 		attackResolve.renderOwnerColor ();
 		showResolveCount = true;		
@@ -168,10 +169,12 @@ public class Player //: MonoBehaviour
 			if (attacking.getForces () > 2) {
 				resolve();
 				ph.nextPhase ();
+				Debug.Log("Entered ResolvePhase");
 			} else {
 				attacking.setForces (1);
 				defending.setForces (1);
 				defending.renderOwnerColor ();
+				go.checkWin();
 			}
 
 			return;

@@ -58,35 +58,7 @@ public class Tile : MonoBehaviour {
 				}
 				break;
 			case Phase.rotatePhase:
-				if (Input.GetMouseButton (1) && mousereleased && go.players[go.currentPlayer].rotateCards > 0) {
-					if (centerTiles.Contains (tileID)) {
-						switch (tileID) {
-						case 5:
-							m_RotateScript.Rotate (false, 1);
-							break;
-						case 14:
-							m_RotateScript.Rotate (false, 2);
-							break;
-						case 23:
-							m_RotateScript.Rotate (false, 3);
-							break;
-						case 32:
-							m_RotateScript.Rotate (false, 4);
-							break;
-						case 41:
-							m_RotateScript.Rotate (false, 5);
-							break;
-						case 50:
-							m_RotateScript.Rotate (false, 6);
-							break;
-						}
-						go.players[go.currentPlayer].rotateCards--;	
-					//	m_PhaseHandler.rotateToggle.isOn = false;
-					}
-					mousereleased=false;
-				}
-				if(Input.GetMouseButtonUp(1))
-					mousereleased=true;
+
 				break;
 			case Phase.battlePhase:
 				if (tileID != 0) {
@@ -175,37 +147,10 @@ public class Tile : MonoBehaviour {
 				go.players[go.currentPlayer].troopSpawnCount --;
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
+				go.checkWin();
 			}
 			break;
 		case Phase.rotatePhase:
-			if (Input.GetMouseButton (0) && go.players[go.currentPlayer].rotateCards > 0) {
-
-				if (centerTiles.Contains (tileID)) {
-					switch (tileID) {
-					case 5:
-						m_RotateScript.Rotate (true, 1);
-						break;
-					case 14:
-						m_RotateScript.Rotate (true, 2);
-						break;
-					case 23:
-						m_RotateScript.Rotate (true, 3);
-						break;
-					case 32:
-						m_RotateScript.Rotate (true, 4);
-						break;
-					case 41:
-						m_RotateScript.Rotate (true, 5);
-						break;
-					case 50:
-						m_RotateScript.Rotate (true, 6);
-						break;
-					}
-					go.players[go.currentPlayer].rotateCards--;	
-					//m_PhaseHandler.rotateToggle.isOn = false;
-
-				}
-			}
 			break;
 
 		case Phase.battlePhase:
@@ -238,19 +183,19 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.resolvePhase:
-			if (isResolving) {
+			if (isResolving && go.players [go.currentPlayer].playerType == 0) {
 				if (owner.resolveTileCount > 0) {
 					forces += 1;
 					owner.resolveTileCount--;
 
-					if (owner.resolveTileCount == 0) {
+					if (owner.resolveTileCount == 0 && go.players [go.currentPlayer].playerType == 0) {
 						owner.stopResolving ();
-						ph.nextPhase ();
+
 					}
 
 				} else {
 					owner.stopResolving ();
-					ph.nextPhase();
+
 				}
 			}
 

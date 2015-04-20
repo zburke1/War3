@@ -58,7 +58,9 @@ public class RotateScript : MonoBehaviour{
 				sideRotate = m_CameraControll.GetSide ();
 				Rotate (true, m_CameraControll.GetSide ());
 				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+				m_gameController.checkWin();
 			}
+
 		
 			if (Input.GetKeyDown (KeyCode.Q)) {
 				//PhysicalRotateSpecs();
@@ -66,6 +68,7 @@ public class RotateScript : MonoBehaviour{
 				sideRotate = m_CameraControll.GetSide ();
 				Rotate (false, m_CameraControll.GetSide ());
 				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
+				m_gameController.checkWin();
 			}
 		}
 		//This code is checking to see if the board has been initialized in the GameController script

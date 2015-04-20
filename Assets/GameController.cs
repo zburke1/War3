@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour {
 			 instantiateLogicBoard(fA,fB,fC,fD,fE,fF);
 			 m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
 			 m_RotateScript.initializeRotate();
+			 winner = players[0];
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
 			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(getFace(1,1));
@@ -460,8 +461,10 @@ public class GameController : MonoBehaviour {
 			}
 
 			if (win) {
+				Debug.Log ("A Winner has been absolutely detected!");
 				m_PhaseHandler.currentPhase = Phase.victoryPhase;
 				winner = owner;
+				m_PhaseHandler.nextPhase();
 			}
 
 		}

@@ -42,14 +42,17 @@ public class PhaseHandler : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			nextPhase ();
 		}
-		if (currentPhase == Phase.spawnPhase && go.players [go.currentPlayer].troopSpawnCount <= 0) {
+		if (currentPhase == Phase.spawnPhase && go.players [go.currentPlayer].troopSpawnCount <= 0 && go.players [go.currentPlayer].playerType == 0) {
 			nextPhase ();
 		}
 
-		if (currentPhase == Phase.rotatePhase && go.players [go.currentPlayer].rotateCards <= 0) {
+		if (currentPhase == Phase.rotatePhase && go.players [go.currentPlayer].rotateCards <= 0 && go.players [go.currentPlayer].playerType == 0) {
 			nextPhase ();
 		}
 
+		if (currentPhase == Phase.resolvePhase && go.players [go.currentPlayer].resolveTileCount <=0 && go.players [go.currentPlayer].rotateCards <= 0 && go.players [go.currentPlayer].playerType == 0) {
+			nextPhase ();
+		}
 
 
 	}
@@ -86,6 +89,7 @@ public class PhaseHandler : MonoBehaviour {
 	}
 	public virtual void endTurn(Player currentPlayer){
 		currentPhase = Phase.endPhase;
+		nextPhase ();
 	}
 
 	public virtual void startRotationPhase(Player currentPlayer){
@@ -119,8 +123,9 @@ public class PhaseHandler : MonoBehaviour {
 	public virtual void startResolvePhase(Player currentPlayer){
 		Debug.Log ("STARTING RESOLVE PHASE");
 		currentPhase = Phase.resolvePhase;
+
 		if (currentPlayer.playerType == 1) {
-			//currentPlayer.startResolvePhase();
+			currentPlayer.startResolvePhase();
 		}
 	}
 
@@ -132,19 +137,19 @@ public class PhaseHandler : MonoBehaviour {
 			break;
 				
 		case Phase.spawnPhase:
-			checkWin ();
+			go.checkWin ();
 			startRotationPhase (go.players[go.currentPlayer]);
 			break;
 
 		case Phase.rotatePhase:
-			checkWin ();
+			go.checkWin ();
 			startBattlePhase(go.players[go.currentPlayer]);
 		
 			break;
 			
 		case Phase.battlePhase:
-			checkWin ();
-			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
+			go.checkWin ();
+			//Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			startResolvePhase (go.players[go.currentPlayer]);
 			break;
 
@@ -156,11 +161,23 @@ public class PhaseHandler : MonoBehaviour {
 		case Phase.endPhase:
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			go.players[go.currentPlayer].rotateCards++;
+			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
 			startNewTurn (go.players[go.currentPlayer]);
 			break;
-	
+
+		case Phase.victoryPhase:
+			spawnToggle.isOn = false;
+			rotateToggle.isOn = false;
+			battleToggle.isOn = false;
+			endToggle.isOn = false;
+			
+			spawnToggle.interactable = false;
+			rotateToggle.interactable = false;
+			battleToggle.interactable = false;
+			endToggle.interactable = false;
+			break;
 		}
 
 	}

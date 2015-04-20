@@ -18,6 +18,7 @@ public class Angry : Player //: WarAgent
 		playerID = id;
 		playerColorLight = playerColor + new Color( 0.15f,0.15f,0.15f);
 		playerColorText = playerColor + new Color( 0.5f,0.5f,0.5f);
+		go = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
 	}
 
 	public override void startDeployPhase() {
@@ -40,7 +41,6 @@ public class Angry : Player //: WarAgent
 		//if armies remain do:
 		Debug.Log ("Angry deploying");
 		deployArmies ();
-
 		ph.nextPhase ();
 
 	}
@@ -86,7 +86,8 @@ public class Angry : Player //: WarAgent
 	}
 
 	public void startRotatePhase() {
-		//ph.nextPhase ();
+		ph.nextPhase ();
+		Debug.Log ("Angry rotate Phase Ended");
 	}
 
 	public override void startAttackPhase() {
@@ -107,8 +108,10 @@ public class Angry : Player //: WarAgent
 					break;
 				}
 			}
-		} else {
+		} 
+		else {
 			Debug.Log ("BestAttack null");
+
 		}
 
 		ArrayList largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
@@ -138,13 +141,17 @@ public class Angry : Player //: WarAgent
 
 		} 
 		Debug.Log ("Angry ends attack");
+		ph.endTurn (go.players[go.currentPlayer]);
+		Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
 		//for some reason, this messes it up. this is not good.
 		//todo: reenable
-		//ph.nextPhase ();
+		//ph.nextPhase ();   
+
 	}
 
 	public void startResolvePhase() {
 		//todo: hi justin
+		//ph.nextPhase (); // This ends resolve Phase and goes back to attackPhase
 	}
 
 	//just pass the number of seconds you want to wait.
