@@ -6,3 +6,15 @@ In the strategy game War3, you the player are pitted against enemies that have t
 
 Controls-
 ----------
+Camera Movement-
+-WASD or Number Keys 1-->6
+
+Rotation-
+-Q or E for rotation
+
+Attack-
+-Mouse Left-Click - Select Tile
+-Tab - Show summary of all sides
+
+Usage Guide-
+-------------
