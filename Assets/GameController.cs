@@ -242,8 +242,12 @@ public class GameController : MonoBehaviour {
 		GameObject tempFace = faces[i,j];
 		return tempFace;
 	}
-	
+
 	public virtual int getTroops(int x,int y){
+		GameObject A = faces [x, y].gameObject;
+		Tile B = A.GetComponent<Tile> ();
+
+
 		Tile Hover = faces[x,y].gameObject.GetComponent<Tile>();
 
 		//Debug.Log(Hover.getForces());
