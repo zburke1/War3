@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	public Player[] players;
 	public int numPlayers;
 	public Player winner;
+	public bool gameOver;
 	List<int> centerTiles = new List<int> {5,14,41,32,23,50};
 
 	//*****************************************************************************
@@ -43,6 +44,7 @@ public class GameController : MonoBehaviour {
 			 instantiateVirtualBoard();
 			 instantiateLogicBoard(fA,fB,fC,fD,fE,fF);
 			 m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
+			m_PhaseHandler = GameObject.FindObjectOfType(typeof(PhaseHandler)) as PhaseHandler;
 			 m_RotateScript.initializeRotate();
 			 winner = new Player();
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
@@ -469,6 +471,7 @@ public class GameController : MonoBehaviour {
 				m_PhaseHandler.currentPhase = Phase.victoryPhase;
 				winner = owner;
 				m_PhaseHandler.nextPhase();
+				gameOver = true;
 			}
 
 		}

@@ -174,6 +174,7 @@ public class PhaseHandler : MonoBehaviour {
 			break;
 
 		case Phase.victoryPhase:
+			Debug.Log ("Victory phase triggerred");
 			spawnToggle.isOn = false;
 			rotateToggle.isOn = false;
 			battleToggle.isOn = false;

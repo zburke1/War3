@@ -26,8 +26,8 @@ public class VictoryListener: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	//	go.checkWin ();
-		if (ph.currentPhase == Phase.victoryPhase) {
-			Debug.Log ("I recieved the Winner");
+		if (go.gameOver) {
+			Debug.Log ("I received the Winner");
 
 			playerString = "Player " + go.winner.playerID + " wins";
 			victoryText.text = playerString;
