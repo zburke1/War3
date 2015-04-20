@@ -166,6 +166,18 @@ public class AgentUtil //: MonoBehaviour
 		return faceTiles;
 	}
 
+	public static ArrayList getPlayerTilesOnFace(Player player, int face) {
+		ArrayList faceTiles = new ArrayList();
+		ArrayList tiles = getTilesOnFace (player.getOwnedTiles(), face);
+		for (int i = 0; i < tiles.Count; i++) {
+			Tile tile = (Tile)tiles[i];
+			if (tile.face == face && tile.owner == player) {
+				faceTiles.Add(tile);
+			}
+		}
+		return faceTiles;
+	}
+
 	//returns faceID of the face the player occupies the most.
 	public static int getFaceWithMostTiles(ArrayList tiles) {
 		int[] faceValues = {0,0,0,0,0,0};
@@ -508,16 +520,92 @@ public class AgentUtil //: MonoBehaviour
 		return tile;
 	}
 
+	public static void aggressiveRotate(Player self) {
+		ArrayList denseResult = denseFace (self);
+		Player enemy = (Player)denseResult [0];
+		int face = (int)denseResult [1];
+		ArrayList faceTiles = getPlayerTilesOnFace (enemy, face);
+		//0 = right col, 1 = top row, 2 = left col, 3 = down row
+		ArrayList[] trios = {new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList()};
+		for (int i = 0; i < faceTiles.Count; i++) {
+			Tile tile = (Tile)faceTiles[i];
+			int id = tile.tileID % 9;
+			if (id == 1) {
+				trios[1].Add (tile);
+				trios[2].Add (tile);
+			} else if (id == 2) {
+				trios[1].Add (tile);
+			} else if (id == 3) {
+				trios[0].Add (tile);
+				trios[1].Add (tile);
+			} else if (id == 4) {
+				trios[2].Add (tile);
+			} else if (id == 5) {
+				//center tile
+			} else if (id == 6) {
+				trios[0].Add (tile);
+			} else if (id == 7) {
+				trios[2].Add (tile);
+				trios[3].Add (tile);
+			} else if (id == 8) {
+				trios[3].Add (tile);
+			} else if (id == 9) {
+				trios[0].Add (tile);
+				trios[3].Add (tile);
+			}
+		}
+		int trioMax = 0;
+		int dir = 0;
+		ArrayList trio = new ArrayList ();
+		for (int i = 0; i < 4; i++) {
+			if (trios[i].Count > trioMax) {
+				dir = i;
+				trio = trios[i];
+				trioMax = trios[i].Count;
+			}
+		}
+		Tile tmpTile = (Tile)trio[0];
+
+		Tile aroundCornerTile = tmpTile.getNeighborTiles()[dir];
+		Debug.Log ("Aggressive rotate: tmpTile = " + aroundCornerTile.tileID);
+		int theFace = aroundCornerTile.face;
+		RotateScript m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
+		Debug.LogWarning ("AI rotating face: " + face);
+		m_RotateScript.Rotate (false, theFace, true);
+
+
+	}
 	//returns a faceID for a face if an enemy has more than 4 occupied tiles on that face
 	//incomplete
-	public static int denseFace() {
+	public static ArrayList denseFace(Player self) {
 		ArrayList faces = new ArrayList();
 		Player[] players = m_gamecontroller.players;
-
+		int maxFace = 0;
+		int maxFaceCount = 0;
+		Player maxPlayer = null;
 		for (int i = 0; i < players.Length; i ++) {
-			
+			if (players[i] == self ){
+				continue;
+			}
+			else {
+				//get the face with a player's most owned tiles.
+				for (int j = 1; j < 7; j++) {
+					int count = getNumOwnedTilesOnFace(players[i], j);
+                    if (count > maxFaceCount) {
+						maxFace = j;
+						maxFaceCount = count;
+						maxPlayer = players[i];
+					}
+				}
+
+			}
 		}
-		return 0;
+
+		ArrayList result = new ArrayList ();
+		result.Add (maxPlayer);
+		result.Add (maxFace);
+		//result.Add (get
+		return result;
 	}
 
 	//finds a random empty tile
@@ -534,6 +622,9 @@ public class AgentUtil //: MonoBehaviour
 		//tile is on top
 
 	}
+
+
+
 
 	public static void randomRotate() {
 		int face = Random.Range (1, 7);
@@ -617,6 +708,9 @@ public class AgentUtil //: MonoBehaviour
 		return result;
 
 	}
+
+
+
 
 	/*
 	//takes full list of player tiles, and finds the safest tile on the best face to expand, but only if there are more than 3 armies

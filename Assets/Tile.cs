@@ -53,7 +53,7 @@ public class Tile : MonoBehaviour {
 	void OnMouseOver(){
 		switch (ph.currentPhase) {
 			case Phase.spawnPhase:
-				if (tileID != 0) {
+			if (tileID != 0 && owner == go.players[go.currentPlayer]) {
 					renderer.material.color = Color.green;
 				}
 				break;
@@ -255,9 +255,9 @@ public class Tile : MonoBehaviour {
 		//add tile to winner ownedTile AList
 		if (newOwner.playerType != -1) {
 			newOwner.addTile (this);
-			owner = newOwner;
+			//owner = newOwner;
 		}
-
+		owner = newOwner;
 		playerID = newOwner.playerID;
 
 		renderer.material.color = newOwner.playerColor;

@@ -90,7 +90,9 @@ public class Angry : Player //: WarAgent
 		//ph.nextPhase ();
 		if (rotateCards > 0) {
 			//AgentUtil.randomRotate ();
-			//rotateCards--;
+			//	int face = AgentUtil.denseFace(this);
+			AgentUtil.aggressiveRotate(this);
+			rotateCards--;
 		} else {
 			ph.nextPhase();
 		}

@@ -71,6 +71,10 @@ public class Player //: MonoBehaviour
 
 	}
 
+	public ArrayList getOwnedTiles() {
+		return ownedTiles;
+	}
+
 	public void setPlayer(int id, int type, int color) {
 		playerType = type;
 		playerColor = playerColors [color];

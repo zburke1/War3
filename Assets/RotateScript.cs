@@ -785,6 +785,7 @@ public class RotateScript : MonoBehaviour{
 				destination.setOwner (owners[i,j]);
 			}
 		}
+
 		if (callerAI) {
 			StartCoroutine("AIWaitsForRotate");
 		}
@@ -853,7 +854,7 @@ public class RotateScript : MonoBehaviour{
 	//used to allow the AI to move on
 	IEnumerator AIWaitsForRotate() {
 		yield return new WaitForSeconds(2.0f);
-		//ph.nextPhase ();
+		ph.nextPhase ();
 	}
 			
 			
