@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent (typeof(Text))]
 
 public class TileNumDisplay : MonoBehaviour {
-	GameObject gameControllerObject;
+	//GameObject gameControllerObject;
 	GameController gc;
 	public int face;
 	public int tile;
@@ -17,11 +17,7 @@ public class TileNumDisplay : MonoBehaviour {
 		gc = GameObject.FindObjectOfType (typeof(GameController)) as GameController;
 		troopNumText = GetComponent<Text> ();
 		troopNum = gc.getTroops (face, tile);
-	
-	
 
-		//gameControllerObject.Find("GameController");
-		//gc = (gc) gameControllerObject.GetComponent(typeof(GameController));
 	}
 	// Update is called once per frame
 	void Update () {

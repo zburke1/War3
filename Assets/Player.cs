@@ -165,7 +165,7 @@ public class Player //: MonoBehaviour
 //			//ph.startWinBattlePhase();
 // 			return;
 //=======
-			go.checkWin();
+		//	go.checkWin();
 			if (attacking.getForces () > 2) {
 				resolve();
 				ph.nextPhase ();
