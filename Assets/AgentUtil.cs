@@ -334,7 +334,7 @@ public class AgentUtil //: MonoBehaviour
 			//add the empty tile (now with a count of empty neighbors)
 			tilevalues.Add(tv);
 		}
-		double best = 0;
+		double best = -1;
 		//Tile bestTile = null;
 		TileValue bestTV = null;
 		reshuffle (tilevalues);
@@ -564,6 +564,11 @@ public class AgentUtil //: MonoBehaviour
 				trioMax = trios[i].Count;
 			}
 		}
+		if (trio.Count == 0) {
+			randomRotate();
+			return;
+		}
+
 		Tile tmpTile = (Tile)trio[0];
 
 		Tile aroundCornerTile = tmpTile.getNeighborTiles()[dir];
@@ -644,7 +649,7 @@ public class AgentUtil //: MonoBehaviour
 		ArrayList tmp = new ArrayList();
 		for (int i = 0; i < tiles.Count; i++) {
 			Tile tile = (Tile) tiles[i];
-			if (tile.getForces() > armies) {
+			if (tile.getForces() >= armies) {
 				tmp.Add (tile);
 			}
 		}
