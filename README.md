@@ -7,14 +7,19 @@ In the strategy game War3, you the player are pitted against enemies that have t
 Controls-
 ----------
 Camera Movement-
--WASD or Number Keys 1-->6
+- WASD or Number Keys 1-->6
 
 Rotation-
--Q or E for rotation
+- Q or E for rotation
 
 Attack-
--Mouse Left-Click - Select Tile
--Tab - Show summary of all sides
+- Mouse Left-Click - Select Tile
+- Tab - Show summary of all sides
 
-Usage Guide-
+Source Usage Guide-
 -------------
+To run source code, Open Unity version 4.6.4, Select File>>Open Project, and then navigate to the "War3Source" folder on disc and select the root of this folder. The game will open in Unity and can be modified from here.
+
+Game Executable-
+-------
+Navigate to the "War3Build" folder on the CD. From here you will see a .exe file that can be run to play the game. 
