@@ -511,7 +511,7 @@ public class RotateScript : MonoBehaviour{
 		
 	}
 		
-	public void Rotate(bool clockwise, int side) {
+	public void Rotate(bool clockwise, int side, bool callerAI = false) {
 
 		for(int i = 1; i < 7; i++){
 			for(int j = 1; j < 10; j++){
@@ -785,7 +785,9 @@ public class RotateScript : MonoBehaviour{
 				destination.setOwner (owners[i,j]);
 			}
 		}
-
+		if (callerAI) {
+			StartCoroutine("AIWaitsForRotate");
+		}
 		//ph.checkWin();
 		return;
 	}
@@ -846,6 +848,12 @@ public class RotateScript : MonoBehaviour{
 		tileNumberGUI.SetActive (true);		
 		Debug.Log("After Waiting 2 Seconds");
 		m_gameController.checkWin();
+	}
+
+	//used to allow the AI to move on
+	IEnumerator AIWaitsForRotate() {
+		yield return new WaitForSeconds(2.0f);
+		//ph.nextPhase ();
 	}
 			
 			

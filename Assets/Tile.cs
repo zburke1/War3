@@ -143,7 +143,10 @@ public class Tile : MonoBehaviour {
 		switch (ph.currentPhase) {
 
 		case Phase.spawnPhase:
-			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0 && go.players[go.currentPlayer].playerID == owner.playerID) {
+			if (tileID != 0 && go.players[go.currentPlayer].troopSpawnCount > 0 
+		    	&& go.players[go.currentPlayer].playerID == owner.playerID
+			    && forces < 10) {
+
 				go.players[go.currentPlayer].troopSpawnCount --;
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
@@ -183,7 +186,7 @@ public class Tile : MonoBehaviour {
 			break;
 
 		case Phase.resolvePhase:
-			if (isResolving && go.players [go.currentPlayer].playerType == 0) {
+			if (isResolving && go.players [go.currentPlayer].playerType == 0 && forces < 10) {
 				if (owner.resolveTileCount > 0) {
 					forces += 1;
 					owner.resolveTileCount--;

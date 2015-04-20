@@ -528,6 +528,22 @@ public class AgentUtil //: MonoBehaviour
 		return (Tile)tiles [0];
 	}
 
+	public static void getCenterFromCircumTile(Tile tile) {
+		int face = tile.face;
+
+		//tile is on top
+
+	}
+
+	public static void randomRotate() {
+		int face = Random.Range (1, 7);
+		//rotateScript should be initialized by now
+		RotateScript m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
+		bool clockwise = face % 2 == 0 ? true : false;
+		Debug.LogWarning ("AI rotating face: " + face);
+		m_RotateScript.Rotate (clockwise, face, true);
+	}
+
 	//finds potential rotations.
 	public void scoutRotate(ArrayList tiles) {
 

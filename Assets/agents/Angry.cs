@@ -86,7 +86,14 @@ public class Angry : Player //: WarAgent
 	}
 
 	public override void startRotatePhase() {
-		ph.nextPhase ();
+		//next phase must be called from the rotate handler if a rotate occurs
+		//ph.nextPhase ();
+		if (rotateCards > 0) {
+			AgentUtil.randomRotate ();
+			rotateCards--;
+		} else {
+			ph.nextPhase();
+		}
 		Debug.Log ("Angry rotate Phase Ended");
 	}
 
@@ -129,7 +136,7 @@ public class Angry : Player //: WarAgent
 				Debug.Log ("Expanding from " + tiles.getTiles()[0].tileID + " to " + tiles.getTiles ()[1].tileID);
 				camera.AIRotateCamera(tiles.getTiles()[0].face);
 				//monoB.StartCoroutine(waitAttack(tiles.getTiles ()[0],tiles.getTiles ()[1],2));
-				delay (1);
+				//delay (1);
 				Debug.Log ("Han shot first");
 				attack (tiles.getTiles ()[0], tiles.getTiles ()[1]);
 				largeTiles = AgentUtil.getTilesWithArmiesAtLeast (ownedTiles, 2);
@@ -141,8 +148,8 @@ public class Angry : Player //: WarAgent
 
 		} 
 		Debug.Log ("Angry ends attack");
-		ph.endTurn (go.players[go.currentPlayer]);
 		Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
+		ph.endTurn (go.players[go.currentPlayer]);
 		//for some reason, this messes it up. this is not good.
 		//todo: reenable
 		//ph.nextPhase ();   
@@ -156,9 +163,9 @@ public class Angry : Player //: WarAgent
 
 	//just pass the number of seconds you want to wait.
 	private void delay(int t) {
-		//Debug.Log ("starting delay");
+		Debug.Log ("starting delay");
 		Waiter.StartTimer (t);
-		//Debug.LogWarning ("done with delay");
+		Debug.LogWarning ("done with delay");
 	}
 	private IEnumerator waitAttack(Tile x, Tile y,int t){
 		//t = seconds

@@ -13,6 +13,7 @@ public class PhaseHandler : MonoBehaviour {
 	public GameController go;
 	public Tile focusedTile;
 	public Tile targetTile;
+	public int turnCount = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -161,6 +162,7 @@ public class PhaseHandler : MonoBehaviour {
 		case Phase.endPhase:
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			go.players[go.currentPlayer].rotateCards++;
+			Debug.Log ("Ending turn: " + turnCount++);
 			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
