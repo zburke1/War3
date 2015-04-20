@@ -159,11 +159,13 @@ public class PhaseHandler : MonoBehaviour {
 			break;
 
 		case Phase.resolvePhase:
+			go.checkWin ();
 			Debug.Log ("Starting resolve phase");
 			startBattlePhase(go.players[go.currentPlayer]);
 			break;
 
 		case Phase.endPhase:
+			go.checkWin ();
 			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
 			go.players[go.currentPlayer].rotateCards++;
 			Debug.Log ("Ending turn: " + turnCount++);

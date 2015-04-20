@@ -134,6 +134,8 @@ public class Player //: MonoBehaviour
 		defendResolve.setForces (1);
 		defendResolve.isResolving = true;
 		defendResolve.renderer.material.color = tempColor;
+
+		//go.checkWin ();
 	}
 
 	public void stopResolving() {
@@ -144,6 +146,8 @@ public class Player //: MonoBehaviour
 		showResolveCount = true;		
 		defendResolve.isResolving = false;
 		defendResolve.renderOwnerColor ();
+
+		//go.checkWin ();
 	}
 
 	public void attack(Tile attacking, Tile defending) {
@@ -224,6 +228,7 @@ public class Player //: MonoBehaviour
 				defending.renderOwnerColor ();
 
 			}
+			go.checkWin ();
 			return;
 
 		}

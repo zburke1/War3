@@ -51,6 +51,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
+
 		switch (ph.currentPhase) {
 			case Phase.spawnPhase:
 			if (tileID != 0 && owner == go.players[go.currentPlayer]) {
@@ -261,7 +262,7 @@ public class Tile : MonoBehaviour {
 		playerID = newOwner.playerID;
 
 		renderer.material.color = newOwner.playerColor;
-		//ph.checkWin();
+		//go.checkWin ();
 	}
 
 	public int getNeighborID(int i) {

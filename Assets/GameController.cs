@@ -461,7 +461,7 @@ public class GameController : MonoBehaviour {
 
 			for (int j = 2; j < 10; j++) {
 				Tile nextTile = faces[i,j].gameObject.GetComponent<Tile>();
-				if (nextTile.getOwner () != owner) {
+				if (nextTile.getOwner ().playerID != owner.playerID) {
 					win = false;
 				}
 			}
@@ -472,6 +472,7 @@ public class GameController : MonoBehaviour {
 				winner = owner;
 				m_PhaseHandler.nextPhase();
 				gameOver = true;
+				break;
 			}
 
 		}
