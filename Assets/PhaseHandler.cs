@@ -57,7 +57,7 @@ public class PhaseHandler : MonoBehaviour {
 
 	}
 
-	public virtual void disableAllToggles(Player currentPlayer){
+	public virtual void disableAllToggles(){
 		spawnToggle.isOn = false;
 		rotateToggle.isOn = false;
 		battleToggle.isOn = false;
@@ -70,7 +70,7 @@ public class PhaseHandler : MonoBehaviour {
 		currentPhase = Phase.endPhase;
 	}
 
-	public virtual void startNewTurn(Player currentPlayer){
+	public virtual void startNewTurn(){
 		//Debug.Log ("This player owns " + AgentUtil.loadPlayerTiles(currentPlayer).Capacity.ToString() + "tiles");
 		//go.players [go.currentPlayer].troopSpawnCount = AgentUtil.loadPlayerTiles (go.players [go.currentPlayer]).Count/3;
 		go.players [go.currentPlayer].troopSpawnCount = go.players [go.currentPlayer].playerTileCount()/3;
@@ -81,18 +81,19 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle.isOn = false;
 		currentPhase = Phase.spawnPhase;
 
-		if (currentPlayer.playerType == 1) {
+		if (go.players [go.currentPlayer].playerType == 1) {
 			Debug.Log ("Calling angry start deploy...");
-			currentPlayer.startDeployPhase();
+			go.players [go.currentPlayer].startDeployPhase();
 		}
 
 	}
-	public virtual void endTurn(Player currentPlayer){
+	public virtual void endTurn(){
+
 		currentPhase = Phase.endPhase;
 		nextPhase ();
 	}
 
-	public virtual void startRotationPhase(Player currentPlayer){
+	public virtual void startRotationPhase(){
 		battleToggle.interactable = true;
 		spawnToggle.isOn = false;
 		spawnToggle.interactable = false;
@@ -100,13 +101,13 @@ public class PhaseHandler : MonoBehaviour {
 		battleToggle.isOn = false;
 		currentPhase= Phase.rotatePhase;
 
-		if (currentPlayer.playerType == 1) {
+		if (go.players [go.currentPlayer].playerType == 1) {
 			Debug.Log ("Calling angry start rotate...");
-			currentPlayer.startRotatePhase();	
+			go.players [go.currentPlayer].startRotatePhase();	
 		}
 	}
 
-	public virtual void startBattlePhase(Player currentPlayer){
+	public virtual void startBattlePhase(){
 		Debug.Log ("STARTING BATTLE PHASE");
 		rotateToggle.isOn = false;
 		rotateToggle.interactable = false;
@@ -114,18 +115,18 @@ public class PhaseHandler : MonoBehaviour {
 		endToggle.interactable = true;
 		currentPhase = Phase.battlePhase;
 
-		if (currentPlayer.playerType == 1) {
+		if (go.players [go.currentPlayer].playerType == 1) {
 			Debug.Log ("Calling angry start battle...");
-			currentPlayer.startAttackPhase();	
+			go.players [go.currentPlayer].startAttackPhase();	
 		}
 	}
 
-	public virtual void startResolvePhase(Player currentPlayer){
+	public virtual void startResolvePhase(){
 		Debug.Log ("STARTING RESOLVE PHASE");
 		currentPhase = Phase.resolvePhase;
 
-		if (currentPlayer.playerType == 1) {
-			currentPlayer.startResolvePhase();
+		if (go.players [go.currentPlayer].playerType == 1) {
+			go.players [go.currentPlayer].startResolvePhase();
 		}
 	}
 
@@ -133,38 +134,38 @@ public class PhaseHandler : MonoBehaviour {
 		switch(currentPhase){
 		
 		case Phase.gameStartPhase:
-			startNewTurn ( go.players[go.currentPlayer]);
+			startNewTurn ( );
 			break;
 				
 		case Phase.spawnPhase:
 			go.checkWin ();
-			startRotationPhase (go.players[go.currentPlayer]);
+			startRotationPhase ();
 			break;
 
 		case Phase.rotatePhase:
 			go.checkWin ();
-			startBattlePhase(go.players[go.currentPlayer]);
+			startBattlePhase();
 		
 			break;
 			
 		case Phase.battlePhase:
 			go.checkWin ();
 			//Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
-			startResolvePhase (go.players[go.currentPlayer]);
+			startResolvePhase ();
 			break;
 
 		case Phase.resolvePhase:
 			Debug.Log ("Starting resolve phase");
-			startBattlePhase(go.players[go.currentPlayer]);
+			startBattlePhase();
 			break;
 
 		case Phase.endPhase:
-			disableAllToggles(go.players[go.currentPlayer]); //or endTurn
+			disableAllToggles(); //or endTurn
 			go.players[go.currentPlayer].rotateCards++;
 			Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
 			Debug.Log ("This player has" + go.players[go.currentPlayer].rotateCards + "rotation cards");
 			go.nextTurnUpdate();
-			startNewTurn (go.players[go.currentPlayer]);
+			startNewTurn ();
 			break;
 
 		case Phase.victoryPhase:

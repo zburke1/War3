@@ -49,7 +49,7 @@ public class PhaseButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 			
 			case PhaseToggle.end:
 				if(ph.currentPhase == Phase.battlePhase){
-					ph.endTurn(go.players[go.currentPlayer]);
+					ph.endTurn();
 					//ph.nextPhase();
 
 

@@ -274,10 +274,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public virtual void nextTurnUpdate(){
-		if (currentPlayer == numPlayers-1)
+		Debug.Log ("Can I not skip please?");
+		if (currentPlayer == numPlayers - 1) {
 			currentPlayer = 0;
-		else 
+		}
+		else {
 			currentPlayer++;
+		}
 	}
 
 	public void pushFace(GameObject[,] temp){

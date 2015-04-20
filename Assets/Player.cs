@@ -134,12 +134,13 @@ public class Player //: MonoBehaviour
 
 	public void stopResolving() {
 
-		ph.nextPhase ();
+	
 		attackResolve.isResolving = false;
 		attackResolve.renderOwnerColor ();
 		showResolveCount = true;		
 		defendResolve.isResolving = false;
 		defendResolve.renderOwnerColor ();
+		ph.nextPhase ();
 	}
 
 	public void attack(Tile attacking, Tile defending) {
@@ -167,7 +168,13 @@ public class Player //: MonoBehaviour
 //=======
 		//	go.checkWin();
 			if (attacking.getForces () > 2) {
+				if(go.players[go.currentPlayer].playerType == 0){//if player is human
 				resolve();
+				}
+				else{ // for AI
+					defending.setForces(1);
+					attacking.setForces (1);
+				}
 				ph.nextPhase ();
 				Debug.Log("Entered ResolvePhase");
 			} else {
@@ -206,10 +213,17 @@ public class Player //: MonoBehaviour
 			//sets the new owner, and adds the tile to the new owner's ownedTile AList
 			defending.setOwner (this);
 
-
+		
 			if (attacking.getForces () > 2) {
-				resolve ();
+				if(go.players[go.currentPlayer].playerType == 0){//if player is human
+					resolve ();
+				}
+				else{ // for AI
+					defending.setForces(1);
+					attacking.setForces (1);
+				}
 				ph.nextPhase ();
+
 			} else {
 				attacking.setForces (1);
 				defending.setForces (1);

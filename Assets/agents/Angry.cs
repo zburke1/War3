@@ -141,17 +141,18 @@ public class Angry : Player //: WarAgent
 
 		} 
 		Debug.Log ("Angry ends attack");
-		ph.endTurn (go.players[go.currentPlayer]);
 		Debug.Log ("Turn Ends for Player " + go.currentPlayer.ToString ());
+		ph.endTurn ();
+
 		//for some reason, this messes it up. this is not good.
 		//todo: reenable
 		//ph.nextPhase ();   
 
 	}
 
-	public void startResolvePhase() {
+	public override void startResolvePhase() {
 		//todo: hi justin
-		//ph.nextPhase (); // This ends resolve Phase and goes back to attackPhase
+		ph.nextPhase (); // This ends resolve Phase and goes back to attackPhase
 	}
 
 	//just pass the number of seconds you want to wait.
