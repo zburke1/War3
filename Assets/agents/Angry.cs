@@ -89,8 +89,8 @@ public class Angry : Player //: WarAgent
 		//next phase must be called from the rotate handler if a rotate occurs
 		//ph.nextPhase ();
 		if (rotateCards > 0) {
-			AgentUtil.randomRotate ();
-			rotateCards--;
+			//AgentUtil.randomRotate ();
+			//rotateCards--;
 		} else {
 			ph.nextPhase();
 		}
@@ -106,8 +106,11 @@ public class Angry : Player //: WarAgent
 			while (bestAttack != null && bestAttack.value > .6) {
 				Debug.Log ("BestAttack: " + bestAttack.getTiles () [0].tileID);
 				camera.AIRotateCamera(bestAttack.getTiles()[0].face);
+				Tile attacking = bestAttack.getTiles () [0];
+				Tile defending = bestAttack.getTiles () [1];
 				//monoB.StartCoroutine(waitAttack(bestAttack.getTiles ()[0],bestAttack.getTiles ()[1],2));
-				attack (bestAttack.getTiles () [0], bestAttack.getTiles () [1]);
+				attack (attacking, defending);
+
 				bestAttack = AgentUtil.findBestAttack (ownedTiles);
 				Debug.Log ("new best attack");
 				//this is so stupid
@@ -157,6 +160,7 @@ public class Angry : Player //: WarAgent
 	}
 
 	public override void resolve() {
+		Debug.Log ("ANGRY IS RESOLVING, ERROR");
 		Color tempColor = attackResolve.owner.playerColor;
 
 		int newTile = this.resolveTileCount + 1;

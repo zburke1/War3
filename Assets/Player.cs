@@ -151,7 +151,7 @@ public class Player //: MonoBehaviour
 			Debug.Log ("Friendly fire, or too few armies");
 			return;
 		}
-
+		//tile is unoccupied
 		if (defending.getForces () == 0) {
 			resolveTileCount = attacking.getForces () - 2;
 
@@ -160,18 +160,26 @@ public class Player //: MonoBehaviour
 			defending.setOwner (this);
 
 			if (attacking.getForces () > 2) {
-				resolve();
-				ph.nextPhase ();
-				Debug.Log("Entered ResolvePhase");
+				//human resolves.
+				if (attacking.owner.playerType == 0) {
+					Debug.Log("Entering human ResolvePhase");
+					resolve();
+					ph.nextPhase ();
+				} else {
+					//AI resolves
+					int numSurvivingArmies = attacking.getForces ();
+					//move at least half of the surviving armies to the new tile. integer division ftw.
+					defending.setForces(numSurvivingArmies - numSurvivingArmies/2);
+					attacking.setForces(numSurvivingArmies/2);
+				}
 			} else {
 				attacking.setForces (1);
 				defending.setForces (1);
 				defending.renderOwnerColor ();
 
 			}
-
+			//attack won
 			return;
-
 		}
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
@@ -181,10 +189,11 @@ public class Player //: MonoBehaviour
 		//check if defender has more armies than were lost
 		if (defending.getForces () > defenderLosses) {
 			defending.decArmy (defenderLosses);
+			//attacker lost.
+			return;
 		} else {
 			//defender loses
 			resolveTileCount = attacking.getForces () - 2;
-
 
 			attackResolve = attacking;
 			defendResolve = defending;
@@ -194,15 +203,25 @@ public class Player //: MonoBehaviour
 
 
 			if (attacking.getForces () > 2) {
-				resolve ();
-				ph.nextPhase ();
+				if (attacking.owner.playerType == 0) {
+					resolve ();
+					ph.nextPhase ();
+				} else {
+					//AI resolves
+					int numSurvivingArmies = attacking.getForces ();
+					//move at least half of the surviving armies to the new tile. integer division ftw.
+					defending.setForces(numSurvivingArmies - numSurvivingArmies/2);
+					attacking.setForces(numSurvivingArmies/2);
+				}
+
 			} else {
 				attacking.setForces (1);
 				defending.setForces (1);
 				defending.renderOwnerColor ();
-			}
 
+			}
 			return;
+
 		}
 	
 	}
