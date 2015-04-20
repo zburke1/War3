@@ -85,7 +85,7 @@ public class Angry : Player //: WarAgent
 		}
 	}
 
-	public void startRotatePhase() {
+	public override void startRotatePhase() {
 		ph.nextPhase ();
 		Debug.Log ("Angry rotate Phase Ended");
 	}

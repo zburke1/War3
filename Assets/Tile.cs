@@ -147,7 +147,7 @@ public class Tile : MonoBehaviour {
 				go.players[go.currentPlayer].troopSpawnCount --;
 				setOwner( go.players[go.currentPlayer]);
 				forces++;
-				go.checkWin();
+				//go.checkWin();
 			}
 			break;
 		case Phase.rotatePhase:

@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
 			 instantiateLogicBoard(fA,fB,fC,fD,fE,fF);
 			 m_RotateScript = GameObject.FindObjectOfType(typeof(RotateScript)) as RotateScript;
 			 m_RotateScript.initializeRotate();
-			 winner = players[0];
+			 winner = new Player();
 			 //Debug.Log("SEL_NUMPLAYERS" + Sel_numPlayers);
 			 //GameObject sideX = getSide(board[1,1],1);
 			 //Destroy(getFace(1,1));

@@ -25,7 +25,7 @@ public class VictoryListener: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		go.checkWin ();
+	//	go.checkWin ();
 		if (ph.currentPhase == Phase.victoryPhase) {
 			Debug.Log ("I recieved the Winner");
 

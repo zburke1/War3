@@ -59,6 +59,7 @@ public class RotateScript : MonoBehaviour{
 				Rotate (true, m_CameraControll.GetSide ());
 				m_gameController.players [m_gameController.currentPlayer].rotateCards --;
 				m_gameController.checkWin();
+
 			}
 
 		
@@ -844,6 +845,7 @@ public class RotateScript : MonoBehaviour{
 		yield return new WaitForSeconds(1.2f);
 		tileNumberGUI.SetActive (true);		
 		Debug.Log("After Waiting 2 Seconds");
+		m_gameController.checkWin();
 	}
 			
 			
