@@ -119,7 +119,7 @@ public class Player //: MonoBehaviour
 		}
 	}
 
-	public void resolve() {
+	public virtual void resolve() {
 		Color tempColor = attackResolve.owner.playerColorLight;
 
 		attackResolve.setForces (1);
@@ -158,14 +158,7 @@ public class Player //: MonoBehaviour
 			attackResolve = attacking;
 			defendResolve = defending;
 			defending.setOwner (this);
-//commented instead of removed for safety.
-//<<<<<<< HEAD
-//			attacking.decArmy();
-//			defending.renderOwnerColor();
-//			//ph.startWinBattlePhase();
-// 			return;
-//=======
-		//	go.checkWin();
+
 			if (attacking.getForces () > 2) {
 				resolve();
 				ph.nextPhase ();
@@ -178,7 +171,7 @@ public class Player //: MonoBehaviour
 			}
 
 			return;
-//>>>>>>> f5f82733ed89f5e4a42094c454ec18308558a566
+
 		}
 
 		int[] attackResult = Dice.roll (attacking.getForces (), defending.getForces ());
@@ -191,14 +184,7 @@ public class Player //: MonoBehaviour
 		} else {
 			//defender loses
 			resolveTileCount = attacking.getForces () - 2;
-//commented out for safety
-//<<<<<<< HEAD
-//			defending.setForces (1);
-//			defending.setOwner (this);
-//			attacking.decArmy();
-//			defending.renderOwnerColor();
-//			//ph.startWinBattlePhase();
-//=======
+
 
 			attackResolve = attacking;
 			defendResolve = defending;
@@ -216,7 +202,6 @@ public class Player //: MonoBehaviour
 				defending.renderOwnerColor ();
 			}
 
-//>>>>>>> f5f82733ed89f5e4a42094c454ec18308558a566
 			return;
 		}
 	

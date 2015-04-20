@@ -149,9 +149,21 @@ public class Angry : Player //: WarAgent
 
 	}
 
-	public void startResolvePhase() {
-		//todo: hi justin
-		//ph.nextPhase (); // This ends resolve Phase and goes back to attackPhase
+	public override void resolve() {
+		Color tempColor = attackResolve.owner.playerColor;
+
+		int newTile = this.resolveTileCount + 1;
+		int oldTile = 1;
+
+		Debug.Log ("newTile" + newTile);
+
+
+		attackResolve.setForces (newTile);
+		defendResolve.setForces (oldTile);
+		resolveTileCount = 0;
+
+		attackResolve.renderer.material.color = tempColor;
+		defendResolve.renderer.material.color = tempColor;
 	}
 
 	//just pass the number of seconds you want to wait.
